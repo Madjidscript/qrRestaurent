@@ -1,0 +1,39 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  .button-delete, .button-edit {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+  }
+  
+  .button-delete {
+    background-color: #ff4d4d; /* Rouge */
+    color: #fff;
+  }
+  
+  .button-edit {
+    background-color: #3399ff; /* Bleu */
+    color: #fff;
+  }
+  
+  
+  

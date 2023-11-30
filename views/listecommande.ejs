@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/commandes.css">
+    <title>Document</title>
+</head>
+<body>
+ 
+  <% if (commandes) { %>
+    <h2>liste commandes</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Numero de la table</th>
+        <th>plat </th>
+        <th>boisson</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <%commandes.forEach(function(commande){ %>
+    <tbody>
+      <tr>
+        <td><%=commande._id %></td>
+        <td><%=commande.num %></td>
+        <td><%=commande.plat %></td>
+        <td><%=commande.boisson %></td>
+        <td>
+          <form method="post" action="/Supp/<%= commande._id %>" style="display: inline;">
+            <button class="button-delete" type="submit" >Supprimer</button>
+          </form>
+         
+        </td>
+      </tr>
+      <!-- Ajoutez d'autres lignes selon vos besoins -->
+    </tbody>
+    <% }) %>
+  </table>
+  <% } %>
+
+  
+  <script src="/javascripts/article.js"></script>
+</body>
+</html>
