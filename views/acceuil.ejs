@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/acceuil.css">
+    <title>Document</title>
+</head>
+<body>
+    <main class="site-wrapper">
+        <div class="pt-table desktop-768">
+          <div class="pt-tablecell page-home relative" style="background-image: url(/picture/téléchargement\ \(14\).jpg);
+          background-position: center;
+          background-size: cover;">
+        <div class="overlay"></div>
+
+      
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                    <div class="page-title  home text-center">
+                        <span class="heading-page"> Bienvennue a <strong>Piko</strong></span>
+                                          <p class="mt20">Nous vous invitons à réserver votre table pour vivre une expérience culinaire exceptionnelle. Venez découvrir le charme unique du Restaurant PIKO et laissez-nous vous offrir un voyage gustatif mémorable.</p>
+                    </div>
+                    
+                        <div class="hexagon-menu clear" >
+                                           </div>
+                                           <% if (recups) { %>
+                                            <% recups.forEach(function(element) { %>
+                                          <div class="hexagon-item">
+                                            
+                                              <div class="hex-item">
+                                                  <div></div>
+                                                  <div></div>
+                                                  <div></div>
+                                              </div>
+                                              <div class="hex-item">
+                                                  <div></div>
+                                                  <div></div>
+                                                  <div></div>
+                                              </div>
+                                              <a  class="hex-content" >
+                                                  <span class="hex-content-inner">
+                                                      <span class="icon">
+                                                          <i class="fa fa-bullseye"></i>
+                                                      </span>
+                                                      <span class="title" style="font-size: 28px;"><strong><%= element.nom %></strong></span>
+                                                  </span>
+                                                  <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><image href="<%= element.image.replace(/\\/g, '/') %>" height="200" width="174" />
+                                                </svg>
+                                                  
+                                              </a>
+                                            
+
+                                          </div>
+                                          <% }); %>
+                                          <% } %>
+                                          
+                                          
+
+                
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+        </main>
+</body>
+</html>

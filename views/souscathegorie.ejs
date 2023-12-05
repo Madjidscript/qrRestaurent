@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/menu.css">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/souscathegorie" method="post" enctype="multipart/form-data">
+        <h2>Formulaire de souscathegorie</h2>
+         <input type="text" placeholder="le non de votre sousplat" name="nom" id="">
+         <input type="number" placeholder="entrer le prix" name="prix" id="">
+         <input type="file" placeholder="entrer l'image " name="image" id="">
+         <% if(  recups ) { %>
+        <label for="plat">Choisissez votre plat :</label>
+        <select id="plat" name="id_cath">
+            <% recups.forEach(function(element) { %>
+            <option value="<%= element._id %>"><%= element.nom %></option>
+            <% }); %>
+        </select>
+        <% } %>
+
+       
+
+        <button type="submit">Inserer</button>
+    </form>
+</body>
+</html>

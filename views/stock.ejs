@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/menu.css">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/stock" method="post">
+        <h2>Formulaire de stock</h2>
+         <input type="number" placeholder="Entrer le nombre de stock" name="nombre" id="">
+         <% if(  recups ) { %>
+        <label for="plat">Choisissez votre plat :</label>
+        
+        <select id="plat" name="id_Souscat">
+            <% recups.forEach(function(element) { %>
+            <option value="<%= element._id %>"> <%= element.id_cath.nom %> <span><%= element.nom %></span></option>
+            <% }); %>
+        </select>
+        <% } %>
+        <button type="submit">Commander</button>
+    </form>
+</body>
+</html>
