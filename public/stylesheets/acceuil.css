@@ -5,6 +5,7 @@ body {
     font-size: 16px;
     line-height: 30px;
     background-color: #0c0f15;
+    border-radius: 4px;
     overflow-x:hidden;
     color: #ababab; }
   
@@ -13,6 +14,7 @@ body {
       background-color: #F5F5F5;
     
   }
+  .heading-page
   
   ::-webkit-scrollbar-thumb {
       background-color: #f90a23;
@@ -27,7 +29,8 @@ body {
   .heading-page
   {
         text-transform: uppercase;
-      font-size: 43px;
+      font-size: 30px;
+     text-align: center;
       font-weight: bolder;
       letter-spacing: 3px;
       color: white;
@@ -458,7 +461,7 @@ body {
         -o-transform: rotate(120deg);
         transform: rotate(120deg); }
   .mt20{
-    color: #1e2530;
+    color: #f9423a;
   }
   .hex-content {
     color: #fff;
@@ -614,6 +617,7 @@ body {
   }
     
   }
+  
 
    
   
