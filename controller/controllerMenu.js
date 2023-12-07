@@ -101,5 +101,16 @@ const controllerMenu = class {
       }
       
     }
+    static acceuil2 = async(req=request, res=response)=>{
+      const id = req.params.id
+      console.log('mon nom hoioo',id);
+      const recup = await otherSousCathegorie.afficheTout2(id) 
+      console.log('moais differente cathegorie',recup);
+      if (recup) {
+        res.render('acceuil2',{recups:recup,req:req})
+        console.log('mon preemier plat',recup[0].nom);
+      }
+      
+    }
 }
 module.exports = controllerMenu

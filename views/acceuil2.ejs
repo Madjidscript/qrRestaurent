@@ -7,13 +7,17 @@
     <title>Document</title>
 </head>
 <body >
+   
     <main class="site-wrapper">
+        <div class="nav">
+            <a href="/" class="retour">&#8592</a>
+        </div>
         <div class="pt-table desktop-768">
           <div class="pt-tablecell page-home relative" >
         <div class="overlay"></div>
 
       
-        <div class="container">
+        <div class="container" style="z-index: -1;">
             <div class="row">
                 <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
                     <div class="page-title  home text-center" style="text-align: center;">
@@ -25,6 +29,7 @@
                                            </div>
                                            <% if (recups) { %>
                                             <% recups.forEach(function(element) { %>
+                                                
                                           <div class="hexagon-item">
                                             
                                               <div class="hex-item">
@@ -37,20 +42,21 @@
                                                   <div></div>
                                                   <div></div>
                                               </div>
-                                              <a  class="hex-content" href="/acceuil2/<%= element._id %>">
+                                              <a  class="hex-content" >
                                                   <span class="hex-content-inner">
                                                       <span class="icon">
                                                           <i class="fa fa-bullseye"></i>
                                                       </span>
                                                       <span class="title" style="font-size: 20px;"><strong><%= element.nom %></strong></span>
                                                   </span>
-                                                  <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><image href="<%= element.image.replace(/\\/g, '/') %>" height="200" width="174" />
+                                                  <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><image href="/<%= element.image.replace(/\\/g, '/') %>" height="200" width="174" />
                                                 </svg>
                                                   
                                               </a>
                                             
 
                                           </div>
+                                          
                                           <% }); %>
                                           <% } %>
                                           
