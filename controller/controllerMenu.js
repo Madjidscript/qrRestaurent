@@ -112,5 +112,9 @@ const controllerMenu = class {
       }
       
     }
+    static afficher = async(req=request, res=response)=>{
+     
+        res.render('afficher')
+    }
 }
 module.exports = controllerMenu
