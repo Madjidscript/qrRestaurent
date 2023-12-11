@@ -9,6 +9,7 @@ console.log("mon ami ",panier);
 
 panier.forEach(element => {
     console.log('mon ppppp',element);
+    
  html+=` <div class="article">
  <div class="image">
      <img src="${element.image}" alt="Image de l'article">
@@ -28,7 +29,13 @@ panier.forEach(element => {
  </div>
  `
 });
-parent.innerHTML=html;
+if (html=="") {
+   parent.textContent="votre panier est vide" 
+ 
+} else {
+    parent.innerHTML=html;
+}
+
 
 
 
