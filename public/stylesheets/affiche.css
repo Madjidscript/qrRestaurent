@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color:  #0c0f15;
     margin: 0;
     padding: 0;
     display: flex;
@@ -66,4 +66,41 @@ img {
 .supprimer {
     background-color: #ff6b6b;
     color: #fff;
+    margin-top: 3px;
 }
+.navre{
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px !important;
+    padding: 5px;
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    justify-content: space-around;
+    top: 10px;
+    left: 10px;
+  }
+  .navre a{
+    text-decoration: none;
+    font-size: 50px;
+    font-weight: bold;
+    color:white;
+    
+  }
+  .navre a .retour {
+    font-size: 35px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    font-weight: bold;
+    height: 20px;
+    width: 30px;
+    text-decoration: none;
+  }
+  .tot{
+    width: auto;
+    height: auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+  }

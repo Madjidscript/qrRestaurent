@@ -21,7 +21,7 @@ panier.forEach(element => {
          <span id="quantite"data-id="${element.id}">${element.nbre}</span>
          <button class="btn"onclick="incre( ${ element.id } ); totaux()">+</button>
      </div>
-     <button class="btn supprimer" onclick="supprimer( ${ element.id } )">Supprimer</button>
+     <button class="btn supprimer" onclick="supprimer( ${ element.id } )"> <i class="fas fa-trash"style="font-size: 20px" ></i></button>
  </div>
  </div>
  <!-- Ajoutez plus d'articles ici -->
@@ -120,8 +120,8 @@ function decre(id) {
 
 
 
-function totaux(id) {
-   console.log('rechercheid',id)
+function totaux() {
+   
   let totale = []
     // Récupérer les données actuelles du stockage local
     let elements = JSON.parse(localStorage.getItem("Qrcode")) || [];
@@ -129,9 +129,10 @@ function totaux(id) {
     // Filtrer les éléments pour exclure celui avec l'ID spécifié
    const recherche = elements.forEach(element =>  totale.push(element.prix) );
    console.log("monnn totto",totale)
-   const somme = totale.reduce((acc, valeur) => acc + valeur, 0);
-   console.log("ma sommme",somme);
-   
+   const sommes = totale.reduce((acc, valeur) => acc + valeur, 0);
+   console.log("ma sommme",sommes);
+   const yo= document.querySelector('.totaux').textContent=sommes
+console.log('monn tttkkknt',yo);
     // Mettre à jour le stockage local avec les nouveaux éléments
     localStorage.setItem("Qrcode", JSON.stringify(elements));
     console.log("mes element filtrer",localStorage.setItem("Qrcode", JSON.stringify(elements)))
@@ -140,7 +141,8 @@ function totaux(id) {
     
   }
  
-
+  totaux()
+  
 
 
 

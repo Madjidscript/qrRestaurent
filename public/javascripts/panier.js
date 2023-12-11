@@ -1,3 +1,8 @@
+
+ 
+
+
+
 const parents = document.querySelectorAll('.hex-content')
 
 console.log('le parent',parents);
@@ -72,23 +77,26 @@ console.log("le fauttttt",typeof(paniers),Array.from(paniers)[0] );
 
 
 
-function nonbre(id) {
-  console.log('rechercheid',id)
- let totale = []
-   // Récupérer les données actuelles du stockage local
-   let elements = JSON.parse(localStorage.getItem("Qrcode")) || [];
-
-   // Filtrer les éléments pour exclure celui avec l'ID spécifié
-  const recherche = elements.forEach(element =>  totale.push(element.nbre) );
-  console.log("monnn totto",totale)
-  const somme = totale.reduce((acc, valeur) => acc + valeur, 0);
-  console.log("ma sommme de mes nombre",somme);
-  document.querySelector('.nbre').innerText=somme
-   // Mettre à jour le stockage local avec les nouveaux éléments
-   localStorage.setItem("Qrcode", JSON.stringify(elements));
-   console.log("mes element filtrer",localStorage.setItem("Qrcode", JSON.stringify(elements)))
-   //  window.location.reload();
-   // Mettre à jour l'affichage
-   
- }
- nonbre()
+function nonbre() {
+  
+  let totale = []
+    // Récupérer les données actuelles du stockage local
+    let elements = JSON.parse(localStorage.getItem("Qrcode")) || [];
+ 
+    // Filtrer les éléments pour exclure celui avec l'ID spécifié
+   const recherche = elements.forEach(element =>  totale.push(element.nbre));
+   console.log("monnn totto",totale)
+   const somme = totale.reduce((acc, valeur) => acc + valeur, 0);
+   console.log("ma sommme de mes nombre",somme);
+  const nbre= document.querySelector('.nbre').textContent=somme
+  console.log('monvnvvvnv',nbre);
+    // Mettre à jour le stockage local avec les nouveaux éléments
+    localStorage.setItem("Qrcode", JSON.stringify(elements));
+    console.log("mes element filtrer",localStorage.setItem("Qrcode", JSON.stringify(elements)))
+    //  window.location.reload();
+    // Mettre à jour l'affichage
+    
+  }
+  
+  nonbre()
+ 

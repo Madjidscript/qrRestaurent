@@ -645,7 +645,13 @@ body {
     width: 30px;
     text-decoration: none;
   }
-  
+  .nbre{
+    position: fixed;
+    right: 70px;
+    top: 15px;
+    color: #f90a23;
+    margin-bottom: 3px;
+  }
 
    
   
