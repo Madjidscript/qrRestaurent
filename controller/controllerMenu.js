@@ -3,10 +3,12 @@ const Cathegorie = require("../model/modelCathegorie");
 const SousCathegorie = require("../model/modelSousCathegorie");
 const otherCathegorie = require("../other/otherCathegorie");
 const otherSousCathegorie = require("../other/otherSouscathegorie");
+const otherCmmd = require("../other/otherCmmd");
 
 const otherStock = require("../other/otherStock");
 const otherMenu = require("../other/otherUser");
-const {response,request}= require('express')
+const {response,request}= require('express');
+
 
 
 const controllerMenu = class {
@@ -113,8 +115,17 @@ const controllerMenu = class {
       
     }
     static afficher = async(req=request, res=response)=>{
-     
+      
         res.render('afficher')
+    }
+    static afficherPOst = async(req=request, res=response)=>{
+     
+      const data =req.body
+     // const insertion = await otherCmmd.inscription(data)
+      console.log('mon insertion commande', data);
+      // if (insertion) {
+      //   res.redirect('/afficher')
+      // }
     }
 }
 module.exports = controllerMenu

@@ -12,7 +12,7 @@
     <main class="site-wrapper">
         <div class="nav">
             <a href="/" style="color: #f90a23;" class="retour">&#8592</a>
-            <a href="/afficher" class="retour"><i class="fas fa-shopping-cart" style="font-size: 45px;"></i><span class="nbre" style="font-size: 20px;margin-bottom:10;" >1</span></a>
+            <a href="/afficher" class="retour"><i class="fas fa-shopping-cart" style="font-size: 45px;"></i><span class="nbre" style="font-size: 20px;margin-bottom:10;" ></span></a>
         </div>
         <div class="pt-table desktop-768">
           <div class="pt-tablecell page-home relative" >
@@ -31,7 +31,7 @@
                                            </div>
                                            <% if (recups) { %>
                                             <% recups.forEach(function(element) { %>
-                                                
+                                               
                                           <div class="hexagon-item">
                                             
                                               <div class="hex-item">
@@ -44,7 +44,8 @@
                                                   <div></div>
                                                   <div></div>
                                               </div>
-                                              <a  class="hex-content" onclick=" nonbre()" >
+                                              <a  class="hex-content"  >
+                                                
                                                   <span class="hex-content-inner">
                                                       <span class="icon">
                                                           <i class="fa fa-bullseye"></i>
@@ -53,10 +54,11 @@
                                                   </span>
                                                   <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><image class="img" href="/<%= element.image.replace(/\\/g, '/') %>" height="200" width="174" />
                                                 </svg>
-                                                
+                                                <div class="id"><%= element.id %></div>
                                               </a>
                                               
                                             <span class="prix"><strong><%= element.prix %></strong></span><span>Cfa</span>
+                                            
                                             
 
                                           </div>

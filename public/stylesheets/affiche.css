@@ -106,3 +106,32 @@ img {
     border: 2px solid #ff6b6b;
     z-index: 99;
   }
+  .navres{
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px !important;
+    padding: 5px;
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    justify-content: space-around;
+    bottom: 10px;
+    
+  }
+.commande {
+ width: auto;
+ height: auto;
+ padding: 10px;
+ background-color: green;
+ color: white;
+ border-radius: 10px;
+ border: none;
+}
+.num{
+ width: auto;
+ height: auto;
+ padding: 10px;
+ color: black;
+ border-radius: 10px;
+ border:2px solid #ff6b6b;
+}
