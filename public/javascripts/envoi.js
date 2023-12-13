@@ -1,21 +1,19 @@
 
 let data2
-let totaliter = document.querySelector(".totaux").textContent
-let nom = document.querySelectorAll('.nom')
-let paniero = JSON.parse(localStorage.getItem("Qrcode")) || [];
+let paniero = JSON.parse(localStorage.getItem("Qrcode")) ;
 let data =[]
 paniero.forEach(element => {
     const textcontent = element
     data.push(textcontent)
-    console.log('le nom vraivreied ',data);
+    console.log('le nom objet',data);
 });
-console.log('ma totaliter hooo',totaliter);
-console.log('ma nom hooo',nom);
+
 let num = ""
-
+let totaliter = document.querySelector(".totaux").textContent
+console.log('ma totaliter hooo',totaliter);
 let commande = document.querySelector(".commande")
-
 console.log('ma comande',commande);
+
 commande.addEventListener('click',(e) =>{
     e.preventDefault()
  num =document.querySelector('.num').value
@@ -52,6 +50,10 @@ commande.addEventListener('click',(e) =>{
             body: JSON.stringify(objet),
             
         });
+        console.log('Élément du cmmd ajouté à la base de données.',response);
+        const responseData = await response.json();
+        console.log('Élément du cmmd ajouté à la base de données.',responseData);
+
         
         if (response.ok) {
             console.log('Élément du cmmd ajouté à la base de données.',response.ok);

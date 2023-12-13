@@ -1,3 +1,4 @@
+const { stock } = require("../controller/controllerMenu");
 const Stock = require("../model/modelStock")
 
 
@@ -49,10 +50,17 @@ static suppression = async(id)=>{
         console.log("mon erreur",error);
     }
 }
-static update= async(id,data)=>{
+static update= async(id,nbre)=>{
     try {
-        const modif = await Stock.findByIdAndUpdate(id,data)
-        return modif
+        
+        console.log('mon id');
+        const modif = await Stock.findOne( {id_Souscat:id} )
+        console.log('ma modification otherstock',modif.nombre);
+        const modifNombre = modif.nombre-nbre
+        console.log('heeeeee',modif.nombre);
+        console.log('ma modifaction de mon nonbre',modifNombre);
+        const modifs = await Stock.findByIdAndUpdate(modif._id,{ nombre: modifNombre})
+         return modifs
     } catch (error) {
         console.log("mon erreur",error);
     }

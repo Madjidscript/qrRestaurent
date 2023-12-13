@@ -121,11 +121,18 @@ const controllerMenu = class {
     static afficherPOst = async(req=request, res=response)=>{
      
       const data =req.body
-     // const insertion = await otherCmmd.inscription(data)
-      console.log('mon insertion commande', data);
-      // if (insertion) {
-      //   res.redirect('/afficher')
-      // }
+     const data2= data.data
+      const insertion = await otherCmmd.inscription(data)
+      console.log('mon insertion commande', data,data2);
+      if (insertion) {
+        data2.forEach( async (element)  => {
+          console.log("ici ses mon id",element.id,element.nbre);
+          const modif = await otherStock.update(element.id,element.nbre)
+          console.log("ma modifiv=cation final",modif);
+        });
+        res.json({data:'commande effectuer avec succes'})
+        
+      }
     }
 }
 module.exports = controllerMenu
