@@ -654,7 +654,8 @@ body {
   }
 
    .id{
-    /* visibility: hidden; */
+     /* visibility: hidden;  */
+     opacity: 0;
    }
   
   

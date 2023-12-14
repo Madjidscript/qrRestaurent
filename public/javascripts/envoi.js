@@ -37,7 +37,7 @@ commande.addEventListener('click',(e) =>{
 
 
 
-
+let pp = document.querySelector('#panier')
 
   async function envoyerAuServeur(objet) {
     console.log('object',objet);
@@ -50,14 +50,15 @@ commande.addEventListener('click',(e) =>{
             body: JSON.stringify(objet),
             
         });
-        console.log('Élément du cmmd ajouté à la base de données.',response);
-        const responseData = await response.json();
-        console.log('Élément du cmmd ajouté à la base de données.',responseData);
+        
 
         
-        if (response.ok) {
-            console.log('Élément du cmmd ajouté à la base de données.',response.ok);
-          //localStorage.removeItem('Qrcode')
+        if (response) {
+            console.log('Élément du cmmd ajouté à la base de données.',response);
+            const responseData = await response.json();
+            console.log('Élément du cmmd ajouté à la base de données.',responseData,responseData.data);
+            pp.textContent=responseData.data
+            localStorage.removeItem('Qrcode')
         } else {
             console.error('Erreur lors de l\'ajout à la base de données.');
         }

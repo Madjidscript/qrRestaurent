@@ -134,5 +134,16 @@ const controllerMenu = class {
         
       }
     }
+
+
+    static commandes = async(req=request, res=response)=>{
+      const commande = await otherCmmd.afficheTout()
+      console.log("mes commande sont la",commande)
+      if (commande) {
+        res.render('commande',{"commandes":commande})
+        console.log("mes commande sont la des",commande[0].data)
+  }
+      }
+      
 }
 module.exports = controllerMenu

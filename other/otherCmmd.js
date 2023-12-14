@@ -8,7 +8,7 @@ const Cmmd = require("../model/modeleCommande")
 const otherCmmd = class {
 static afficheTout = async()=>{
   try {
-    const affiche = await Cmmd.find().populate('id_Souscat')
+    const affiche = await Cmmd.find()
     console.log("affiche Cmmd",affiche);
     return affiche
   } catch (error) {
