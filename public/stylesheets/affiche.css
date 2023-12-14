@@ -121,11 +121,12 @@ img {
 .commande {
  width: auto;
  height: auto;
- padding: 10px;
  background-color: green;
  color: white;
  border-radius: 10px;
  border: none;
+ padding: 15px;
+ 
 }
 .num{
  width: auto;
