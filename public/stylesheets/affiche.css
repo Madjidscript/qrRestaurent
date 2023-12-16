@@ -130,7 +130,7 @@ img {
 }
 .num{
  width: auto;
- height: auto;
+ min-height: 120px;
  padding: 10px;
  color: black;
  border-radius: 10px;
