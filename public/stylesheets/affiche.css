@@ -120,7 +120,7 @@ img {
   }
 .commande {
  width: auto;
- height: auto;
+ min-height: 50px;
  background-color: green;
  color: white;
  border-radius: 10px;
@@ -130,7 +130,7 @@ img {
 }
 .num{
  width: auto;
- min-height: 120px;
+ height: auto;
  padding: 10px;
  color: black;
  border-radius: 10px;
