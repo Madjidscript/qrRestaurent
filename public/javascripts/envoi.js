@@ -59,6 +59,8 @@ let pp = document.querySelector('#panier')
             console.log('Élément du cmmd ajouté à la base de données.',responseData,responseData.data);
             pp.textContent=responseData.data
             localStorage.removeItem('Qrcode')
+            JSON.parse(localStorage('cmmd'))
+            localStorage.setItem('cmmd',JSON.stringify(objet))
         } else {
             console.error('Erreur lors de l\'ajout à la base de données.');
         }
