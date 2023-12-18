@@ -36,6 +36,7 @@ static utilisateurParEmail = async(email)=>{
 
 static inscription = async(utilisateur)=>{
     try {
+
         const inscription  = await Cmmd.insertMany(utilisateur)
         return inscription
     } catch (error) {
@@ -51,13 +52,22 @@ static suppression = async(id)=>{
         console.log("mon erreur",error);
     }
 }
-static update= async(id,data)=>{
+static update= async(id,statut)=>{
     try {
-        const modif = await Cmmd.findByIdAndUpdate(id,data)
-        return modif
+        const modif = await Cmmd.findById(id)
+        console.log("id la sssssss" ,modif.id,"mon statut favorable",modif.statut);
+        statut=modif.statut
+        const modifs = await Cmmd.findByIdAndUpdate(modif._id,{statut:!statut})
+        console.log("momo",modifs);
+        return modifs
     } catch (error) {
         console.log("mon erreur",error);
     }
 }
+
+
+
+
+
 }
 module.exports= otherCmmd

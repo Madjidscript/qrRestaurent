@@ -136,22 +136,36 @@ const controllerMenu = class {
     }
 
 
+    static commande = async(req=request, res=response)=>{
+      const commande = await otherCmmd.afficheTout()
+      if (commande) {
+        res.render('commande',{"commandes":commande})   
+  }
+      }
+
+
+
     static commandes = async(req=request, res=response)=>{
-      const commande = await otherCmmd.afficheTout()
-      console.log("mes commande sont la",commande)
-      if (commande) {
-        res.render('commande',{"commandes":commande})
-        console.log("mes commande sont la des",commande[0].data)
+      console.log("mon chao maho");
+      const id = req.params.id
+      console.log('mon id heeeee',req.params.id);
+      const commandes = await otherCmmd.afficheTout()
+      console.log("mes commande sont la hooo",commandes._id)
+
+      if (commandes) {
+      
+        commandes.forEach(async (element) => {
+         let statut= element.statut
+         statut="false"
+          console.log("mes statut",statut,"mon id",id);
+          const modif = await otherCmmd.update(id,statut)
+          console.log("ma modification",modif);
+        });
+        res.redirect('/commande') 
   }
+  
       }
-    static commdSupp = async(req=request, res=response)=>{
-      const commande = await otherCmmd.afficheTout()
-      console.log("mes commande sont la",commande)
-      if (commande) {
-        res.render('commande',{"commandes":commande})
-        console.log("mes commande sont la des",commande[0].data)
-  }
-      }
+    
       
 }
 module.exports = controllerMenu

@@ -11,8 +11,10 @@
         <div class="titre">Liste de Commandes</div>
         <% if (commandes) { %>
             <% commandes.forEach(function(element) { %>
+                <% if (element.statut !== false) { %>
         <div class="plats">
             <% element.data.forEach(function(plat) { %>
+                
             <div class="plat">
                 <div class="nom"><%= plat.nom %>:</div>
                 <div class="quantite">x<%= plat.nbre %>:</div>
@@ -22,8 +24,11 @@
             <!-- Ajoutez plus de plats ici -->
         </div>
         <div class="num">numro de la table a manger: <strong style="color: #27ae60;"><%= element.num %></strong> </div> 
-        <div class="total">Total: <%= element.total %></div> 
-        <span><button class="servit" style="margin-bottom: 10px;margin-top: 10px;">servit le client</button></span>
+        <div class="total">Total: <%= element.total %></div>
+       
+            <a href="/commande/<%= element._id %>" class="servit" style="margin-bottom: 10px;margin-top: 10px;"> servit client</a>
+       
+            <% } %>
         <% }); %>
         <% } %>
     </div>
