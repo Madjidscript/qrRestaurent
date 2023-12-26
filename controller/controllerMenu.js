@@ -54,7 +54,9 @@ const controllerMenu = class {
       const insertion = await otherCathegorie.inscription({nom:req.body.nom,image:req.file.path})
       console.log('mon insertion cathegorie', insertion);
       if (insertion) {
-        res.redirect('/cathegorie')
+        res.render('cathegorie',{vv:"insertion effectuer avec succes"})
+      }else{
+        res.render('cathegorie',{vv:"erreur lors de linsertion de la cathegorie"})
       }
     }
     static souscathegorie = async(req=request,res=response)=>{
@@ -75,7 +77,9 @@ const controllerMenu = class {
       })
       console.log('mon insertion Souscathegorie', insertion);
       if (insertion) {
-        res.redirect('/souscathegorie')
+        res.render('souscathegorie',{vv:'insertion effectuer avec succes'})
+      }else{
+        res.render('souscathegorie',{vv:"erreur  lors de l'insertion du souscathegorie"})
       }
     }
     static stock = async(req=request,res=response)=>{
@@ -91,7 +95,9 @@ const controllerMenu = class {
       const insertion = await otherStock.inscription(data)
       console.log('mon insertion stock', insertion);
       if (insertion) {
-        res.redirect('/stock')
+        res.render('stock',{vv:"insertion effectuer avec succes"})
+      }else{
+        res.render('stock',{vv:"erreur lors de l'insertion du stock"})
       }
     }
     static acceuil = async(req=request, res=response)=>{
