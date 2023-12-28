@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/stylesheets/commandes2.css">
 </head>
 <body>
+    <%- include('partials/hearder') %>
+
+
     <div class="commande">
         <div class="titre">Liste de Commandes</div>
         <% if (commandes) { %>
@@ -26,7 +29,7 @@
         <div class="num">numro de la table a manger: <strong style="color: #27ae60;"><%= element.num %></strong> </div> 
         <div class="total">Total: <%= element.total %></div>
        
-            <a href="/commande/<%= element._id %>" class="servit" style="margin-bottom: 10px;margin-top: 10px;"> servit client</a>
+            <a href="/admin/commande/<%= element._id %>" class="servit" style="margin-bottom: 10px;margin-top: 10px;"> servit client</a>
        
             <% } %>
         <% }); %>

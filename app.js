@@ -32,7 +32,7 @@ app.use(session({
   saveUninitialized: true, // Enregistrer une session vide pour les nouveaux utilisateurs
 }));
 
-app.use('/index', indexRouter);
+app.use('/admin', indexRouter);
 app.use('/', usersRouter);
 
 // catch 404 and forward to error handler

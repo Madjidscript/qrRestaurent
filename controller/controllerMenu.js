@@ -12,6 +12,7 @@ const {response,request}= require('express');
 
 
 const controllerMenu = class {
+ 
     static menu = (req=request,res=response)=>{
       res.render('menu')
     };
@@ -46,60 +47,11 @@ const controllerMenu = class {
       }
      
     }
-    static cathegorie = async(req=request,res=response)=>{
-      res.render("cathegorie")
-    }
-    static cathegoriePost = async(req=request,res=response)=>{
-      
-      const insertion = await otherCathegorie.inscription({nom:req.body.nom,image:req.file.path})
-      console.log('mon insertion cathegorie', insertion);
-      if (insertion) {
-        res.render('cathegorie',{vv:"insertion effectuer avec succes"})
-      }else{
-        res.render('cathegorie',{vv:"erreur lors de linsertion de la cathegorie"})
-      }
-    }
-    static souscathegorie = async(req=request,res=response)=>{
-      const recup = await otherCathegorie.afficheTout()
-      if(recup){
-        res.render('souscathegorie',{"recups":recup})
-        console.log('mes element recuperer', recup);
-      }
-    }
-    static souscathegoriePost = async(req=request,res=response)=>{
-      
-      
-      const insertion = await otherSousCathegorie.inscription({
-        nom:req.body.nom,
-        prix:req.body.prix,
-        image:req.file.path,
-        id_cath:req.body.id_cath
-      })
-      console.log('mon insertion Souscathegorie', insertion);
-      if (insertion) {
-        res.render('souscathegorie',{vv:'insertion effectuer avec succes'})
-      }else{
-        res.render('souscathegorie',{vv:"erreur  lors de l'insertion du souscathegorie"})
-      }
-    }
-    static stock = async(req=request,res=response)=>{
-      const recup = await otherSousCathegorie.afficheTout()
-      console.log("voici ma recuperation stock",recup);
-      if(recup){
-        res.render('stock',{"recups":recup})
-        console.log('mes element recuperer', recup);
-      }
-      }
-    static stockPost = async(req=request,res=response)=>{
-      const data =req.body
-      const insertion = await otherStock.inscription(data)
-      console.log('mon insertion stock', insertion);
-      if (insertion) {
-        res.render('stock',{vv:"insertion effectuer avec succes"})
-      }else{
-        res.render('stock',{vv:"erreur lors de l'insertion du stock"})
-      }
-    }
+   
+    
+   
+    
+   
     static acceuil = async(req=request, res=response)=>{
       const recup = await otherCathegorie.afficheTout()
       console.log('moais differente cathegorie',recup);
@@ -142,35 +94,11 @@ const controllerMenu = class {
     }
 
 
-    static commande = async(req=request, res=response)=>{
-      const commande = await otherCmmd.afficheTout()
-      if (commande) {
-        res.render('commande',{"commandes":commande})   
-  }
-      }
+   
 
 
 
-    static commandes = async(req=request, res=response)=>{
-      console.log("mon chao maho");
-      const id = req.params.id
-      console.log('mon id heeeee',req.params.id);
-      const commandes = await otherCmmd.afficheTout()
-      console.log("mes commande sont la hooo",commandes._id)
-
-      if (commandes) {
-      
-        commandes.forEach(async (element) => {
-         let statut= element.statut
-         statut="false"
-          console.log("mes statut",statut,"mon id",id);
-          const modif = await otherCmmd.update(id,statut)
-          console.log("ma modification",modif);
-        });
-        res.redirect('/commande') 
-  }
-  
-      }
+   
     
       
 }

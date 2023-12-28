@@ -7,7 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/souscathegorie" method="post" enctype="multipart/form-data">
+    <%- include('partials/hearder') %>
+
+
+    <form action="/admin/souscathegorie" method="post" enctype="multipart/form-data">
         <h2>Formulaire de souscathegorie</h2>
         <% if ( typeof vv !== "undefined" && vv ) { %>
             <p><%= vv %></p>
