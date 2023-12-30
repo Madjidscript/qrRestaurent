@@ -7,9 +7,11 @@
     <title>Document</title>
 </head>
 <body>
+  <% if (data) { %>
+    
     <nav class="navbar">
         <!-- logo -->
-        <a href="/index2" class="logo">Piko Restaux</a>
+        <a href="#" class="logo">Piko Restaux</a>
   
         <!-- menu navigation -->
         <ul class="nav-links">
@@ -23,7 +25,7 @@
             <li><a href="/admin/stock">stock</a></li>
             <li><a href="/admin/commande">commande</a></li>
   
-            <li><a href="/" id="principale"></a></li>
+            <li><a href="#" id="principale"></a></li>
   
             <!-- <p class="recherche">
               <input type="search" placeholder="search" /><img
@@ -33,13 +35,18 @@
                 alt=""
               />
             </p> -->
-  
+           
             <li>
-              <a href=""><img src="/images/user-removebg-preview.png" alt=""/> <span>admin</span> </a>
+             
+              <a href="#"><img src="/images/user-removebg-preview.png" alt=""/> <span style="color: #26a65b;"><strong><%= data.nom %></strong></span> </a>
+             
             </li>
+          
             <li><a href="/admin/deconnexion">Deconnexion</a></li>
           </div>
         </ul>
       </nav>
+     
+      <% } %>
 </body>
 </html>

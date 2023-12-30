@@ -11,6 +11,9 @@
 
     <form action="/admin/connexion" method="post" >
         <h2>Connexion Admin</h2>
+        <% if ( typeof vv !== "undefined" && vv ) { %>
+            <p><%= vv %></p>
+            <% } %>
          <input type="email" placeholder="Entrer votre mail" name="email" id="" required>
          <input type="password" placeholder="Entrer password" name="password" id="" required>
 

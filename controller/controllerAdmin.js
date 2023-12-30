@@ -21,7 +21,7 @@ const controllerAdmin = class {
       const admin = await otherInscription.utilisateurParEmail(email)
       console.log('mon admin',admin,email,password);
       if (admin) {
-        res.render("inscription",{message:"admin existe deja"})
+        res.render("inscription",{vv:"admin existe deja"})
       } else {
         const hashpass= await bcrypt.hash(password,10)
         console.log('mon password',hashpass);
@@ -46,7 +46,7 @@ const controllerAdmin = class {
       const password= req.body.password
       const admin = await otherInscription.utilisateurParEmail(email)
       if (!admin) {
-        res.render('connexion',{message:'admin pas retrouver'})
+        res.render('connexion',{vv:'admin pas retrouver'})
       }else{
         const  verifPass= await bcrypt.compare(password,admin.password)
         if (verifPass) {
@@ -58,6 +58,8 @@ const controllerAdmin = class {
           req.session.admin= data
           console.log("ma sessions",req.session.admin);
           res.redirect("/admin/cathegorie")
+        }else{
+          res.render('connexion',{vv:'mot de pass incorrect'})
         }
       }
     }
@@ -79,7 +81,7 @@ const controllerAdmin = class {
       const insertion = await otherCathegorie.inscription({nom:req.body.nom,image:req.file.path})
       console.log('mon insertion cathegorie', insertion);
       if (insertion) {
-        res.render('cathegorie',{vv:"insertion effectuer avec succes"})
+        res.render('cathegorie',{vv:"insertion effectuer avec succes",data:req.session.admin})
       }else{
         res.render('cathegorie',{vv:"erreur lors de linsertion de la cathegorie"})
       }
@@ -107,7 +109,7 @@ const controllerAdmin = class {
       })
       console.log('mon insertion Souscathegorie', insertion);
       if (insertion) {
-        res.render('souscathegorie',{vv:'insertion effectuer avec succes'})
+        res.render('souscathegorie',{vv:'insertion effectuer avec succes',data:req.session.admin})
       }else{
         res.render('souscathegorie',{vv:"erreur  lors de l'insertion du souscathegorie"})
       }
@@ -132,7 +134,7 @@ const controllerAdmin = class {
       const insertion = await otherStock.inscription(data)
       console.log('mon insertion stock', insertion);
       if (insertion) {
-        res.render('stock',{vv:"insertion effectuer avec succes"})
+        res.render('stock',{vv:"insertion effectuer avec succes",data:req.session.admin})
       }else{
         res.render('stock',{vv:"erreur lors de l'insertion du stock"})
       }
