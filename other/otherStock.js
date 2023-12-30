@@ -1,4 +1,4 @@
-const { stock } = require("../controller/controllerMenu");
+// const { stock } = require("../controller/controllerMenu");
 const Stock = require("../model/modelStock")
 
 

@@ -42,7 +42,8 @@ let pp = document.querySelector('#panier')
   async function envoyerAuServeur(objet) {
     console.log('object',objet);
     try {
-        const response = await fetch('https://qrrestaux.onrender.com/afficher', {
+        const response = await fetch(' https://qrrestaux.onrender.com/afficher', {
+           // http://localhost:3000/afficher
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ let pp = document.querySelector('#panier')
             console.error('Erreur lors de l\'ajout à la base de données.');
         }
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
 }
 
