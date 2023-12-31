@@ -139,6 +139,35 @@ const controllerAdmin = class {
         res.render('stock',{vv:"erreur lors de l'insertion du stock"})
       }
     }
+
+
+    static stockUpdate = async(req=request,res=response)=>{
+      if (req.session.admin) {
+        const recup = await otherSousCathegorie.afficheTout()
+      console.log("voici ma recuperation stock",recup);
+      if(recup){
+        res.render('stockUpdate',{"recups":recup,data:req.session.admin})
+        console.log('mes element recuperer', recup);
+        console.log("ma session universelle",req.session.admin);
+      }
+      } else {
+        res.redirect("/admin/connexion")
+      }
+      }
+
+      static stockUpdatePost = async(req=request,res=response)=>{
+        const data =req.body
+        const id =req.body.id_Souscat
+        const nbre =req.body.nombre
+        console.log('mes ellement',data,id,nbre);
+        const modification = await otherStock.update2(id,nbre)
+        console.log('mon modification stock', modification);
+        if (modification) {
+          res.render('stockUpdate',{vv:"modification effectuer avec succes",data:req.session.admin})
+        }else{
+          res.render('stock',{vv:"erreur lors de l'modification du stock"})
+        }
+      }
    
     
 

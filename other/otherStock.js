@@ -65,5 +65,19 @@ static update= async(id,nbre)=>{
         console.log("mon erreur",error);
     }
 }
+static update2= async(id,nbre)=>{
+    try {
+        console.log('mon id');
+        const modif = await Stock.findOne( {id_Souscat:id} )
+        console.log('ma modification otherstock',modif.nombre);
+        // const modifNombre = modif.nombre
+        // console.log('heeeeee',modif.nombre);
+        // console.log('ma modifaction de mon nonbre',modifNombre);
+        const modifs = await Stock.findByIdAndUpdate(modif._id,{ nombre:nbre})
+         return modifs
+    } catch (error) {
+        console.log("mon erreur",error);
+    }
+}
 }
 module.exports= otherStock
