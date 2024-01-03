@@ -26,10 +26,10 @@ const controllerAdmin = class {
       const admin = await otherInscription.utilisateurParEmail(email)
       console.log('mon unique admin',admin,email,password);
       if (admin) {
-        res.render("inscription",{vv:"admin existe deja"})
+        res.render("inscription",{vv:"admin existe deja!"})
       } else {
         const hashpass= await bcrypt.hash(password,10)
-        console.log('mon password',hashpass);
+        console.log('mon passwords',hashpass);
         const data =  {
           nom:req.body.nom,
           email:req.body.email,
