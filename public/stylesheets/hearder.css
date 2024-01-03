@@ -33,7 +33,7 @@
   }
   /* LOGO */
   .logo {
-    font-size: 32px;
+    font-size: 27px;
     color: #26a65b;
     font-family: 'Shrikhand', cursive;
   }
@@ -45,12 +45,12 @@
   .menu {
     display: flex;
     flex-wrap: wrap;
-    gap: 1em;
-    font-size: 18px;
+    gap: 0.4em;
+    font-size: 16px;
     /* line-height: 80px; */
   }
   .menu li {
-    padding: 5px 14px;
+    padding: 5px 10px;
     line-height: 60px;
   }
   li a img {

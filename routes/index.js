@@ -18,5 +18,6 @@ router.get('/inscription', controllerAdmin.inscription)
 router.post('/inscription', controllerAdmin.inscriptionPost) 
 router.get('/connexion', controllerAdmin.connexion) 
 router.post('/connexion', controllerAdmin.connexionPost) 
+router.get('/message', controllerAdmin.message) 
 router.get('/deconnexion', controllerAdmin.Deconnexion) 
 module.exports = router;

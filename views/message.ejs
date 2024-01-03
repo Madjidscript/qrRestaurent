@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/message.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('partials/hearder') %>
+    <h2>Tableau d'arlet des stock</h2>
+    <% if( typeof messages !== "undefined" && messages ) { %>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% messages.forEach(function(element) { %>
+                <% if (element.nombre <= 20 ) { %>
+            <tr>
+                <td><%= element.id_Souscat.nom %></td>
+                <td><%= element.nombre %></td>
+            </tr>
+              <% } %>
+            <!-- Ajoutez plus de lignes selon vos besoins -->
+            <% }); %>
+        </tbody>
+    </table>
+    <% } %>
+    
+</body>
+</html>

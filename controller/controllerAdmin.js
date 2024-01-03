@@ -12,7 +12,12 @@ const bcrypt = require("bcrypt")
 
 const controllerAdmin = class {
     static inscription = async(req=request,res=response)=>{
-      res.render("inscription")
+      if (req.session.admin) {
+        res.render("inscription",{data:req.session.admin})
+      } else {
+        res.redirect("/admin/connexion")
+      }
+     
     }
     static inscriptionPost = async(req=request,res=response)=>{
       const email =  req.body.email
@@ -204,6 +209,22 @@ const controllerAdmin = class {
   }
   
       }
+
+
+      static message = async(req=request, res=response)=>{
+        if (req.session.admin) {
+          const message = await otherStock.afficheTout()
+          
+          if (message) {
+            res.render('message',{"messages":message,data:req.session.admin}) 
+            console.log("ma session universelle",req.session.admin);  
+            console.log('mes message hoo',message[0].nombre,message[0].id_Souscat.nom);
+      }
+        } else {
+          res.redirect("/admin/connexion")
+        }
+    
+        }
     
       
 }
