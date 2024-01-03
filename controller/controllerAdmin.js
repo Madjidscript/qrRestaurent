@@ -24,7 +24,7 @@ const controllerAdmin = class {
       console.log('mon email',email);
       const password = await req.body.password
       const admin = await otherInscription.utilisateurParEmail(email)
-      console.log('mon admin',admin,email,password);
+      console.log('mon unique admin',admin,email,password);
       if (admin) {
         res.render("inscription",{vv:"admin existe deja"})
       } else {
