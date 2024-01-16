@@ -47,9 +47,9 @@ let pp = document.querySelector('#panier')
   async function envoyerAuServeur(objet) {
     console.log('object',objet);
     try {
-        const response = await fetch('http://localhost:3000/afficher', {
-           // 
-           //https://qrrestaux.onrender.com/afficher
+        const response = await fetch('https://qrrestaux.onrender.com/afficher', {
+           // http://localhost:3000/afficher
+           //
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
