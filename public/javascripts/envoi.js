@@ -30,7 +30,7 @@ commande.addEventListener('click',(e) =>{
       console.log("mon objet fiable",cmmd);
      
         setTimeout(() => {
-            window.location.reload()
+            window.location.href = "https://qrrestaux.onrender.com"
             console.log('didier drogba');
         }, 3000);
 })
