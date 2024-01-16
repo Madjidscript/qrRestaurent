@@ -8,7 +8,7 @@
 </head>
 <body>
     <%- include('partials/hearder') %>
-
+   
     <form action="/admin/stock" method="post">
         <h2>Formulaire de stocks</h2>
         <% if ( typeof vv !== "undefined" && vv ) { %>
@@ -29,5 +29,6 @@
         <button class="valider" type="submit">Commander</button>
     </form>
     <!-- <script src="/javascripts/form.js"></script> -->
+    <%- include('partials/loader') %>
 </body>
 </html>
