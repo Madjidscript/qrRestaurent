@@ -7,7 +7,7 @@ bouton.forEach(element => {
     element.addEventListener("click",()=>{
         console.log("mon element preferer",element);
         console.log('mon madjid');
-       window.location.reload()
+        window.location.href = "https://qrrestaux.onrender.com";
          console.log('ma doriane');
     })
     
