@@ -126,6 +126,7 @@ img {
  border-radius: 10px;
  border: none;
  padding: 15px;
+ cursor: pointer;
  
 }
 .num{
