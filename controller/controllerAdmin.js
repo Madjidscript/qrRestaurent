@@ -170,7 +170,7 @@ const controllerAdmin = class {
         if (modification) {
           res.render('stockUpdate',{vv:"modification effectuer avec succes",data:req.session.admin})
         }else{
-          res.render('stock',{vv:"erreur lors de l'modification du stock"})
+          res.render('stockUpdate',{vv:"erreur lors de l'modification du stock"})
         }
       }
    

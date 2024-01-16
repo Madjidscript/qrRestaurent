@@ -19,10 +19,10 @@
         </thead>
         <tbody>
             <% messages.forEach(function(element) { %>
-                <% if (element.nombre <= 20 ) { %>
+                <% if (element.nombre <= 90 ) { %>
             <tr>
                 <td><%= element.id_Souscat.nom %></td>
-                <td><%= element.nombre %></td>
+                <td class="nombres"><%= element.nombre %></td>
             </tr>
               <% } %>
             <!-- Ajoutez plus de lignes selon vos besoins -->
@@ -32,4 +32,5 @@
     <% } %>
     
 </body>
+<script src="/javascripts/message.js"></script>
 </html>
