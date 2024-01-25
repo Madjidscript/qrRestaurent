@@ -62,7 +62,7 @@ const controllerAdmin = class {
           }
           req.session.admin= data
           console.log("ma sessions",req.session.admin);
-          res.redirect("/admin/cathegorie")
+          res.redirect('/admin/cathegorie')
         }else{
           res.render('connexion',{vv:'mot de pass incorrect'})
         }
@@ -225,6 +225,37 @@ const controllerAdmin = class {
         }
     
         }
+
+      static react = async(req=request, res=response)=>{
+       console.log(req.body);
+  
+        let message =""
+       const email = req.body.email
+       const password= req.body.password
+       const admin = await otherInscription.utilisateurParEmail(email)
+       if (!admin) {
+         message ="'admin pas retrouver'"
+         res.json(message)
+         console.log("mon message",message);
+       }else{
+         const  verifPass= await bcrypt.compare(password,admin.password)
+         if (verifPass) {
+           const data = {
+             nom:admin.nom,
+             email:admin.email,
+             password:admin.password
+           }
+           req.session.admin= data
+           console.log("ma sessions",req.session.admin);
+           message="connexion effectuer avec succes"
+           res.json({message,data})
+         }else{
+          message="mot de pass incorrect"
+           res.json(message)
+           console.log("mon message2",message);
+         }
+       }
+      }
     
       
 }

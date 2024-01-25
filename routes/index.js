@@ -20,4 +20,5 @@ router.get('/connexion', controllerAdmin.connexion)
 router.post('/connexion', controllerAdmin.connexionPost) 
 router.get('/message', controllerAdmin.message) 
 router.get('/deconnexion', controllerAdmin.Deconnexion) 
+router.post('/react', controllerAdmin.react) 
 module.exports = router;
