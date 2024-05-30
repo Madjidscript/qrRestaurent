@@ -53,13 +53,18 @@ const controllerAdmin = class {
       if (!admin) {
         res.render('connexion',{vv:'admin pas retrouver'})
       }else{
-        const  verifPass= await bcrypt.compare(password,admin.password)
-        if (verifPass) {
-          const data = {
+       const  verifPass= await bcrypt.compare(password,admin.password)
+       if (verifPass) {
+           const data = {
             nom:admin.nom,
-            email:admin.email,
-            password:admin.password
+             email:admin.email,
+             password:admin.password
           }
+          // const data = {
+          //     nom:admin.nom,
+          //      email:admin.email,
+          //      password:admin.password
+          //    }
           req.session.admin= data
           console.log("ma sessions",req.session.admin);
           res.redirect('/admin/cathegorie')

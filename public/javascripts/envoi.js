@@ -7,6 +7,7 @@ paniero.forEach(element => {
     data.push(textcontent)
     console.log('le nom objet',data);
 });
+console.log("mon ami des ",data)
 
 let num = ""
 let totaliter = document.querySelector(".totaux").textContent
@@ -26,8 +27,9 @@ commande.addEventListener('click',(e) =>{
         data:data,
       }
       data2=cmmd
-      envoyerAuServeur(data2)
       console.log("mon objet fiable",cmmd);
+      envoyerAuServeur(data2)
+      
      
         setTimeout(() => {
             window.location.href = "https://qrrestaux.onrender.com"
@@ -47,9 +49,9 @@ let pp = document.querySelector('#panier')
   async function envoyerAuServeur(objet) {
     console.log('object',objet);
     try {
-        const response = await fetch('https://qrrestaux.onrender.com/afficher', {
+        const response = await fetch(' https://qrrestaux.onrender.com/afficher', {
            // http://localhost:3000/afficher
-           //
+          // https://qrrestaux.onrender.com/afficher
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
