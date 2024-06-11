@@ -9,9 +9,9 @@ function filterNames() {
       if (name.includes(query)) {
         item.style.display = '';
       } else {
-       box.textContent= " nous avons pas cette recette";
-       box.style.color = 'red';
-       box.style.fontSize = '30px';
+        item.textContent= " ";
+        item.style.color = 'red';
+        item.style.fontSize = '30px';
         
       }
     });
