@@ -1,7 +1,7 @@
 function filterNames() {
     const query = document.getElementById('search-input').value.toLowerCase();
-    const body = document.querySelectorAll('.hexagon-item');
-    const box = document.querySelector('.hexagon-menu');
+    const body = document.querySelectorAll('.hexagon-box');
+    const box = document.querySelector('.hexagon-item');
 
 
     body.forEach(item => {
@@ -9,9 +9,9 @@ function filterNames() {
       if (name.includes(query)) {
         item.style.display = '';
       } else {
-        item.textContent= " ";
-        item.style.color = 'red';
-        item.style.fontSize = '30px';
+        box.textContent= "pat introuvée";
+        box.style.color = 'red';
+        box.style.fontSize = '25px';
         
       }
     });
