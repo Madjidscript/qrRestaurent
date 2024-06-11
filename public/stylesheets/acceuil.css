@@ -4,27 +4,15 @@ body {
     font-weight: 400;
     font-size: 16px;
     line-height: 30px;
-    background-color: #0c0f15;
+    background-color:white;
     border-radius: 4px;
     overflow-x:hidden;
-    color: #ababab; }
+    color: #ababab; 
+  padding-top:3Opx ;}
   
-  ::-webkit-scrollbar {
-      width: 10px;
-      background-color: #F5F5F5;
-    
-  }
-  .heading-page
   
-  ::-webkit-scrollbar-thumb {
-      background-color: #f90a23;
-      background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
-  }
   
-  ::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-      background-color: #F5F5F5;
-  }
+  
   
   .heading-page
   {
@@ -35,16 +23,7 @@ body {
       letter-spacing: 3px;
       color: white;
   }
-  a {
-    color: inherit;
-    -webkit-transition: all 0.3s ease 0s;
-    -moz-transition: all 0.3s ease 0s;
-    -o-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s; }
-    a:hover, a:focus {
-      color: #ababab;
-      text-decoration: none;
-      outline: 0 none; }
+  
   
   h1, h2, h3,
   h4, h5, h6 {
@@ -72,77 +51,11 @@ body {
   /*
    *  Reset bootstrap's default style
    */
-  .form-control::-webkit-input-placeholder,
-  ::-webkit-input-placeholder {
-    opacity: 1;
-    color: inherit; }
   
-  .form-control:-moz-placeholder,
-  :-moz-placeholder {
-    /* Firefox 18- */
-    opacity: 1;
-    color: inherit; }
   
-  .form-control::-moz-placeholder,
-  ::-moz-placeholder {
-    /* Firefox 19+ */
-    opacity: 1;
-    color: inherit; }
   
-  .form-control:-ms-input-placeholder,
-  :-ms-input-placeholder {
-    opacity: 1;
-    color: inherit; }
   
-  button, input, select,
-  textarea, label {
-    font-weight: 400; }
-  
-  .btn {
-    -webkit-transition: all 0.3s ease 0s;
-    -moz-transition: all 0.3s ease 0s;
-    -o-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s; }
-    .btn:hover, .btn:focus, .btn:active:focus {
-      outline: 0 none; }
-  
-  .btn-primary {
-    background-color: #FA6862;
-    border: 0;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 700;
-    height: 48px;
-    line-height: 50px;
-    padding: 0 42px;
-    text-transform: uppercase; }
-    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus {
-      background-color: #f9423a; }
-  
-  .btn-border {
-    border: 1px solid #d7d8db;
-    display: inline-block;
-    padding: 7px; }
-  
-  /*
-   *  CSS Helper Class
-   */
-  .clear:before, .clear:after {
-    content: " ";
-    display: table; }
-  
-  .clear:after {
-    clear: both; }
-  
-  .pt-table {
-    display: table;
-    width: 100%;
-    height: -webkit-calc(100vh - 4px);
-    height: -moz-calc(100vh - 4px);
-    height: calc(100vh - 4px); }
-  
-  .pt-tablecell {
-    display: table-cell;
-    vertical-align: middle; }
+   
   
   .overlay {
     position: absolute;
@@ -659,4 +572,146 @@ body {
    }
   
   
+  /* deuxiemme partie */
+  *,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: 'Catamaran', sans-serif;
+}
+
+body {
+  background-image: url('https://lh3.googleusercontent.com/fife/AAWUweWsbFg1XutShi4bR9QgHO3-JT1j-Oo8zsW9IrvTz3hIa98hKZONsvJfqNdTOwcPswlthQKAf-m2e3Tj7Tvk-Py1-nltRxo6XcwPO5Y6vjxUyC3hAYLL0cfwCZYGiETAXHFAM7j4Y7W9dDIqx1DsR_-A5qSwzjBPhKoj3w1qzdiHG_DBePtToXfWazUO3zTScnKj5mFhN89WbnzaikIS2HAflZLNvWnBOwccSHOnJ0aHqNxPE-TudhX-EbpSJ2FJoThxo6NzxEECwrR9k_NJAGSPzP6H4EHgNPSNmRQ525c3758IERcZ5NZcDFF4tTc1bDSbuchyGuCgZuAnJuuI7cyIAPPl06mhoPwuENs8AXcYbTSxb5hbM4rUs0SKG8c9njg-qKc_1hIElF0d5nv7BDvLrJ4NaBx-OEbCwNQtCbLPohcI0D6hQ3ZokPUPh739Eub1imz42tCmWzFM1IQ8jsQAU4M76A4eCLXxh2O3Skizv3ANiZE7JaCBoT6P4TQoJctA87vuAEVJiS4Dbs7YAN8jr5-CUi9Rec6Z2JwE8Ot2RNCiCJK_3K7jMhaoE303qCiyZLg0eAsG6xafyIB04Tt8Wmi-b1qX1mU6Qe9iSNc5hAbIJfvC6Xj_a7jWwqdcfyc178quKIWMbpQ2pCPP4jwnMo8Z_RBuV0A-IiVC0vZhCWvgzdFUNKe7f3FMESahmM2Y7O1TdzSoqsRBTb8ip1V_9n2dwVWJJAA=w1920-h937-ft');
+  background-position: center;
+  background-size: cover;
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.madjid{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+.cards_item {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+}
+
+.card_image {
+  max-height: 250px;
+  position: relative;
   
+}
+
+.card_image img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+  border-right-color: #f90a23;
+}
+
+@media (min-width: 40rem) {
+  .cards_item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 56rem) {
+  .cards_item {
+    width: 32%;
+  }
+  .cards_item.second {
+    width: 36%;
+  }
+}
+
+.card {
+  background-color: #ffffffb3;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.1rem 3rem #00000019;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px 1rem 10px;
+  border-radius: 16px;
+  height: fit-content;
+}
+
+.card_content {
+  padding: 0.1rem 0;
+}
+
+.price {
+  position: absolute;
+  bottom: 10px;
+  right: -3px;
+  border-top-left-radius: 500rem;
+  border-bottom-left-radius: 500rem;
+  padding-right: 25px;
+  padding-left: 35px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+  background: #538e00;
+}
+.prix {
+ 
+  border-top-left-radius: 500rem;
+  border-bottom-left-radius: 500rem;
+  padding-right: 20px;
+  padding-left: 30px;
+  padding-top: -10px;
+  padding-bottom: 2px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;
+  background: #538e00;
+}
+
+ .card_title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 700;
+  color: black;
+}
+
+.card_text {
+  margin-top: 16px;
+  font-size: 17px;
+}
+a{
+  text-decoration: none;
+}
+.heading-page{
+  background-image: url(../picture/flame.jpg);
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  background-clip:text;
+  -webkit-background-clip:text;
+  margin-top: 50px;
+  text-shadow: -2px 2px 20px rgba(0,0,0,0.6);
+}

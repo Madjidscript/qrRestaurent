@@ -4,65 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/acceuil.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;600;700&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body >
-    <main class="site-wrapper">
-        <div class="pt-table desktop-768">
-          <div class="pt-tablecell page-home relative" >
-        <div class="overlay"></div>
+    
+            
+        <div class="page-title  home text-center" style="text-align: center; margin-top: 50px;" >
+            <span class="heading-page" > Bienvennue a <strong>Piko</strong></span>
+            <p class="mt20" style="color: black;">Nous vous invitons à réserver votre table pour vivre une expérience culinaire exceptionnelle. Venez découvrir le charme unique du Restaurant PIKO et laissez-nous vous offrir un voyage gustatif mémorable.</p>
+        </div>
 
-      
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-                    <div class="page-title  home text-center" style="text-align: center;">
-                        <span class="heading-page"> Bienvennue a <strong>Piko</strong></span>
-                                          <p class="mt20">Nous vous invitons à réserver votre table pour vivre une expérience culinaire exceptionnelle. Venez découvrir le charme unique du Restaurant PIKO et laissez-nous vous offrir un voyage gustatif mémorable.</p>
+
+
+        
+
+    
+    <div class="main">
+        <ul class="cards">
+            <%- include('partials/loader') %>
+            <% if (recups) { %>
+            <% recups.forEach(function(element) { %>
+            <li class="cards_item">
+                <a href="/acceuil2/<%= element._id %>">
+                <div class="card">
+                    <h2 class="card_title"><%= element.nom %></h2>
+                    <div class="card_image">
+                        <svg viewBox="0 0 173.20508075688772 200"  version="1.1" xmlns="http://www.w3.org/2000/svg" style="border-radius: 5px;">
+                        <image href="<%= element.image.replace(/\\/g, '/') %>" /> 
+                        <!-- <img src="https://assets.codepen.io/652/photo-1468777675496-5782faaea55b.jpeg" alt="mixed vegetable salad in a mason jar. "> -->
+                        <!-- <div class="price">$9</div> -->
                     </div>
-                    
-                        <div class="hexagon-menu clear" >
-                                           </div>
-                                           <%- include('partials/loader') %>
-                                           <% if (recups) { %>
-                                            <% recups.forEach(function(element) { %>
-                                          <div class="hexagon-item">
-                                            
-                                              <div class="hex-item">
-                                                  <div></div>
-                                                  <div style="border: 2Px solid white;"></div>
-                                                  <div style="border: 2Px solid white;"></div>
-                                              </div>
-                                              <div class="hex-item">
-                                                  <div></div>
-                                                  <div></div>
-                                                  <div></div>
-                                              </div>
-                                              <a  class="hex-content" href="/acceuil2/<%= element._id %>">
-                                                  <span class="hex-content-inner">
-                                                      <span class="icon">
-                                                          <i class="fa fa-bullseye"></i>
-                                                      </span>
-                                                      <span class="title" style="font-size: 20px;"><strong><%= element.nom %></strong></span>
-                                                  </span>
-                                                  <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><image href="<%= element.image.replace(/\\/g, '/') %>" height="200" width="174" />
-                                                </svg>
-                                                  
-                                              </a>
-                                            
-
-                                          </div>
-                                          <% }); %>
-                                          <% } %>
-                                          
-                                          
-
-                
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-        </main>
+                    <div class="card_content">
+                        <div class="card_text">
+                            <p style="margin-top: 60px;"> Je suis enchanté de vous présenter ma sélection culinaire, conçue
+                                 pour ravir vos papilles et offrir une expérience gustative inoubliable. <strong><%= element.nom %></strong> sont préparés avec des ingrédients frais et de qualité, 
+                                chaque recette étant soigneusement élaborée pour équilibrer saveurs et textures.
+                            .</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </a>
+            </li>
+        
+            <% }); %>
+            <% } %>
+        </ul>
+    </div>
+    
 </body>
 </html>

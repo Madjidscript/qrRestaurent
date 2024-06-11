@@ -8,6 +8,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', controllerMenu.acceuil) 
 router.get('/acceuil2/:id', controllerMenu.acceuil2) 
+router.get('/acceuil2/:id', controllerMenu.recherche) 
 router.get('/afficher', controllerMenu.afficher) 
 router.post('/afficher', controllerMenu.afficherPOst) 
 router.get('/menu', controllerMenu.menu) 

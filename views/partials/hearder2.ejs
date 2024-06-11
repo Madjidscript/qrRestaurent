@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/hearder2.css">
+    <title>Document</title>
+</head>
+<body>
+  <% if (data) { %>
+  <div class="top-bar">
+    <strong>PI<span>KO</span></strong>
+  </div>
+  <div class="mobile-mask"></div>
+  <nav class="nav">
+    <div class="m-logo">
+      <strong>PI<span>KO</span></strong>
+    </div>
+    <div class="nav__item overview">
+      <li><a href="/admin/inscription" class="nav-links">Ajout Admin</a></li>
+    </div>
+
+    <div class="nav__item">
+      <li><a href="/admin/cathegorie" class="nav-links">cathegorie</a></li>
+    </div>
+
+    <div class="nav__item">
+      <li><a href="/admin/souscathegorie" class="nav-links">souscathegorie</a></li>
+    </div>
+
+    <div class="nav__item">
+      <li><a href="/admin/stock" class="nav-links">stock</a></li>
+    </div>
+
+    <div class="nav__item">
+      <li><a href="/admin/stockUpdate" class="nav-links">stockUpdate</a></li>
+    </div>
+
+    <div class="nav__item">
+      <li><a href="/admin/message" class="nav-links">message</a></li>
+    </div>
+
+    <div class="nav__item">
+      <li><a href="/admin/commande" class="nav-links">commande</a></li>
+    </div>
+
+    <div class="nav__item">
+      <li>   
+        <a href="#"><img src="/images/user-removebg-preview.png" width="30px" height="30px" alt=""/> <span style="color: #26a65b;"><strong class="nav-links"><%= data.nom %></strong></span> </a>
+      </li>
+    </div>
+    <div class="nav__item">
+      <li><a href="/admin/deconnexion">Deconnexion</a></li>
+    </div>
+  </nav>
+ 
+ 
+  <% } %>
+  <script src="/javascripts/hearder2.js"></script>
+</body>
+</html>

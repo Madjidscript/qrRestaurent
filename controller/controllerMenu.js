@@ -67,11 +67,24 @@ const controllerMenu = class {
       const recup = await otherSousCathegorie.afficheTout2(id) 
       console.log('moais differente cathegorie',recup);
       if (recup) {
-        res.render('acceuil2',{recups:recup,req:req})
+        res.render('acceuil2',{data:recup,recups:recup,req:req})
         console.log('mon preemier plat',recup[0].nom);
       }
       
     }
+    static recherche = async(req=request, res=response)=>{
+      const id = req.params.id
+      console.log('mon nom hoioo',id);
+      const recup = await otherSousCathegorie.afficheTout2(id) 
+      console.log('moais differente cathegorie',recup);
+      if (recup) {
+        res.json({data:recup,recups:recup,req:req})
+        console.log('mon preemier plat',recup[0].nom);
+      }
+      
+    }
+    
+    
     static afficher = async(req=request, res=response)=>{
       
         res.render('afficher')

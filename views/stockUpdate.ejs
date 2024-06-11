@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/menu.css">
+    <link rel="stylesheet" href="/stylesheets/connexion.css">
     <title>Document</title>
 </head>
 <body>
-    <%- include('partials/hearder') %>
+    <%- include('partials/hearder2') %>
 
-    <form action="/admin/stockUpdate" method="post">
+    <!-- <form action="/admin/stockUpdate" method="post">
         <h2>Formulaire de modificatiion stock</h2>
         <% if ( typeof vv !== "undefined" && vv ) { %>
             <span><%= vv %></span>
@@ -26,7 +26,42 @@
         </select>
         
         <button class="valider" type="submit">Commander</button>
-    </form>
+    </form> -->
+    <section>
+        <div class="container">
+            <div class="formulaire">
+                <form action="/admin/stockUpdate" method="post">
+                    <h2>Formulaire de  sous cathegorie plat</h2>
+                    <% if ( typeof vv !== "undefined" && vv ) { %>
+                        <p class="message"><%= vv %></p>
+                        <% } %>
+                        <div class="input-container">
+                            <img src="/picture/imagesrb.png" width="30px" height="30px" alt="">
+                            <input type="number" name="nombre" id="" required>
+                            <label for="#">Nonbre du stock</label>
+                        </div>
+                        <div class="input-container">
+                            <select id="plat" name="id_Souscat">
+                                <% if( typeof recups !== "undefined" && recups ) { %>
+                                <% recups.forEach(function(element) { %>
+                                <option value="<%= element._id %>"> <%= element.id_cath.nom %> <span><%= element.nom %></span></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+                            <label for="plat" style="margin-left: 200px;"> sousCath</label>
+                        </div>
+                        
+                        <div class="input-containers" >
+                            <button type="submit">Ajouter</button>
+                        </div>
+            
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/loader') %>
     <!-- <script src="/javascripts/form.js"></script> -->
+    
 </body>
 </html>
