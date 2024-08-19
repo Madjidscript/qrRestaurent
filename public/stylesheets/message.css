@@ -14,3 +14,7 @@ th, td {
 th {
     background-color: black;
 }
+
+.low-stock {
+    color: red;
+}

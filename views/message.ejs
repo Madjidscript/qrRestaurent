@@ -22,7 +22,7 @@
                 <% if (element.nombre <= 90 ) { %>
             <tr>
                 <td><%= element.id_Souscat.nom %></td>
-                <td class="nombres"><%= element.nombre %></td>
+                <td class="nombres <% if (element.nombre <= 10) { %>low-stock<% } %>"><%= element.nombre %></td>
             </tr>
               <% } %>
             <!-- Ajoutez plus de lignes selon vos besoins -->
