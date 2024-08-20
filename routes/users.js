@@ -7,6 +7,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', controllerMenu.acceuil) 
+router.get('/:id', controllerMenu.acceuil) 
 router.get('/acceuil2/:id', controllerMenu.acceuil2) 
 router.get('/acceuil2/:id', controllerMenu.recherche) 
 router.get('/afficher', controllerMenu.afficher) 
@@ -15,6 +16,8 @@ router.get('/menu', controllerMenu.menu)
 router.post('/menu', controllerMenu.menuPost) 
 router.get('/menuListe', controllerMenu.menuListe) 
 router.post('/supp/:id', controllerMenu.menuListeSupp) 
+router.post('/qrcode', controllerMenu.qr) 
+// router.get('/qrcodes', controllerMenu.qrCodes) 
  
 
 module.exports = router;

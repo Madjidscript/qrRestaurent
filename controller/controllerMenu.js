@@ -4,9 +4,10 @@ const SousCathegorie = require("../model/modelSousCathegorie");
 const otherCathegorie = require("../other/otherCathegorie");
 const otherSousCathegorie = require("../other/otherSouscathegorie");
 const otherCmmd = require("../other/otherCmmd");
-
+// const otherqrcode =require("../other/otherqrcode")
 const otherStock = require("../other/otherStock");
 const otherMenu = require("../other/otherUser");
+const generateAndSaveQRCodes = require('../middleware/qr');
 const {response,request}= require('express');
 
 
@@ -105,6 +106,34 @@ const controllerMenu = class {
         
       }
     }
+
+    static qr = async (req=request,res=response)=>{
+      try {
+        // Exemple de tableau de nombres (id des tables)
+        const tableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    
+        // Appeler la fonction pour générer et sauvegarder les QR codes
+        const qrCodes = await generateAndSaveQRCodes(tableNumbers);
+    
+        console.log('QR Codes générés avec succès:', qrCodes);
+      } catch (error) {
+        console.error('Erreur lors de la génération des QR codes:', error.message);
+      }
+    }
+
+
+    // static qrCodes = async(req=request, res=response)=>{
+    //   const recup = await otherqrcode.afficheTout()
+    //   console.log('moais differente cathegorie',recup);
+    //   if (recup) {
+    //     res.render('qrcodess',{recups:recup})
+    //     console.log('mon preemier plat',recup[0].number);
+    //   }
+      
+    // }
+
+    
+    
 
 
    

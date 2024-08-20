@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/acceuil.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body >
+    
+            
+        <div class="page-title  home text-center" style="text-align: center; margin-top: 50px;" >
+            <span class="heading-page" > liste <strong>qrcode</strong></span>
+            
+        </div>
+
+
+
+        
+
+    
+    <div class="main">
+        <ul class="cards id="pepeto">
+            <%- include('partials/loader') %>
+            <% if (recups) { %>
+            <% recups.forEach(function(element) { %>
+            <li class="cards_item">
+                
+                <div class="card">
+                    <h2 class="card_title"><%= element.number %></h2>
+                    <div class="card_image">
+                        <svg viewBox="0 0 173.20508075688772 200"  version="1.1" xmlns="http://www.w3.org/2000/svg" style="border-radius: 5px;">
+                        <image href="<%= element.qrCodeData %>"  /> 
+                        
+                    </div>
+                   
+                </div>
+           
+            </li>
+        
+            <% }); %>
+            <% } %>
+        </ul>
+    </div>
+    
+</body>
+</html>

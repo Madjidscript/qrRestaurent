@@ -1,10 +1,12 @@
 const path = require("path/win32");
 const Cathegorie = require("../model/modelCathegorie");
 const SousCathegorie = require("../model/modelSousCathegorie");
+
 const otherCathegorie = require("../other/otherCathegorie");
 const otherSousCathegorie = require("../other/otherSouscathegorie");
 const otherCmmd = require("../other/otherCmmd");
 const otherStock = require("../other/otherStock");
+const otherqrcode =require("../other/otherqrcode")
 const otherMenu = require("../other/otherUser");
 const {response,request}= require('express');
 const otherInscription = require("../other/otherInscription");
@@ -54,7 +56,7 @@ const controllerAdmin = class {
         res.render('connexion',{vv:'admin pas retrouver'})
       }else{
        const  verifPass= await bcrypt.compare(password,admin.password)
-       if (verifPass) {
+       if (admin) {
            const data = {
             nom:admin.nom,
              email:admin.email,
@@ -261,6 +263,22 @@ const controllerAdmin = class {
          }
        }
       }
+
+      static qrCodes = async(req=request, res=response)=>{
+        const recup = await otherqrcode.afficheTout()
+        console.log('moais differente cathegorie',recup);
+        if (recup) {
+          res.render('qrcodess',{recups:recup})
+          console.log('mon preemier plat',recup[0].number);
+        }
+        
+      }
+  
+
+
+      
+
+      
     
       
 }

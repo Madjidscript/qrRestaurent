@@ -10,8 +10,7 @@ body {
     color: #ababab; 
   padding-top:3Opx ;}
   
-  
-  
+ 
   
   
   .heading-page
@@ -714,4 +713,7 @@ a{
   -webkit-background-clip:text;
   margin-top: 50px;
   text-shadow: -2px 2px 20px rgba(0,0,0,0.6);
+}
+#pepeto{
+  width: 330px;
 }

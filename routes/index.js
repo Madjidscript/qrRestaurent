@@ -1,6 +1,7 @@
 var express = require('express');
 const upload = require('../middleware/multer');
 const controllerAdmin = require('../controller/controllerAdmin');
+
 var router = express.Router();
 
 /* GET home page. */
@@ -21,4 +22,5 @@ router.post('/connexion', controllerAdmin.connexionPost)
 router.get('/message', controllerAdmin.message) 
 router.get('/deconnexion', controllerAdmin.Deconnexion) 
 router.post('/react', controllerAdmin.react) 
+router.get('/qrcodes', controllerAdmin.qrCodes)
 module.exports = router;
