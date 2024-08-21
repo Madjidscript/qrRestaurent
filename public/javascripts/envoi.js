@@ -32,7 +32,7 @@ commande.addEventListener('click',(e) =>{
       
      
         setTimeout(() => {
-            window.location.href = "https://qrrestaux.onrender.com"
+            window.location.href =  `https://qrrestaux.onrender.com/acceuil?numtable=${num}`
             console.log('didier drogba');
         }, 3000);
 })
@@ -49,7 +49,7 @@ let pp = document.querySelector('#panier')
   async function envoyerAuServeur(objet) {
     console.log('object',objet);
     try {
-        const response = await fetch(' https://qrrestaux.onrender.com/afficher', {
+        const response = await fetch(` https://qrrestaux.onrender.com/afficher?numtable=${num}`, {
            // http://localhost:3000/afficher
           // https://qrrestaux.onrender.com/afficher
             method: 'POST',
