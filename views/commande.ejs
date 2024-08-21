@@ -3,39 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Liste de Commandes</title>
     <link rel="stylesheet" href="/stylesheets/commandes2.css">
     <link rel="stylesheet" href="/stylesheets/loader.css">
-    
 </head>
 <body>
     <%- include('partials/loader') %>
     <%- include('partials/hearder') %>
-
 
     <div class="commande">
         <div class="titre">Liste de Commandes</div>
         <% if (commandes) { %>
             <% commandes.forEach(function(element) { %>
                 <% if (element.statut !== false) { %>
-        <div class="plats">
-            <% element.data.forEach(function(plat) { %>
-                
-            <div class="plat">
-                <div class="nom"><%= plat.nom %>:</div>
-                <div class="quantite">x<%= plat.nbre %>:</div>
-                <div class="prix">prix=<%= plat.prix %></div>
-            </div>
+                <div class="commande-item">
+                    <div class="plats">
+                        <% element.data.forEach(function(plat) { %>
+                            <div class="plat">
+                                <div class="nom"><%= plat.nom %>:</div>
+                                <div class="quantite">x<%= plat.nbre %></div>
+                                <div class="prix">Prix: <%= plat.prix %></div>
+                                
+                            </div>
+                        <% }); %>
+                    </div>
+                    <div class="num">Numéro de la table: <strong><%= element.num %></strong></div> 
+                    <div class="total">Total: <%= element.total %></div>
+                    <div class="total">statut commande: <%= element.statut %></div>
+                    <a href="/admin/commande/<%= element._id %>" class="servit">Servi au client</a>
+                </div>
+                <% } %>
             <% }); %>
-            <!-- Ajoutez plus de plats ici -->
-        </div>
-        <div class="num">numro de la table a manger: <strong style="color: #27ae60;"><%= element.num %></strong> </div> 
-        <div class="total">Total: <%= element.total %></div>
-       
-            <a href="/admin/commande/<%= element._id %>" class="servit" style="margin-bottom: 10px;margin-top: 10px;"> servit client</a>
-       
-            <% } %>
-        <% }); %>
         <% } %>
     </div>
     <script src="/javascripts/cmmd.js"></script>

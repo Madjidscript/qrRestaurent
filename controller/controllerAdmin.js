@@ -186,6 +186,7 @@ const controllerAdmin = class {
     static commande = async(req=request, res=response)=>{
       if (req.session.admin) {
         const commande = await otherCmmd.afficheTout()
+       
         if (commande) {
           res.render('commande',{"commandes":commande,data:req.session.admin}) 
           console.log("ma session universelle",req.session.admin);  
@@ -197,25 +198,22 @@ const controllerAdmin = class {
       }
 
     static commandes = async(req=request, res=response)=>{
+
       console.log("mon chao maho");
       const id = req.params.id
       console.log('mon id heeeee',req.params.id);
-      const commandes = await otherCmmd.afficheTout()
+      const commandes = await otherCmmd.utilisarteuParID(id)
       console.log("mes commande sont la hooo",commandes._id)
 
       if (commandes) {
-      
-        commandes.forEach(async (element) => {
-         let statut= element.statut
-         statut="false"
-          console.log("mes statut",statut,"mon id",id);
-          const modif = await otherCmmd.update(id,statut)
-          console.log("ma modification",modif);
-        });
+        const nouveauStatut=!commandes.statut
+        commandes.statut=nouveauStatut
+         const modif = await otherCmmd.update(id,commandes)
+        console.log("ma modification",modif);
         res.redirect('/admin/commande') 
-  }
-  
       }
+  
+    }
 
 
       static message = async(req=request, res=response)=>{

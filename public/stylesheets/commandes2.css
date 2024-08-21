@@ -1,75 +1,79 @@
-/* body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* commandes2.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f8f9fa;
-} */
+}
 
 .commande {
-    width:auto;
-    height:auto;
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .titre {
-    font-size: 24px;
-    font-weight: bold;
+    text-align: center;
+    font-size: 2em;
+    color: #333;
     margin-bottom: 20px;
+}
+
+.commande-item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.commande-item:hover {
+    background-color: #f0f0f0;
 }
 
 .plats {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .plat {
-    width: auto;
-    height: auto;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajout de l'ombre */
-    margin-bottom: 10px; /* Espacement entre les plats */
-    margin-top: 20px;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .nom {
-    flex: 2;
-}
-
-.quantite,
-.prix {
-    flex: 1;
-}
-
-.total {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 20px;
     font-weight: bold;
-    color: #27ae60;
+    color: #333;
 }
-a.servit{
-    width: 30px;
-    height: auto;
-    padding: 10px;
+
+.quantite, .prix {
+    color: #666;
+}
+
+.num, .total {
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+.servit {
+    display: inline-block;
+    padding: 10px 20px;
     background-color: #27ae60;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    margin-top: 15px;
+    color: #fff;
     text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.servit:hover {
+    background-color: #219150;
 }
