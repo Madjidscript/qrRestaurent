@@ -25,15 +25,16 @@
     <div class="main">
         <ul class="cards">
             <%- include('partials/loader') %>
-            <% if (recups) { %>
+            <% if (recups && ids) { %>
             <% recups.forEach(function(element) { %>
             <li class="cards_item">
-                <a href="/acceuil2/<%= element._id %>">
+                
+                <a href="/acceuil2/<%= element._id %>?numtable=<%= ids %>">
                 <div class="card">
-                    <h2 class="card_title"><%= element.nom %></h2>
+                    <h2 class="card_title"><%= element.nom %> </h2>
                     <div class="card_image">
                         <svg viewBox="0 0 173.20508075688772 200"  version="1.1" xmlns="http://www.w3.org/2000/svg" style="border-radius: 5px;">
-                        <image href="<%= element.image.replace(/\\/g, '/') %>" /> 
+                        <image href="<%= element.image.replace(/\\/g, '/') %> "/> 
                         <!-- <img src="https://assets.codepen.io/652/photo-1468777675496-5782faaea55b.jpeg" alt="mixed vegetable salad in a mason jar. "> -->
                         <!-- <div class="price">$9</div> -->
                     </div>

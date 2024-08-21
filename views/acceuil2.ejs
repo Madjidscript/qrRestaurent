@@ -18,16 +18,21 @@
             <nav>
               
                 <div class="nav"> 
-                    <a href="/" style="color: #f90a23;" class="retour">&#8592</a> 
+                    <% if (ids) { %>
+                       
+                        <a href="/acceuil?numtable=<%= ids %>" style="color: #f90a23;" class="retour">&#8592</a> 
+                    
+                    
     
                     <form action="#"  class="search-container">
                         <input type="text" id="search-input" name="search" value="" placeholder="Search Something..."  oninput="filterNames()"  required>
                         
                     </form>
-                      <a href="/afficher" class="cart-container">
+                      <a href="/afficher?numtable=<%= ids %>" class="cart-container">
                        <img src="/picture/paniero.png" alt="" width="30px" class="cart-icon">
                        <span class="nbre"  style="font-size: 20px;"></span>
                      </a>
+                     <% } %>
                 </div> 
             </nav> 
         
@@ -68,7 +73,7 @@
                                                   <div></div>
                                                   <div></div>
                                               </div>
-                                              <a  class="hex-content" style="overflow: hidden;padding: 10px;;"  >
+                                              <a  class="hex-content" style="overflow: hidden;padding: 10px;"  >
                                                 
                                                   <span class="hex-content-inner" >
                                                       

@@ -54,21 +54,24 @@ const controllerMenu = class {
     
    
     static acceuil = async(req=request, res=response)=>{
+      const id = parseInt(req.query.numtable, 10);
       const recup = await otherCathegorie.afficheTout()
-      console.log('moais differente cathegorie',recup);
+      
+      console.log('moais differente cathegorie',recup,"monid depuis lacceuil", id);
       if (recup) {
-        res.render('acceuil',{recups:recup})
+        res.render('acceuil',{recups:recup,req:req,ids:id})
         console.log('mon preemier plat',recup[0].nom);
       }
       
     }
     static acceuil2 = async(req=request, res=response)=>{
       const id = req.params.id
+      const num =  parseInt(req.query.numtable, 10)
       console.log('mon nom hoioo',id);
       const recup = await otherSousCathegorie.afficheTout2(id) 
       console.log('moais differente cathegorie',recup);
       if (recup) {
-        res.render('acceuil2',{data:recup,recups:recup,req:req})
+        res.render('acceuil2',{data:recup,recups:recup,req:req,ids:num})
         console.log('mon preemier plat',recup[0].nom);
       }
       
@@ -87,7 +90,7 @@ const controllerMenu = class {
     
     
     static afficher = async(req=request, res=response)=>{
-      
+      console.log("mon beugue")
         res.render('afficher')
     }
     static afficherPOst = async(req=request, res=response)=>{
@@ -122,26 +125,8 @@ const controllerMenu = class {
     }
 
 
-    // static qrCodes = async(req=request, res=response)=>{
-    //   const recup = await otherqrcode.afficheTout()
-    //   console.log('moais differente cathegorie',recup);
-    //   if (recup) {
-    //     res.render('qrcodess',{recups:recup})
-    //     console.log('mon preemier plat',recup[0].number);
-    //   }
-      
-    // }
-
     
     
 
-
-   
-
-
-
-   
-    
-      
 }
 module.exports = controllerMenu

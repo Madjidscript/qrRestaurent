@@ -265,14 +265,21 @@ const controllerAdmin = class {
       }
 
       static qrCodes = async(req=request, res=response)=>{
-        const recup = await otherqrcode.afficheTout()
-        console.log('moais differente cathegorie',recup);
-        if (recup) {
-          res.render('qrcodess',{recups:recup})
-          console.log('mon preemier plat',recup[0].number);
+        if(req.session.admin){
+          const recup = await otherqrcode.afficheTout()
+          console.log('moais differente cathegorie',recup);
+          if (recup) {
+            res.render('qrcodess',{recups:recup,data:req.session.admin})
+            console.log('mon preemier plat',recup[0].number);
+          }
+        }else {
+          res.redirect("/admin/connexion")
         }
         
+        
       }
+
+      
   
 
 

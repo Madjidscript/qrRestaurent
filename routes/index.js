@@ -23,4 +23,5 @@ router.get('/message', controllerAdmin.message)
 router.get('/deconnexion', controllerAdmin.Deconnexion) 
 router.post('/react', controllerAdmin.react) 
 router.get('/qrcodes', controllerAdmin.qrCodes)
+
 module.exports = router;

@@ -8,7 +8,7 @@ paniero.forEach(element => {
     console.log('le nom objet',data);
 });
 console.log("mon ami des ",data)
-
+console.log('mmmmmmm',window.location.search.replace(/^\?numtable=/, ''))
 let num = ""
 let totaliter = document.querySelector(".totaux").textContent
 console.log('ma totaliter hooo',totaliter);
@@ -17,7 +17,7 @@ console.log('ma comande',commande);
 
 commande.addEventListener('click',(e) =>{
     e.preventDefault()
- num =document.querySelector('.num').value
+ num =window.location.search.replace(/^\?numtable=/, '')
  
  
     console.log("mon numerosss",num)

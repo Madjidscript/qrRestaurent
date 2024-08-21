@@ -1,0 +1,55 @@
+/* Styles de base pour le corps */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Styles pour le conteneur principal */
+.containers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centre les cartes horizontalement */
+    gap: 10px; /* Espacement entre les cartes */
+    padding: 20px 50px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px; /* Limite la largeur maximale du conteneur */
+    margin: 0 auto; /* Centre le conteneur horizontalement */
+    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+}
+
+/* Styles pour chaque carte */
+.cardss {
+    flex: 1 1 calc(25% - 10px); /* Chaque carte prend environ un quart de la largeur du conteneur moins l'espacement */
+    max-width: 200px; /* Limite la largeur maximale de chaque carte */
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+}
+
+/* Styles pour les images des cartes */
+.card-image {
+    width: 100%;
+    height: 150px; /* Fixe une hauteur fixe pour les images */
+    object-fit: cover; /* Couvre tout l'espace sans déformation */
+}
+
+/* Styles pour les titres des cartes */
+.card-title {
+    margin: 0;
+    padding: 10px; /* Padding autour du titre */
+    color: #333;
+    background-color: #fff; /* Fond blanc pour le titre pour une meilleure lisibilité */
+    text-align: center; /* Centre le texte du titre */
+}

@@ -34,7 +34,10 @@ app.use(session({
 }));
 
 app.use('/admin', indexRouter);
-app.use('/', usersRouter);
+app.use('/',(req,res,next)=>{
+  console.log("mes methodes",req.url,req.method)
+  next()
+} ,usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
