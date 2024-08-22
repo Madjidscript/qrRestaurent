@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Document</title>
 </head>
 <body>
@@ -63,35 +64,44 @@
                                                
                                           <div class="hexagon-item">
                                             
-                                              <div class="hex-item">
+                                              <!-- <div class="hex-item">
                                                   <div></div>
                                                   <div style="border: 2Px solid white;"></div>
                                                   <div style="border: 2Px solid white;"></div>
-                                              </div>
-                                              <div class="hex-item">
+                                              </div> -->
+                                              <!-- <div class="hex-item">
                                                   <div></div>
                                                   <div></div>
                                                   <div></div>
-                                              </div>
+                                              </div>  -->
                                               <a  class="hex-content" style="overflow: hidden;padding: 10px;"  >
                                                 
                                                   <span class="hex-content-inner" >
                                                       
                                                       <span class="title" style="font-size: 20px;"><strong class="titres"><%= element.nom %></strong></span> 
                                                     </span>
-                                                  <svg viewBox="0 0 173.20508075688772 200" height="auto" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><image class="img" href="/<%= element.image.replace(/\\/g, '/') %>" height="100%" width="100%" />
+                                                  <svg viewBox="0 0 173.20508075688772 200" height="auto" width="auto" version="1.1" xmlns="http://www.w3.org/2000/svg" class=".hex-content"><image class="img" href="/<%= element.image.replace(/\\/g, '/') %>" height="100%" width="100%" />
                                                 </svg>
-                                                <div class="id"><%= element.id %></div>
+                                                <div class="id"></div>
                                               </a>
                                               
-                                            <span class="prix"><strong><%= element.prix %> Cfa</strong></span>
-                                            
-                                            
+                                            <span class="prix"><strong><i class="fas fa-tag"></i><%= element.prix %> Cfa</strong></span>
 
-                                          </div>
+
+                                           
+
+                                          </div> 
+
+                                         
                                           <% }); %>
                                           <% } %>
-                                        </div>
+                            </div>
+
+
+
+
+
+                                        
                                           
                                           
                                           

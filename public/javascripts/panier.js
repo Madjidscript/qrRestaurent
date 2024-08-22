@@ -10,6 +10,7 @@ parents.forEach((element) => {
     console.log("papa");
 
     const images = element.children[1].childNodes[0].href.animVal;
+   
     let prix = parseInt(element.nextElementSibling.innerText);
     let id = element.children[2].innerText;
     console.log("mon veritable id", id);

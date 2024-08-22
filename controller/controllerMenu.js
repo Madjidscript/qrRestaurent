@@ -91,7 +91,8 @@ const controllerMenu = class {
     
     static afficher = async(req=request, res=response)=>{
       console.log("mon beugue")
-        res.render('afficher')
+      const num =  parseInt(req.query.numtable, 10)
+        res.render('afficher',{ids:num})
     }
     static afficherPOst = async(req=request, res=response)=>{
      

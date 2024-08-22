@@ -38,8 +38,8 @@ const controllerAdmin = class {
           password:hashpass
         }
         const insert = await otherInscription.inscription(data)
-        console.log('inscription effectuer');
-          res.redirect("/admin/connexion")
+        console.log('inscription effectuer',insert);
+          res.redirect("/admin/inscription")
           
         
       }
