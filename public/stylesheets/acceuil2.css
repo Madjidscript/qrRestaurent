@@ -232,7 +232,7 @@ nav {
 .hex-content {
   position: absolute;
   z-index: 1;
-  /* bottom: 7px; */
+ 
   width: 255px;
   height: 230px;
   color: #fff;
@@ -278,7 +278,7 @@ nav {
 }
 
 .hex-content .id {
-  display: none; /* Hide if not needed */
+  display: none; 
 }
 
 .hex-content .title strong {
@@ -292,5 +292,5 @@ nav {
 }
 
 .hex-content .btn {
-  display: none; /* Hide if not needed */
+  display: none; 
 }
