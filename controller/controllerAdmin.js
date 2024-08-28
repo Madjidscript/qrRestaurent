@@ -214,6 +214,22 @@ const controllerAdmin = class {
       }
   
     }
+    static anulecommandes = async(req=request, res=response)=>{
+
+      console.log("mon chao maho");
+      const id = req.params.id
+      console.log('mon id heeeee',req.params.id);
+      const commandes = await otherCmmd.utilisarteuParID(id)
+      console.log("mes commande sont la hooo",commandes._id)
+
+      if (commandes && commandes.statut=== true ) {
+        
+         const annule = await otherCmmd.suppression(id)
+       
+        res.json({message:"annulation de commande"}) 
+      }
+  
+    }
 
 
       static message = async(req=request, res=response)=>{

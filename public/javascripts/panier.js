@@ -102,6 +102,8 @@ parents.forEach((element) => {
 
 
 
+
+
 function nonbre() {
   let totale = [];
   // Récupérer les données actuelles du stockage local
@@ -123,6 +125,8 @@ function nonbre() {
 
 
 }
+
+nonbre()
 
 nonbre()
 

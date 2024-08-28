@@ -5,30 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/affiche.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/stylesheets/modal.css">
     <title>Document</title>
 </head>
-<body >
+<body>
     <%- include('partials/loader') %>
     <% if (ids) { %>
     <div class="navre">
         <a href="/acceuil?numtable=<%= ids %>" style="color: #f90a23;" class="retour">&#8592</a>
-        <a href="" style="color:#f90a23; font-size: 25px;" class="retour  tot"  >Total:<span class="totaux"style="color:#f90a23; font-size: 25px;"></span></a>
-        
+        <a href="#" style="color:#f90a23; font-size: 25px;" class="retour tot">
+            Total: <span class="totaux" style="color:#f90a23; font-size: 25px;">0</span> fcfa
+        </a>
     </div>
     <% } %>
+
     <div id="panier">
-        
-        <!-- Ajoutez plus d'articles ici -->
+        <h3>Votre panier est vide cher client</h3>
     </div>
+
     <div class="navres">
-       <input type="hidden" class="num" placeholder="e numero de votre table a manger" required>
+        <input type="hidden" class="num" placeholder="Numéro de votre table à manger" required>
        
-        <span><input type="submit" class="commande" value="valider commande"></span>
+        <a href="#" class="annule">Annuler la commande</a>
+        
+        <span>
+            <input type="submit" class="commande" value="Valider la commande">
+        </span>
     </div>
-   
-  
-        <script src="/javascripts/afficher.js"></script>
-        <script src="/javascripts/panier.js"></script>
-        <script src="/javascripts/envoi.js"></script>
+
+    <!-- Modal pour confirmation d'annulation -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirmer l'annulation</h2>
+            <p>Êtes-vous sûr de vouloir annuler la commande ?</p>
+            <button id="confirmCancel" class="confirm-button">Oui, annuler</button>
+            <button id="cancelCancel" class="cancel-button">Non, garder la commande</button>
+        </div>
+    </div>
+
+    <!-- Fichiers JavaScript -->
+    <script src="/javascripts/afficher.js"></script>
+    <script src="/javascripts/panier.js"></script>
+    <script src="/javascripts/envoi.js"></script>
+    <!-- <script src="/javascripts/modal.js"></script> -->
 </body>
 </html>

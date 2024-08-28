@@ -71,42 +71,60 @@ const controllerMenu = class {
       const recup = await otherSousCathegorie.afficheTout2(id) 
       console.log('moais differente cathegorie',recup);
       if (recup) {
-        res.render('acceuil2',{data:recup,recups:recup,req:req,ids:num})
+        res.render('acceuil2',{data:recup,recups:recup,req:req,ids:num,id:id})
         console.log('mon preemier plat',recup[0].nom);
       }
       
     }
-    static recherche = async(req=request, res=response)=>{
-      const id = req.params.id
-      console.log('mon nom hoioo',id);
-      const recup = await otherSousCathegorie.afficheTout2(id) 
-      console.log('moais differente cathegorie',recup);
-      if (recup) {
-        res.json({data:recup,recups:recup,req:req})
-        console.log('mon preemier plat',recup[0].nom);
+    static recherche = async (req, res) => {
+      try {
+          const id = req.params.id;
+          console.log('ID reçu:', id);
+          const recup = await otherSousCathegorie.afficheTout2(id);
+          // console.log('notrrrrrrrrr',recup)
+          const searchQuery = req.query.search || '';
+          const filteredItems = recup.filter(item =>
+            
+              item.nom.toLowerCase().includes(searchQuery.toLowerCase())
+             
+          );
+          console.log("itemmmm",filteredItems)
+         return res.json( { recups: filteredItems, searchQuery });
+      } catch (error) {
+          console.error('Erreur lors de la recherche:', error);
+          res.status(500).send('Erreur interne du serveur');
       }
-      
-    }
+  };
+  
     
     
-    static afficher = async(req=request, res=response)=>{
-      console.log("mon beugue")
-      const num =  parseInt(req.query.numtable, 10)
+  static afficher = async(req=request, res=response)=>{
+    console.log("mon beugue")
+    const id = req.params.id
+      const comande= otherCmmd.utilisarteuParID(id)
+      try {
+        const num =  parseInt(req.query.numtable, 10)
         res.render('afficher',{ids:num})
-    }
+       
+      } catch (error) {
+        console.error("eeeee",error.message)
+        res.render('afficher', { error: error.message });
+      }
+  }
     static afficherPOst = async(req=request, res=response)=>{
      
       const data =req.body
      const data2= data.data
       const insertion = await otherCmmd.inscription(data)
+      
       console.log('mon insertion commande', data,data2);
       if (insertion) {
         data2.forEach( async (element)  => {
           console.log("ici ses mon id",element.id,element.nbre);
           const modif = await otherStock.update(element.id,element.nbre)
-          console.log("ma modifiv=cation final",modif);
+          console.log("ma modifiv=cation final",modif,"aaaaaayy");
         });
-        res.json({data:'commande effectuer avec succes'})
+        res.json({data:'commande effectuer avec succes',data2:insertion})
         
       }
     }

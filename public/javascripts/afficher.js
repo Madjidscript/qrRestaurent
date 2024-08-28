@@ -162,6 +162,7 @@ function totaux() {
    console.log("monnn totto",totale)
    const sommes = totale.reduce((acc, valeur) => acc + valeur, 0);
    console.log("ma sommme",sommes);
+   
    const yo= document.querySelector('.totaux').textContent=sommes
 console.log('monn tttkkknt',yo);
     // Mettre à jour le stockage local avec les nouveaux éléments

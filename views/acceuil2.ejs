@@ -26,7 +26,7 @@
                     
     
                     <form action="#"  class="search-container">
-                        <input type="text" id="search-input" name="search" value="" placeholder="Search Something..."  oninput="filterNames()"  required>
+                        <input type="text" id="searchInput"   placeholder="Search Something..." >
                         
                     </form>
                       <a href="/afficher?numtable=<%= ids %>" class="cart-container">
@@ -61,8 +61,10 @@
                                            <!-- <%- include('partials/loader') %> -->
                                            <% if (recups) { %>
                                             <% recups.forEach(function(element) { %>
-                                               
-                                          <div class="hexagon-item">
+                                        <div >
+
+
+                                          <div id="results" class="hexagon-item">
                                             
                                               <!-- <div class="hex-item">
                                                   <div></div>
@@ -92,7 +94,7 @@
 
                                           </div> 
 
-                                         
+                                        </div>
                                           <% }); %>
                                           <% } %>
                             </div>
@@ -127,5 +129,6 @@
 <script src="../public/javascripts/afficher.js"></script>
 <script src="/javascripts/panier.js"></script>
 <script src="/javascripts/recherche.js"></script>
+<div id="pageId" data-id="<%= id %>"></div>
 
 </html>

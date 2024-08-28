@@ -1,84 +1,157 @@
+document.addEventListener('DOMContentLoaded', () => {
+    let data2;
+    let paniero = JSON.parse(localStorage.getItem("Qrcode"));
+    let data = [];
+    let idCommande; // Remplacez par l'ID dynamique si nécessaire
+    let deleteUrl;
+    let redirectTimeout;
 
-let data2
-let paniero = JSON.parse(localStorage.getItem("Qrcode")) ;
-let data =[]
-paniero.forEach(element => {
-    const textcontent = element
-    data.push(textcontent)
-    console.log('le nom objet',data);
-});
-console.log("mon ami des ",data)
-console.log('mmmmmmm',window.location.search.replace(/^\?numtable=/, ''))
-let num = ""
-let totaliter = document.querySelector(".totaux").textContent
-console.log('ma totaliter hooo',totaliter);
-let commande = document.querySelector(".commande")
-console.log('ma comande',commande);
-
-commande.addEventListener('click',(e) =>{
-    e.preventDefault()
- num =window.location.search.replace(/^\?numtable=/, '')
- 
- 
-    console.log("mon numerosss",num)
-    const cmmd = {
-        num:num,
-        total:totaliter,
-        data:data,
-      }
-      data2=cmmd
-      console.log("mon objet fiable",cmmd);
-      envoyerAuServeur(data2)
-      
-     
-        setTimeout(() => {
-            window.location.href =  `https://qrrestaux.onrender.com/acceuil?numtable=${num}`
-            console.log('didier drogba');
-        }, 3000);
-})
-
-
-
-
-
-
-
-
-let pp = document.querySelector('#panier')
-
-  async function envoyerAuServeur(objet) {
-    console.log('object',objet);
-    try {
-        const response = await fetch(` https://qrrestaux.onrender.com/afficher?numtable=${num}`, {
-           // http://localhost:3000/afficher
-          // https://qrrestaux.onrender.com/afficher
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(objet),
-            
+    if (paniero) {
+        paniero.forEach(element => {
+            data.push(element);
+            console.log('le nom objet', data);
         });
-        
-
-        
-        if (response) {
-            console.log('Élément du cmmd ajouté à la base de données.',response);
-            const responseData = await response.json();
-            console.log('Élément du cmmd ajouté à la base de données.',responseData,responseData.data);
-            pp.textContent=responseData.data
-            localStorage.removeItem('Qrcode')
-            JSON.parse(localStorage.getItem('cmmd'))
-            localStorage.setItem('cmmd',JSON.stringify(objet))
-            console.log('mamaan');
-        } else {
-            console.error('Erreur lors de l\'ajout à la base de données.');
-        }
-    } catch (error) {
-        console.log(error);
     }
-}
+    console.log("mon ami des ", data);
 
-// Utilisez cette fonction lorsque vous êtes prêt à envoyer les données du cmmd
+    let num = window.location.search.replace(/^\?numtable=/, '');
+    console.log('mmmmmmm', num);
 
+    let totaliter = document.querySelector(".totaux").textContent;
+    console.log('ma totaliter hooo', totaliter);
 
+    let commande = document.querySelector(".commande");
+    let annule = document.querySelector(".annule");
+    let pp = document.querySelector('#panier');
+
+    // Référence à la boîte de dialogue et aux boutons
+    let modal = document.getElementById("confirmationModal");
+    let closeBtn = document.querySelector(".close");
+    let confirmBtn = document.getElementById("confirmCancel");
+    let cancelBtn = document.querySelector("#cancelCancel");
+
+    function mettreAJourAffichage() {
+        if (totaliter === "0" || totaliter === "" || totaliter === 0) {
+            pp.innerHTML = `<h3>votre panier est vide cher client</h3>`;
+            if (commande) commande.style.display = 'none';
+            if (annule) annule.style.display = 'block';
+        } else {
+            if (commande) commande.style.display = 'inline';
+            if (annule) annule.style.display = 'none';
+        }
+    }
+
+    mettreAJourAffichage();
+
+    if (commande) {
+        commande.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            console.log("mon numerosss", num);
+            const cmmd = {
+                num: num,
+                total: totaliter,
+                data: data,
+            };
+            data2 = cmmd;
+            console.log("mon objet fiable", cmmd);
+
+            try {
+                const response = await fetch(`http://localhost:7000/afficher?numtable=${num}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(cmmd),
+                });
+
+                if (response.ok) {
+                    console.log('Élément du cmmd ajouté à la base de données.', response);
+                    const responseData = await response.json();
+                    console.log('Élément du cmmd ajouté à la base de données.', responseData, responseData.data);
+
+                    pp.textContent = responseData.data;
+                    idCommande = responseData.data2[0]._id;
+                    console.log("le fameux id rechercher", idCommande);
+                    deleteUrl = `http://localhost:7000/admin/annulecommande/${idCommande}?numtable=${num}`;
+
+                    localStorage.removeItem('Qrcode');
+                    localStorage.setItem('cmmd', JSON.stringify(cmmd));
+                    console.log('mamaan');
+
+                    if (commande) commande.style.display = 'none';
+                    if (annule) annule.style.display = 'block'; 
+
+                    // Démarrer le délai de redirection
+                    redirectTimeout = setTimeout(() => {
+                        window.location.href = `http://localhost:7000/acceuil?numtable=${num}`;
+                        console.log('didier drogba');
+                    }, 180000); // 3 minutes en millisecondes
+
+                } else {
+                    console.error('Erreur lors de l\'ajout à la base de données.');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // Afficher la boîte de dialogue de confirmation lorsque le bouton d'annulation est cliqué
+    if (annule) {
+        annule.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = "block"; // Affiche la boîte de dialogue
+        });
+    }
+
+    // Fermer la boîte de dialogue lorsque l'utilisateur clique sur la croix
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = "none"; // Cache la boîte de dialogue
+        });
+    }
+
+    // Annuler la commande après confirmation
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch(deleteUrl, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    console.log('Commande annulée avec succès hooooo.');
+                    pp.innerHTML = `<h3>votre panier est vide cher client</h3>`;
+                    if (commande) commande.style.display = 'none';
+                    if (annule) annule.style.display = 'none';
+                    localStorage.removeItem('cmmd'); // Nettoie localStorage après annulation
+
+                    // Annuler le délai de redirection et rediriger immédiatement
+                    clearTimeout(redirectTimeout);
+                    window.location.href = `http://localhost:7000/acceuil?numtable=${num}`;
+                } else {
+                    console.error('Erreur lors de l\'annulation de la commande.');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+            modal.style.display = "none"; // Cache le modal après annulation
+        });
+    }
+
+    // Fermer la boîte de dialogue lorsque l'utilisateur clique en dehors de celle-ci
+    window.addEventListener('click', (event) => {  
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Annuler l'annulation si l'utilisateur clique sur le bouton "Non"
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            modal.style.display = "none"; // Cache le modal sans annuler
+        });
+    }
+});

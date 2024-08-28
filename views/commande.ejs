@@ -20,6 +20,7 @@
                     <div class="plats">
                         <% element.data.forEach(function(plat) { %>
                             <div class="plat">
+                                
                                 <div class="nom"><%= plat.nom %>:</div>
                                 <div class="quantite">x<%= plat.nbre %></div>
                                 <div class="prix">Prix: <%= plat.prix %></div>
@@ -29,6 +30,7 @@
                     </div>
                     <div class="num">Numéro de la table: <strong><%= element.num %></strong></div> 
                     <div class="total">Total: <%= element.total %></div>
+                    <!-- <div class="total">id: <%= element.id %></div> -->
                     <div class="total">statut commande: <%= element.statut %></div>
                     <a href="/admin/commande/<%= element._id %>" class="servit">Servi au client</a>
                 </div>

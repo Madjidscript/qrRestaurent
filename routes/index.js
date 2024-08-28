@@ -7,6 +7,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/commande', controllerAdmin.commande) 
 router.get('/commande/:id', controllerAdmin.commandes) 
+router.delete('/annulecommande/:id', controllerAdmin.anulecommandes) 
 router.get('/cathegorie', controllerAdmin.cathegorie) 
 router.post('/cathegorie',upload.single('image'), controllerAdmin.cathegoriePost)  
 router.get('/souscathegorie', controllerAdmin.souscathegorie) 
