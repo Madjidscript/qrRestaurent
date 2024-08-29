@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("mon objet fiable", cmmd);
 
             try {
-                const response = await fetch(`http://localhost:7000/afficher?numtable=${num}`, {
+                const response = await fetch(`https://qrrestaux.onrender.com/afficher?numtable=${num}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pp.textContent = responseData.data;
                     idCommande = responseData.data2[0]._id;
                     console.log("le fameux id rechercher", idCommande);
-                    deleteUrl = `http://localhost:7000/admin/annulecommande/${idCommande}?numtable=${num}`;
+                    deleteUrl = `https://qrrestaux.onrender.com/admin/annulecommande/${idCommande}?numtable=${num}`;
 
                     localStorage.removeItem('Qrcode');
                     localStorage.setItem('cmmd', JSON.stringify(cmmd));
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Démarrer le délai de redirection
                     redirectTimeout = setTimeout(() => {
-                        window.location.href = `http://localhost:7000/acceuil?numtable=${num}`;
+                        window.location.href = `https://qrrestaux.onrender.com/acceuil?numtable=${num}`;
                         console.log('didier drogba');
                     }, 180000); // 3 minutes en millisecondes
 
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Annuler le délai de redirection et rediriger immédiatement
                     clearTimeout(redirectTimeout);
-                    window.location.href = `http://localhost:7000/acceuil?numtable=${num}`;
+                    window.location.href = `https://qrrestaux.onrender.com/acceuil?numtable=${num}`;
                 } else {
                     console.error('Erreur lors de l\'annulation de la commande.');
                 }
