@@ -27,6 +27,14 @@
                                 
                             </div>
                         <% }); %>
+                        <% element.alergit.forEach(function(element) { %>
+                            <div class="plat">
+                                
+                                <div class="nom">alergit:<%= element.alergit %>:</div>
+                                <div class="nom">temperature:<%= element.temperature %></div>
+                                
+                            </div>
+                        <% }); %>
                     </div>
                     <div class="num">Numéro de la table: <strong><%= element.num %></strong></div> 
                     <div class="total">Total: <%= element.total %></div>
