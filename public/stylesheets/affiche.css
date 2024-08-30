@@ -130,6 +130,18 @@ img {
  cursor: pointer;
  
 }
+.alergie {
+ width: auto;
+ min-height: 20px;
+background-color: #e74c3c; /* Rouge vif */
+color: #ffffff; /* Texte blanc */
+ border-radius: 10px;
+ text-decoration: none;
+ border: none;
+ padding: 15px;
+ cursor: pointer;
+ 
+}
 .annule {
  width: auto;
  height: 20px;
@@ -245,3 +257,138 @@ img {
         opacity: 1;
     }
 }
+
+/* partie popup formulaire */
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .overlay:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .popup {
+    margin: 100px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 70%;
+    position: relative;
+    transition: all 5s ease-in-out;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+  }
+  .popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .popup .close:hover {
+    color: #06D85F;
+  }
+  .popup .content {
+    max-height: 30%;
+    overflow: auto;
+  }
+  
+  @media screen and (max-width: 700px){
+    .box{
+      width: 70%;
+    }
+    .popup{
+      width: 70%;
+    }
+  }
+
+
+  /* formulaire alergie */
+  .form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); */
+  }
+  .form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  .form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+
+
+  .select-wrapper {
+    position: relative;
+    max-width: 360px;
+    
+    &::after {
+      color: black;
+      content: '▾';
+      margin-right: 10px;
+      pointer-events: none;
+      position: absolute;
+      right: 10px;
+      top: 7px;
+      font-size: 20px;
+    }
+  }
+  
+ 
+  .select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: #f2f2f2;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 12px;
+    width: 100%;
+    font-size: 18px;
+    &:focus {
+      color: black;
+    }
+    
+    &::-ms-expand {
+      display: none;
+    }
+  }

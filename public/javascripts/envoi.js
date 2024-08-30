@@ -1,15 +1,65 @@
 document.addEventListener('DOMContentLoaded', () => {
     let data2;
     let paniero = JSON.parse(localStorage.getItem("Qrcode"));
+    let alerge = JSON.parse(localStorage.getItem("alergit"));
     let data = [];
+    let data3 = [];
     let idCommande; // Remplacez par l'ID dynamique si nécessaire
     let deleteUrl;
     let redirectTimeout;
+    let alergit 
+  
+    let msg = document.getElementById('msg');
+    console.log("eeeeee",msg);
+    
+
+    document.getElementById('submitButton').addEventListener('click', function() {
+        // Récupère les valeurs des champs du formulaire
+        const alergieValue = document.getElementById('alergieInput').value;
+        const temperatureValue = document.getElementById('temperatureSelect').value;
+        
+    
+        // Crée l'objet alergit avec les valeurs récupérées
+         alergit = {
+          alergit: alergieValue,
+          temperature: temperatureValue
+        };
+        let alergitArray = JSON.parse(localStorage.getItem('alergit')) || [];
+        // Ajoute l'objet alergit au tableau
+        alergitArray.push(alergit);
+        // Sauvegarde le tableau mis à jour dans localStorage
+        localStorage.setItem('alergit', JSON.stringify(alergitArray));
+        console.log('Alergit ajouté au localStorage :', alergitArray);
+        
+        
+        
+        // Affiche ou utilise l'objet alergit
+        if (alergieValue ==="") {
+            msg.textContent="remplisez vos champs" ;
+            console.log("eeeeee",msg);
+        }else{
+            console.log('Objet alergit :', alergit);
+            redirectTimeout = setTimeout(() => {
+             window.location.href = `https://qrrestaux.onrender.com/afficher?numtable=${num}`;
+            console.log('didier drogba',);
+        }, 10000);
+    
+        }
+       
+    });
 
     if (paniero) {
         paniero.forEach(element => {
             data.push(element);
-            console.log('le nom objet', data);
+           
+            console.log('le nom objet', data,"roro",data3);
+        });
+    }
+    if (alerge) {
+        alerge.forEach(element => {
+            data3.push(element);
+           
+            console.log('le nom objet', data,"roro",data3);
         });
     }
     console.log("mon ami des ", data);
@@ -21,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('ma totaliter hooo', totaliter);
 
     let commande = document.querySelector(".commande");
+    let alergie = document.querySelector(".alergie");
     let annule = document.querySelector(".annule");
     let pp = document.querySelector('#panier');
 
@@ -29,19 +80,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let closeBtn = document.querySelector(".close");
     let confirmBtn = document.getElementById("confirmCancel");
     let cancelBtn = document.querySelector("#cancelCancel");
+   
 
     function mettreAJourAffichage() {
         if (totaliter === "0" || totaliter === "" || totaliter === 0) {
             pp.innerHTML = `<h3>votre panier est vide cher client</h3>`;
             if (commande) commande.style.display = 'none';
+            if (alergie) alergie.style.display = 'none';
             if (annule) annule.style.display = 'block';
         } else {
             if (commande) commande.style.display = 'inline';
+            if (alergie) alergie.style.display = 'inline';
             if (annule) annule.style.display = 'none';
         }
     }
 
     mettreAJourAffichage();
+    
 
     if (commande) {
         commande.addEventListener('click', async (e) => {
@@ -52,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 num: num,
                 total: totaliter,
                 data: data,
+                alergit:data3
+                
             };
             data2 = cmmd;
             console.log("mon objet fiable", cmmd);
@@ -86,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     redirectTimeout = setTimeout(() => {
                         window.location.href = `https://qrrestaux.onrender.com/acceuil?numtable=${num}`;
                         console.log('didier drogba');
-                    }, 180000); // 3 minutes en millisecondes
+                    }, 120000); // 3 minutes en millisecondes
 
                 } else {
                     console.error('Erreur lors de l\'ajout à la base de données.');
@@ -124,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('Commande annulée avec succès hooooo.');
                     pp.innerHTML = `<h3>votre panier est vide cher client</h3>`;
                     if (commande) commande.style.display = 'none';
+                    if (alergie) alergie.style.display = 'none';
                     if (annule) annule.style.display = 'none';
                     localStorage.removeItem('cmmd'); // Nettoie localStorage après annulation
 
@@ -155,3 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+

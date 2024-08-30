@@ -25,6 +25,7 @@ parents.forEach((element) => {
       prix: prix,
       prixIni: prix,
       nbre: 1,
+     
     };
 
     console.log("le vraipanier", typeof panier, panier);
@@ -67,6 +68,7 @@ parents.forEach((element) => {
           prix: papa.prix,
           prixIni: data.prix,
           nbre: papa.nbre,
+          
         };
         // console.log("mon nonbre", papa.nbre,typeof(papa.nbre));
         console.log("le vrai chao", data);

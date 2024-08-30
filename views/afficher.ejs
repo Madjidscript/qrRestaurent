@@ -28,9 +28,12 @@
        
         <a href="#" class="annule">Annuler la commande</a>
         
+            <a  class="alergie" href="#popup1" > votre alergie </a>
+       
         <span>
-            <input type="submit" class="commande" value="Valider la commande">
+            <input type="submit" class="commande" id="commande" value="Valider la commande">
         </span>
+       
     </div>
 
     <!-- Modal pour confirmation d'annulation -->
@@ -43,6 +46,30 @@
             <button id="cancelCancel" class="cancel-button">Non, garder la commande</button>
         </div>
     </div>
+
+    <!-- popup pour le formulaire darlergie -->
+    <div id="popup1" class="overlay">
+        <div class="popup">
+            <h2 id="msg" > </h2>
+            <a class="close" href="">&times;</a>
+            <div class="content">
+                <div class="form">
+                    <form class="login-form">
+                        <input type="text" id="alergieInput" placeholder="alergie" required />
+                        <div class="select-wrapper">
+                          <select id="temperatureSelect" class="select">
+                            <option value="froid">Froid</option>
+                            <option value="tiède">Tiède</option>
+                            <option value="chaude">Chaude</option>
+                          </select>
+                        </div>
+                        <button type="button"  id="submitButton" class="soum">Soumettre</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
 
     <!-- Fichiers JavaScript -->
     <script src="/javascripts/afficher.js"></script>

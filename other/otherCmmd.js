@@ -15,6 +15,14 @@ static afficheTout = async()=>{
   console.log("mon erreur",error);  
   }
 }
+static afficheTout2 = async(id)=>{
+    try {
+      const affiche = await Alergie.find({id_cath:id}).populate('id_cath')
+      return affiche
+    } catch (error) {
+    console.log("mon erreur",error);  
+    }
+  }
 
 static utilisarteuParID = async(id)=>{
     try {
