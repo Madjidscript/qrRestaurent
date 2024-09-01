@@ -7,6 +7,13 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    background-image: url('../images/bg6.png');
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover; 
+    background-position:center;
+    background-repeat: no-repeat; 
+    z-index: -1; /* Place l'image derrière le contenu */
 }
 
 #panier {
@@ -65,7 +72,7 @@ img {
 }
 
 .supprimer {
-    background-color: #ff6b6b;
+    background-color: #FFC100;
     color: #fff;
     margin-top: 3px;
 }
@@ -104,7 +111,7 @@ img {
     padding: 20px;
     border-radius: 5px;
     background-color: white;
-    border: 2px solid #ff6b6b;
+    border: 2px solid #FFC100;
     z-index: 99;
   }
   .navres{
@@ -133,7 +140,7 @@ img {
 .alergie {
  width: auto;
  min-height: 20px;
-background-color: #e74c3c; /* Rouge vif */
+background-color: #FFC100; /* Rouge vif */
 color: #ffffff; /* Texte blanc */
  border-radius: 10px;
  text-decoration: none;
@@ -161,7 +168,7 @@ color: #ffffff; /* Texte blanc */
  padding: 10px;
  color: black;
  border-radius: 10px;
- border:2px solid #ff6b6b;
+ border:2px solid #FFC100;
 }
 
 

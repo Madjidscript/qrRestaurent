@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/indexs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <%- include('partials/loader') %>
+    <div class="container">
+        <% if (ids) { %>
+            <nav class="navbar">
+                <div class="menu-toggle" id="menuToggle">
+                    ☰ <span>Menu</span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="/index?numtable=<%= ids %>">Acceuil</a></li>
+                    <li><a href="/acceuil?numtable=<%= ids %>">Menu</a></li>
+                    <li><a href="/afficher?numtable=<%= ids %>">Panier</a></li>
+                </ul>
+            </nav>
+        <% } %>
+       
+        <div class="content">
+        <div id="box3">
+            <div class="card"></div>
+        </div>
+        <div class="box">
+            <% if (ids) { %>
+                <a href="/acceuil?numtable=<%= ids %>" class="menus">Notre Menu</a></li>
+            <% } %>
+        </div>
+
+        <div class="par">
+            <div class="icon" id="tiktok"><i class="fab fa-tiktok"></i></div>
+        <div class="icon" id="whatsapp"><i class="fab fa-whatsapp"></i></div>
+        <div class="icon" id="instagram"><i class="fab fa-instagram"></i></div>
+        </div>
+       
+        </div>
+    </div>
+</body>
+<script src="/javascripts/nav.js"></script>
+</html>

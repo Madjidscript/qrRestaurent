@@ -11,50 +11,66 @@
 </head>
 <body >
     
+    <% if (ids) { %>
+        <nav class="navbar">
+            <div class="menu-toggle" id="menuToggle">
+                ☰ <span>Menu</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/index?numtable=<%= ids %>">Acceuil</a></li>
+                <li><a href="/acceuil?numtable=<%= ids %>">Menu</a></li>
+                <li><a href="/afficher?numtable=<%= ids %>">Panier</a></li>
+            </ul>
+        </nav>
+    <% } %>
             
-        <div class="page-title  home text-center" style="text-align: center; margin-top: 50px;" >
-            <span class="heading-page" > Bienvennue a <strong>Piko</strong></span>
-            <p class="mt20" style="color: black;">Nous vous invitons à réserver votre table pour vivre une expérience culinaire exceptionnelle. Venez découvrir le charme unique du Restaurant PIKO et laissez-nous vous offrir un voyage gustatif mémorable.</p>
+        <div class="titre">
+            <h1>notre Menu</h1>
         </div>
 
-
-
-        
-
-    
-    <div class="main">
-        <ul class="cards">
-            <%- include('partials/loader') %>
-            <% if (recups && ids) { %>
-            <% recups.forEach(function(element) { %>
-            <li class="cards_item">
+           
+           
                 
-                <a href="/acceuil2/<%= element._id %>?numtable=<%= ids %>">
-                <div class="card">
-                    <h2 class="card_title"><%= element.nom %> </h2>
-                    <div class="card_image">
-                        <svg viewBox="0 0 173.20508075688772 200"  version="1.1" xmlns="http://www.w3.org/2000/svg" style="border-radius: 5px;">
-                        <image href="<%= element.image.replace(/\\/g, '/') %> "/> 
-                        <!-- <img src="https://assets.codepen.io/652/photo-1468777675496-5782faaea55b.jpeg" alt="mixed vegetable salad in a mason jar. "> -->
-                        <!-- <div class="price">$9</div> -->
-                    </div>
-                    <div class="card_content">
-                        <div class="card_text">
-                            <p style="margin-top: 60px;"> Je suis enchanté de vous présenter ma sélection culinaire, conçue
-                                 pour ravir vos papilles et offrir une expérience gustative inoubliable. <strong><%= element.nom %></strong> sont préparés avec des ingrédients frais et de qualité, 
-                                chaque recette étant soigneusement élaborée pour équilibrer saveurs et textures.
-                            .</p>
+                
+                  
+                        
+                    <div class="container">
+                        <%- include('partials/loader') %>
+                        <% if (recups && ids) { %>
+                        <% recups.forEach(function(element) { %>
+                       
+                           
+                                <div class="containero">
+                                   
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/cajaregistradora-776cc.appspot.com/o/pngwing.com(2).png?alt=media&token=bde13cf8-4b17-4da9-90cf-c16db83b2e1f" />
+                                    <!-- <img src="<%= element.image.replace(/\\/g, '/') %>" alt=""> -->
+                                    <div class="content-box">
+                                      <h4 class="name" style="color: #FFC100; font-size: 20px; font-weight: bold;"><%= element.nom %></h4>
+                                      <p style="color: white;">A burguer typically considered a sandwich, consisting of one or more cooked patties-usually placed inside a sliced bread roll or bun</p>
+                                      <p style="color: white;">Onion, Lettuce, Tomatoe, Patty, Cheese</p>
+                                     
+                                      <div class="btn">
+                                        <a href="/acceuil2/<%= element._id %>?numtable=<%= ids %>">
+                                       Decouvrez notre <span style="color: white;"><%= element.nom %></span>
+                                       </a>
+                                      </div>
+                                    
+                                    </div>
+                                    
+                                  </div>
                             
-                        </div>
+                       
+                        <% }); %>
+                        <% } %>
                     </div>
-                </div>
-            </a>
-            </li>
+                    
+                      
+                
+             
         
-            <% }); %>
-            <% } %>
-        </ul>
-    </div>
+           
+     
     
 </body>
+<script src="/javascripts/nav.js"></script>
 </html>

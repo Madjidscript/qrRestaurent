@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pp.innerHTML = `<h3>votre panier est vide cher client</h3>`;
             if (commande) commande.style.display = 'none';
             if (alergie) alergie.style.display = 'none';
-            if (annule) annule.style.display = 'block';
+            if (annule) annule.style.display = 'none';
         } else {
             if (commande) commande.style.display = 'inline';
             if (alergie) alergie.style.display = 'inline';

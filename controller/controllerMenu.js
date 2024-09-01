@@ -53,6 +53,17 @@ const controllerMenu = class {
    
     
    
+    static indexs = async(req=request, res=response)=>{
+      const id = parseInt(req.query.numtable, 10);
+      const recup = await otherCathegorie.afficheTout()
+      
+      console.log('moais differente cathegorie',recup,"monid depuis lacceuil", id);
+      if (recup) {
+        res.render('indexs',{recups:recup,req:req,ids:id})
+        console.log('mon preemier plat',recup[0].nom);
+      }
+      
+    }
     static acceuil = async(req=request, res=response)=>{
       const id = parseInt(req.query.numtable, 10);
       const recup = await otherCathegorie.afficheTout()

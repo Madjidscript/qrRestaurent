@@ -1,0 +1,207 @@
+body {
+    background-image: url('../images/bg6.png');
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover; 
+    background-position:center;
+    background-repeat: no-repeat; 
+    z-index: -1; /* Place l'image derrière le contenu */
+}
+
+
+/* Styles de base */
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Permet aux divs de passer à la ligne si nécessaire */
+    justify-content: space-between; /* Espacement égal entre les divs */
+    gap: 10px; /* Espacement entre les divs */
+    padding: 10px;
+   
+}
+.content{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+   margin-top: 120px;
+
+}
+.box {
+    width: 60%; /* Largeur par défaut */
+    height: 60px;
+    background-color: white; /* Couleur de fond pour visualiser les divs */
+    border-radius: 25px;
+    padding: 10px; /* Espacement interne */
+    box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur */
+    text-align: center; /* Centre le texte */
+    margin: 10px auto;
+}
+.box a{
+    color: #FFC100;
+    font-size: 35px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.boxs {
+    width: 70%; /* Largeur par défaut */
+    background-color: transparent; /* Couleur de fond pour visualiser les divs */
+    
+    padding: 20px; /* Espacement interne */
+    box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur */
+    text-align: center; /* Centre le texte */
+    margin: 40px auto;
+}
+#box3 {
+    width: 95%; /* Largeur par défaut */
+    background-color: transparent; /* Couleur de fond pour visualiser les divs */
+    height:auto ;
+    padding: 10px; /* Espacement interne */
+    box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur */
+    text-align: center; /* Centre le texte */
+    margin: 40px auto;
+    background-color:#FFC100;
+    padding-left: -4px;
+}
+#box3 .card{
+    width: 98%;
+    height: 200px;
+    background-color: #fff;
+    background-image: url('../images/pik.png');
+  
+    background-size: cover; 
+    background-position:center;
+    background-repeat: no-repeat; 
+}
+
+
+/* Media query pour les écrans plus petits */
+@media (max-width: 600px) {
+    .box {
+        width: 100%; /* Largeur pleine sur les petits écrans */
+    }
+}
+
+/* partie navbar */
+/* Styles de base pour la barre de navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 10px;
+    color: black;
+    max-height: 60px;
+    z-index: 100;
+}
+
+/* Styles pour les liens de navigation */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+   
+}
+
+.nav-menu li {
+    margin: 0 15px;
+}
+span{
+    color: #FFC100;
+}
+
+.nav-menu a {
+    color:#FFC100;
+    text-decoration: none;
+    font-size: 35px;
+}
+
+/* Menu hamburger - caché par défaut */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Menu - caché par défaut sur mobile */
+.nav-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    background-color:rgb(22, 21, 21);
+    color: black;
+    width: 200px;
+    height: 120px;
+    padding:15px 5px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+/* Affiche les éléments de menu quand la classe "active" est ajoutée */
+.nav-menu.active {
+    display: flex;
+}
+
+/* Media query pour les écrans plus petits */
+@media (max-width: 834px) {
+    .menu-toggle {
+        display: block;
+        color: black;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+}
+
+
+/* mes reseau */
+.par{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #FFC100;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.icon:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+#tiktok {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900; /* Style des icônes Font Awesome */
+}
+
+#whatsapp {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+#instagram {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
