@@ -136,7 +136,7 @@ body {
   margin: 0;
 }
 
-.container {
+.containero {
   width: 100%;
   padding: 30px;
   display: flex;
@@ -146,115 +146,156 @@ body {
   justify-content: center;
 }
 
-.containero {
-  position: relative;
-  width: 100%;
-  max-width: 300px; /* Limite la largeur maximale */
-  height: auto; /* Hauteur automatique pour un meilleur ajustement */
-  border-radius: 20px;
+
+
+.container{
+  width: 250px;
+  height: 300px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
-  background: #26242e;
-  overflow: hidden;
-}
-
-.containero img {
-  width: 100%;
-  height: auto; /* Assure que l'image conserve ses proportions */
-  display: block; /* Retire l'espace blanc sous l'image */
-}
-
-.containero::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background: url(https://firebasestorage.googleapis.com/v0/b/cajaregistradora-776cc.appspot.com/o/KEY0.CC-Mandala-Png-Pic-Mandalas-florales.png?alt=media&token=e48fe279-132b-4701-bedb-119b3511acf6)
-      center / cover;
-  opacity: 0.7;
-  z-index: -100;
-}
-
-.content-box {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  max-width: 255px; /* Limite la largeur maximale */
-  padding: 10px;
-  color: #fff;
-  font-family: "Poppins", sans-serif;
-  border-radius: 10px 10px 15px 15px;
-  backdrop-filter: blur(4px);
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
+
 }
 
-.content-box h4.name {
-  margin: 10px 0;
-  color: #FFC100;
+#card{
+  width: 285px;
+  height: 230px;
+  background-color: rgb(41, 41, 41);
+  border-radius: 0 .5rem .5rem 0;
+  
 }
 
-.content-box p {
-  color: white;
-  font-size: 14px;
-  margin: 5px 0;
+img{
+  width: 155px;
+  height: 230px;
+  object-fit: cover;
+  border-radius: .5rem 0 0 .5rem;
 }
 
-.btn {
+.feature{
+
+  float: left;
+  margin: 15px 5px 15px 100px;
+  background-color: rgb(56, 56, 56);
+  padding: 20px;
+  width: auto;
+  height: 25px;
+  border-radius: .2rem;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  align-items: center;
+  
 }
 
-.btn a {
-  width: auto;
-  max-width: 200px;
-  height: 40px;
-  font-size: 15px;
+.feature p{
+ 
+  color:#ffc83d;  
+  font-family: poppins, Arial, Helvetica, sans-serif;    
+  font-weight: 400;
+  font-size: .9rem;
+  letter-spacing: .1rem;
+  
+}
+
+.cuisine{
+
+  
+  margin: 15px 25px 15px 5px;
+  background-color: rgb(56, 56, 56);
+  padding: 10px;
+  height: 16px;
+  width: 16px;
+  border-radius: .2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dish{
+  margin: -19px 25px -30px 20px;
+  float: left;
+}
+
+h1{
+  font-size: 1.4rem;
+  font-family: poppins,Arial, Helvetica, sans-serif;
+  color: white;
+  font-weight: 400;
+
+}
+
+.rating{
+
+  float: left;
+  margin: 0px 25px 0px 20px;
+  height: 19px;
+  
+}
+.rating p{
+  
+color: rgb(255, 255, 255);
+font-family: open-sans, Arial, Helvetica, sans-serif;
+}
+
+.checked {
+  color: orange;
+}
+
+
+.description{
+  margin: 5px 20px 0px 20px;    
+  float: left;
+}
+.description p {
+
+  font-size: .95rem;
+  color: rgb(163, 163, 163);
+  font-family: open-sans, Arial, Helvetica, sans-serif;
+  line-height: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.amount{
+    float: left;
+    margin: -18px 0px 0px 100px; 
+}
+
+.amount h3{
+
+  color:#ffc83d; 
+  font-family: poppins,Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  letter-spacing: .05rem;
+
+}
+
+.cta .button{
+
+  float: right;
+  
+  background-color:#ffc83d;
+  border: 1px solid #ffc83d;
+  color: #292929;
+  padding: 5px 16px;
   text-align: center;
-  padding: 12px;
   text-decoration: none;
-  border: none;
-  color: #fff;
-  font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  background-color: #FFC100;
-  border-radius: 7px;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: .2rem;
+  margin: 0px 10px 0px 0px;
+  font-family: poppins,Arial, Helvetica, sans-serif ;
+  font-weight: 600;
+  transition-duration: 0.4s;
+ cursor:pointer;
+ text-decoration: none;
 }
-@media (max-width: 768px) {
-  .container {
-      padding: 15px;
-  }
-
-  .containero {
-      max-width: 100%; /* Permet au cadre de prendre toute la largeur disponible */
-      height: auto; /* Hauteur automatique pour éviter les débordements */
-  }
-
-  .content-box {
-      max-width: 100%; /* Limite la largeur au conteneur */
-      padding: 10px;
-  }
-
-  .btn a {
-      width: 100%; /* Fait en sorte que le bouton prenne toute la largeur disponible */
-      box-sizing: border-box;
-  }
+.cta .button:hover {
+  background-color: #292929;
+  border: 1px solid #ffc83d; ;
+  color: #ffc83d;
 }
 
-@media (max-width: 480px) {
-  .content-box p {
-      font-size: 12px; /* Réduit la taille du texte pour les petits écrans */
-  }
-
-  .btn a {
-      font-size: 14px; /* Ajuste la taille du texte pour les petits boutons */
-      padding: 10px;
-  }
+body{
+   background-color: rgb(224, 224, 224);
 }

@@ -215,4 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+const overlay = document.querySelector(".overlay")
+console.log("mon poutoutou de overlay",overlay)
+
 

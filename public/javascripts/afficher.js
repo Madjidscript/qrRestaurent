@@ -176,7 +176,39 @@ console.log('monn tttkkknt',yo);
   
 
 
-
+//  document.addEventListener('DOMContentLoaded', function() {
+//     // Sélection des éléments
+//     const overlay = document.getElementById('popup1');
+//     const openOverlayLink = document.querySelector('.alergie');
+//     const closeOverlayLink = overlay.querySelector('.close');
+//     const buttons = document.querySelectorAll('.navres .annule, .navres .alergie, .navres .commande');
+  
+//     // Fonction pour montrer l'overlay et masquer les boutons
+//     function showOverlay() {
+//       overlay.classList.add('visible');
+//       buttons.forEach(button => button.classList.add('hidden'));
+//     }
+  
+//     // Fonction pour cacher l'overlay et montrer les boutons
+//     function hideOverlay() {
+//       overlay.classList.remove('visible');
+//       buttons.forEach(button => button.classList.remove('hidden'));
+//     }
+  
+//     // Ouvrir l'overlay
+//     openOverlayLink.addEventListener('click', function(event) {
+//       event.preventDefault();
+//       showOverlay();
+//     });
+  
+//     // Fermer l'overlay
+//     closeOverlayLink.addEventListener('click', function(event) {
+//       event.preventDefault();
+//       hideOverlay();
+//     });
+//   });
+  
+  
   
  
 
