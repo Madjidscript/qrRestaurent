@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
       console.log("monstocket", data);
       const audio = document.getElementById("notificationSound");
       if (audio) {
-        audio.play();
+        audio.play().catch(function(error) {
+            console.error('Erreur lors de la lecture :', error);
+        });
       }
     //   alert(data.message);
     });

@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     deleteUrl = `https://qrrestaux.onrender.com/admin/annulecommande/${idCommande}?numtable=${num}`;
 
                     localStorage.removeItem('Qrcode');
+                    localStorage.removeItem('alergit');
                     localStorage.setItem('cmmd', JSON.stringify(cmmd));
                     console.log('mamaan');
 
