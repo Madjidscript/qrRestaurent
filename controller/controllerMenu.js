@@ -144,15 +144,16 @@ const controllerMenu = class {
   static afficherPOst = async (req = request, res = response) => {
     const data = req.body;
     const data2 = data.data;
+    const num = parseInt(req.query.numtable, 10);
     const insertion = await otherCmmd.inscription(data);
-
+    
     if (insertion) {
       data2.forEach(async (element) => {
         const modif = await otherStock.update(element.id, element.nbre);
       });
       sendNotification({
         type:"commande",
-        message: "Une nouvelle commande a été validée !",
+        message: `cher admin nouvelle commande a la table ${num} !`,
       });
       res.json({ data: "commande effectuer avec succes", data2: insertion });
     }

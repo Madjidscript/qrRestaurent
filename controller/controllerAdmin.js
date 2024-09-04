@@ -219,6 +219,7 @@ const controllerAdmin = class {
 
       console.log("mon chao maho");
       const id = req.params.id
+      const num = parseInt(req.query.numtable, 10);
       console.log('mon id heeeee',req.params.id);
       const commandes = await otherCmmd.utilisarteuParID(id)
       console.log("mes commande sont la hooo",commandes._id)
@@ -228,7 +229,7 @@ const controllerAdmin = class {
          const annule = await otherCmmd.suppression(id)
          sendNotification({
           type:"annuler",
-          message: "commande annuler !",
+          message: `commande annuler  a la table ${num} !`,
         });
         res.json({message:"annulation de commande"}) 
       }
