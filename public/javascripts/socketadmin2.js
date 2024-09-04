@@ -2,7 +2,7 @@ console.log("gggggjgjjjjgjgjgj");
 document.addEventListener("DOMContentLoaded", (event) => {
   const socket = io("https://qrrestaux.onrender.com");
   //const num = document.getElementById("dedy").textContent;
-  console;log("mon numm des",num)
+  //console;log("mon numm des",num)
   socket.on("connect", () => {
     console.log("socket coonected");
 

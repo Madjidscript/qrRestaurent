@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const socket = io("https://qrrestaux.onrender.com");
 
 //const num = document.getElementById("dedy").textContent;
-
-  console.log("mon numm hoo",num)
+ // console.log("mon numm hoo",num)
   socket.on("connect", () => {
     console.log("socket coonected");
 
