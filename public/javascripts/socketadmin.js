@@ -8,22 +8,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
     socket.on("notification", (data) => {
       console.log("monstocket", data);
       const audio = document.getElementById("notificationSound");
+      const num = document.getElementById("dedy").textContent;
       const synth = window.speechSynthesis;
-      const text = " commande effectuer HOOOOOOOOOOOOOOOOO"
+      const text = `cher Admin commande effectuer sur la table ${num}`
       
-      const   utterance = new SpeechSynthesisUtterance(text);
-        synth.speak(utterance);
+      
    
-    //   if (audio) {
+      if (text) {
+            const   utterance = new SpeechSynthesisUtterance(text);
+             synth.speak(utterance);
     //     audio.play().catch(function(error) {
     //         console.error('Erreur lors de la lecture :', error);
     //     });
-    //     setTimeout(() => {
-    //         window.location.reload()
-    //     }, 2000);
+        setTimeout(() => {
+            window.location.reload()
+        }, 6000);
        
-    //   }
-    //   alert(data.message);
+      }
+   
     });
   });
 });
