@@ -54,7 +54,7 @@ static inscription = async(utilisateur)=>{
 
 static suppression = async(id)=>{
     try {
-        const supp = await Cmmd.findByIdAndRemove(id)
+        const supp = await Cmmd.findByIdAndDelete(id)
         return supp
     } catch (error) {
         console.log("mon erreur",error);

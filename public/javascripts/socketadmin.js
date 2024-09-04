@@ -1,7 +1,8 @@
 console.log("gggggjgjjjjgjgjgj");
 document.addEventListener("DOMContentLoaded", (event) => {
   const socket = io("https://qrrestaux.onrender.com");
-
+  //http://localhost:7000
+ // https://qrrestaux.onrender.com
 //const num = document.getElementById("dedy").textContent;
  // console.log("mon numm hoo",num)
   socket.on("connect", () => {
