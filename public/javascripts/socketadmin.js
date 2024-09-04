@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         audio.play().catch(function(error) {
             console.error('Erreur lors de la lecture :', error);
         });
+        window.location.reload()
       }
     //   alert(data.message);
     });
