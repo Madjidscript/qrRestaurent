@@ -1,6 +1,6 @@
 console.log("gggggjgjjjjgjgjgj");
 document.addEventListener("DOMContentLoaded", (event) => {
-  const socket = io("http://localhost:7000");
+  const socket = io("https://qrrestaux.onrender.com");
 
   socket.on("connect", () => {
     console.log("socket coonected");
