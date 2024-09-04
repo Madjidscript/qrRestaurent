@@ -151,6 +151,7 @@ const controllerMenu = class {
         const modif = await otherStock.update(element.id, element.nbre);
       });
       sendNotification({
+        type:"commande",
         message: "Une nouvelle commande a été validée !",
       });
       res.json({ data: "commande effectuer avec succes", data2: insertion });

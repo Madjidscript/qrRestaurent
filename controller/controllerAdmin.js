@@ -10,6 +10,7 @@ const otherqrcode =require("../other/otherqrcode")
 const otherMenu = require("../other/otherUser");
 const {response,request}= require('express');
 const otherInscription = require("../other/otherInscription");
+const { sendNotification } = require("../utils/socket-io");
 const bcrypt = require("bcrypt")
 
 const controllerAdmin = class {
@@ -225,7 +226,10 @@ const controllerAdmin = class {
       if (commandes && commandes.statut=== true ) {
         
          const annule = await otherCmmd.suppression(id)
-       
+         sendNotification({
+          type:"annuler",
+          message: "commande annuler !",
+        });
         res.json({message:"annulation de commande"}) 
       }
   

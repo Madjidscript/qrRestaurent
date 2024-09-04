@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             redirectTimeout = setTimeout(() => {
              window.location.href = `https://qrrestaux.onrender.com/afficher?numtable=${num}`;
             console.log('didier drogba',);
-        }, 10000);
+        }, 1000);
     
         }
        
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     redirectTimeout = setTimeout(() => {
                         window.location.href = `https://qrrestaux.onrender.com/acceuil?numtable=${num}`;
                         console.log('didier drogba');
-                    }, 1000); // 3 minutes en millisecondes
+                    }, 120000); // 3 minutes en millisecondes
 
                 } else {
                     console.error('Erreur lors de l\'ajout à la base de données.');
