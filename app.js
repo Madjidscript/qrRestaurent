@@ -6,6 +6,9 @@ var logger = require("morgan");
 const session = require("express-session");
 const cors = require("cors");
 const axios = require("axios");
+
+
+
 var http = require("http");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -27,9 +30,10 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(cors({
+  origin: 'http://localhost:7000'
+}));
 //configuration de ma session
 app.use(
   session({
