@@ -77,14 +77,17 @@
                                                 
                                                   <span class="hex-content-inner" >
                                                       
-                                                      <span class="title" style="font-size: 20px;"><strong class="titres"><%= element.nom %></strong></span> 
+                                                      <span class="title" style="font-size: 20px;"><strong class="titres"><%= element.id_Souscat.nom %></strong></span> 
                                                     </span>
-                                                  <svg viewBox="0 0 173.20508075688772 200" height="auto" width="auto" version="1.1" xmlns="http://www.w3.org/2000/svg" class=".hex-content"><image class="img" href="/<%= element.image.replace(/\\/g, '/') %>" height="100%" width="100%" />
+                                                  <svg viewBox="0 0 173.20508075688772 200" height="auto" width="auto" version="1.1" xmlns="http://www.w3.org/2000/svg" class=".hex-content">
+                                                    
+                                                    <image class="img" href="/<%= element.id_Souscat.image.replace(/\\/g, '/') %>" height="100%" width="100%" />
+                                                  
                                                 </svg>
-                                                <div class="id"><%= element.id %></div>
+                                                <div class="id"><%= element.id_Souscat._id %></div>
                                               </a>
                                               
-                                            <span class="prix"><strong><i class="fas fa-tag"></i><%= element.prix %> Cfa</strong></span>
+                                            <span class="prix"><strong><i class="fas fa-tag"></i><%= element.id_Souscat.prix %> Cfa</strong></span>
 
 
                                            

@@ -175,7 +175,7 @@ const controllerAdmin = class {
         const modification = await otherStock.update2(id,nbre)
         console.log('mon modification stock', modification);
         if (modification) {
-          res.render('stockUpdate',{vv:"modification effectuer avec succes",data:req.session.admin})
+          res.render('messages',{vv:"modification effectuer avec succes",data:req.session.admin})
         }else{
           res.render('stockUpdate',{vv:"erreur lors de l'modification du stock"})
         }

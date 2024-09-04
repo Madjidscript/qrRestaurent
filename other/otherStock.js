@@ -15,6 +15,15 @@ static afficheTout = async()=>{
   }
 }
 
+static afficheTout2 = async(id)=>{
+    try {
+      const affiche = await Stock.find({id_Souscat:id}).populate('id_Souscat')
+      return affiche
+    } catch (error) {
+    console.log("mon erreur",error);  
+    }
+  }
+
 static utilisarteuParID = async(id)=>{
     try {
         const recupParId = await Stock.findById(id)

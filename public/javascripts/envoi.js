@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }else{
             console.log('Objet alergit :', alergit);
             redirectTimeout = setTimeout(() => {
-             window.location.href = `https://qrrestaux.onrender.com/afficher?numtable=${num}`;
+             window.location.href = `http://localhost:7000/afficher?numtable=${num}`;
             console.log('didier drogba',);
         }, 10000);
     
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("mon objet fiable", cmmd);
 
             try {
-                const response = await fetch(`https://qrrestaux.onrender.com/afficher?numtable=${num}`, {
+                const response = await fetch(`http://localhost:7000/afficher?numtable=${num}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pp.textContent = responseData.data;
                     idCommande = responseData.data2[0]._id;
                     console.log("le fameux id rechercher", idCommande);
-                    deleteUrl = `https://qrrestaux.onrender.com/admin/annulecommande/${idCommande}?numtable=${num}`;
+                    deleteUrl = `http://localhost:7000/admin/annulecommande/${idCommande}?numtable=${num}`;
 
                     localStorage.removeItem('Qrcode');
                     localStorage.setItem('cmmd', JSON.stringify(cmmd));
@@ -141,9 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Démarrer le délai de redirection
                     redirectTimeout = setTimeout(() => {
-                        window.location.href = `https://qrrestaux.onrender.com/acceuil?numtable=${num}`;
+                        window.location.href = `http://localhost:7000/acceuil?numtable=${num}`;
                         console.log('didier drogba');
-                    }, 120000); // 3 minutes en millisecondes
+                    }, 1000); // 3 minutes en millisecondes
 
                 } else {
                     console.error('Erreur lors de l\'ajout à la base de données.');
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Annuler le délai de redirection et rediriger immédiatement
                     clearTimeout(redirectTimeout);
-                    window.location.href = `https://qrrestaux.onrender.com/acceuil?numtable=${num}`;
+                    window.location.href = `http://localhost:7000/acceuil?numtable=${num}`;
                 } else {
                     console.error('Erreur lors de l\'annulation de la commande.');
                 }
