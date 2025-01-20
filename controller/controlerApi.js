@@ -157,12 +157,12 @@ const controllerAdmin = class {
 
     static stock = async(req=request,res=response)=>{
       
-        const recup = await otherSousCathegorie.afficheTout()
+        const recup = await otherStock.afficheTout()
       console.log("voici ma recuperation stock",recup);
       if(recup){
-        res.render('stock',{"recups":recup,data:req.session.admin})
+        res.json(recup)
         console.log('mes element recuperer', recup);
-        console.log("ma session universelle",req.session.admin);
+        
       }
      
       }
