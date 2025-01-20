@@ -11,6 +11,7 @@ const otherMenu = require("../other/otherUser");
 const {response,request}= require('express');
 const otherInscription = require("../other/otherInscription");
 const { sendNotification } = require("../utils/socket-io");
+const generateAndSaveQRCodes = require("../middleware/qr");
 const bcrypt = require("bcrypt")
 
 const controllerAdmin = class {
@@ -319,13 +320,58 @@ const controllerAdmin = class {
        }
       }
 
+
+      // static qr = async (req = request, res = response) => {
+      //   try {
+      //     // Exemple de tableau de nombres (id des tables)
+      //     const tableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    
+      //     // Appeler la fonction pour générer et sauvegarder les QR codes
+      //     const qrCodes = await generateAndSaveQRCodes(tableNumbers);
+    
+      //     console.log("QR Codes générés avec succès:", qrCodes);
+      //   } catch (error) {
+      //     console.error(
+      //       "Erreur lors de la génération des QR codes:",
+      //       error.message
+      //     );
+      //   }
+      // };
+
+
+      static qr = async (req = request, res = response) => {
+        try {
+          // Récupérer le nombre de QR codes à générer depuis le corps de la requête
+          const { numberOfQRCodes } = req.body;
+      
+          // Vérifier si un nombre valide est fourni
+          if (!numberOfQRCodes || isNaN(numberOfQRCodes) || numberOfQRCodes <= 0) {
+            return res.status(400).json({ message: "Veuillez fournir un nombre valide." });
+          }
+      
+          // Créer un tableau basé sur le nombre demandé
+          const tableNumbers = Array.from({ length: numberOfQRCodes }, (_, i) => i + 1);
+      
+          // Appeler la fonction pour générer et sauvegarder les QR codes
+          const qrCodes = await generateAndSaveQRCodes(tableNumbers);
+      
+          // Répondre avec un message de succès
+          console.log("QR Codes générés avec succès:", qrCodes);
+          res.status(200).json({ message: "QR Codes générés avec succès.", qrCodes });
+        } catch (error) {
+          console.error("Erreur lors de la génération des QR codes:", error.message);
+          res.status(500).json({ message: "Une erreur est survenue.", error: error.message });
+        }
+      };
+      
+
       static qrCodes = async(req=request, res=response)=>{
         let msg=""
           const recup = await otherqrcode.afficheTout()
           console.log('moais differente cathegorie',recup);
           if (recup) {
             msg="qr afficher"
-            res.json(msg,recup)
+            res.json({msg,recup})
             console.log('mon preemier plat',recup[0].number);
           }else{
            msg='erreur de daffichage qr'

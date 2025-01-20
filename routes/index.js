@@ -46,6 +46,7 @@ router.get('/messages', controlerApi.message)
 router.get('/deconnexions', controlerApi.Deconnexion) 
 router.post('/reacts', controlerApi.react) 
 router.get('/qrcode', controlerApi.qrCodes)
+router.post('/qrcode', controlerApi.qr)
 
 
 module.exports = router;
