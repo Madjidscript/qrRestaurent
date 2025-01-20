@@ -97,11 +97,15 @@ const controllerAdmin = class {
     }
 
     static cathegorie = async(req=request,res=response)=>{
-      if ( req.session.admin) {
-        res.render("cathegorie",{data:req.session.admin})
+      let msg =""
+      const recup = await otherCathegorie.afficheTout()
+       msg="cathegorie afficher"
+        if(recup){ 
+        res.json({msg,recup})
         console.log("ma session universelle",req.session.admin);
       } else {
-        res.redirect("/admin/connexion")
+        msg="cathegorie echouer"
+        res.json(msg)
       }
       
     }
@@ -119,14 +123,14 @@ const controllerAdmin = class {
     }
 
     static souscathegorie = async(req=request,res=response)=>{
-      if (req.session.admin) {
+      
         const recup = await otherCathegorie.afficheTout()
       if(recup){
-        res.render('souscathegorie',{"recups":recup,data:req.session.admin})
+        res.json(recup)
         console.log('mes element recuperer', recup);
         console.log("ma session universelle",req.session.admin);
       }
-      } else {
+       else {
        res.redirect("/admin/connexion") 
       }
       
