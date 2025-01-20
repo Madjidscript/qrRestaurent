@@ -124,7 +124,7 @@ const controllerAdmin = class {
 
     static souscathegorie = async(req=request,res=response)=>{
       let msg =""
-      const recup = await otherCathegorie.afficheTout()
+      const recup = await otherSousCathegorie.afficheTout()
       if(recup){
         msg="souscath afficher"
         res.json({msg,recup})
