@@ -123,15 +123,17 @@ const controllerAdmin = class {
     }
 
     static souscathegorie = async(req=request,res=response)=>{
-      
-        const recup = await otherCathegorie.afficheTout()
+      let msg =""
+      const recup = await otherCathegorie.afficheTout()
       if(recup){
-        res.json(recup)
+        msg="souscath afficher"
+        res.json({msg,recup})
         console.log('mes element recuperer', recup);
         console.log("ma session universelle",req.session.admin);
       }
        else {
-       res.redirect("/admin/connexion") 
+        msg="souscath eckouer"
+        res.json(msg)
       }
       
     }
