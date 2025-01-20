@@ -18,7 +18,7 @@ const controllerAdmin = class {
       let message =""
       if (req.session.admin) {
         message=" session reuissit"
-        res.json(message,req.session.admin)
+        res.json(message)
       } else {
         message="session echouer"
         res.json(message)
@@ -50,7 +50,7 @@ const controllerAdmin = class {
           email:req.body.email
           }
           msg="inscription effectuer"
-          res.json(msg,data2)
+          res.json(data2)
           
         
       }
@@ -83,7 +83,7 @@ const controllerAdmin = class {
           req.session.admin= data
           console.log("ma sessions",req.session.admin);
           meg="connexion reusit"
-          res.json(msg,data)
+          res.json(data)
         }else{
           msg="mot de pass incorrect"
           res.json(msg)
@@ -111,7 +111,7 @@ const controllerAdmin = class {
       console.log('mon insertion cathegorie', insertion);
       if (insertion) {
         msg=" insertion reussit"
-        res.json(msg,insertion)
+        res.json(insertion)
       }else{
         msg=" insertion reussit"
         res.json(msg)
@@ -142,7 +142,7 @@ const controllerAdmin = class {
       console.log('mon insertion Souscathegorie', insertion);
       if (insertion) {
         msg ="insertion reuissit"
-        res.json(msg,insertion)
+        res.json(insertion)
       }else{
         msg ="insertion reuissit"
         res.json(msg)
@@ -150,7 +150,7 @@ const controllerAdmin = class {
     }
 
     static stock = async(req=request,res=response)=>{
-      if (req.session.admin) {
+      
         const recup = await otherSousCathegorie.afficheTout()
       console.log("voici ma recuperation stock",recup);
       if(recup){
@@ -158,9 +158,7 @@ const controllerAdmin = class {
         console.log('mes element recuperer', recup);
         console.log("ma session universelle",req.session.admin);
       }
-      } else {
-        res.redirect("/admin/connexion")
-      }
+     
       }
 
     static stockPost = async(req=request,res=response)=>{
@@ -170,7 +168,7 @@ const controllerAdmin = class {
       console.log('mon insertion stock', insertion);
       if (insertion) {
         msg="stock enregistrer"
-        res.json(msg,insertion)
+        res.json(insertion)
       }else{
         msg="stock echouer"
         res.json(msg)
@@ -185,7 +183,7 @@ const controllerAdmin = class {
       console.log("voici ma recuperation stock",recup);
       if(recup){
 
-        res.json(msg,recup)
+        res.json(recup)
         console.log('mes element recuperer', recup);
         
       }
@@ -202,7 +200,7 @@ const controllerAdmin = class {
         console.log('mon modification stock', modification);
         if (modification) {
           msg="modification reussit"
-          res.json(msg,modification)
+          res.json(modification)
         }else{
           msg="erreur lors de l'modification du stock"
           res.json(msg)
@@ -217,7 +215,7 @@ const controllerAdmin = class {
        
         if (commande) {
           msg="liste de commande reuissit"
-          res.json(msg,commande) 
+          res.json(commande) 
             
         }
        else {
@@ -241,7 +239,7 @@ const controllerAdmin = class {
          const modif = await otherCmmd.update(id,commandes)
         console.log("ma modification",modif);
         msg="statut changer"
-        res.json(msg,modif) 
+        res.json(modif) 
       }
   
     }
@@ -261,7 +259,8 @@ const controllerAdmin = class {
           type:"annuler",
           message: `commande annuler  a la table ${num} !`,
         });
-        res.json({message:"annulation de commande"}) 
+        let message="annulation de commande"
+        res.json(message) 
       }
   
     }

@@ -32,7 +32,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({
-  origin: 'http://localhost:7000'
+  origin: 'http://localhost:7000',
+  origin:'http://localhost:4200/'
   
   
 }));
