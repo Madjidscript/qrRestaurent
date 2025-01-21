@@ -250,6 +250,24 @@ const controllerAdmin = class {
       }
   
     }
+
+    static detailcmd = async(req=request, res=response)=>{
+      let msg=""
+   console.log("mon chao maho");
+   const id = req.params.id
+   console.log('mon id heeeee',req.params.id);
+   const commandes = await otherCmmd.utilisarteuParID(id)
+   console.log("mes commande sont la hooo",commandes._id)
+
+   if (commandes) {
+     
+     res.json(commandes) 
+   }else{
+    msg="deatail commande echouer"
+    res.json(msg)
+   }
+
+ }
     static anulecommandes = async(req=request, res=response)=>{
 
       console.log("mon chao maho");

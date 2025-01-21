@@ -29,6 +29,7 @@ router.get('/qrcodes', controllerAdmin.qrCodes)
 // controler des api 
 router.get('/commandes', controlerApi.commande) 
 router.get('/commandes/:id', controlerApi.commandes) 
+router.get('/detailcmd/:id', controlerApi.detailcmd) 
 router.delete('/annulecommandes/:id', controlerApi.anulecommandes) 
 router.get('/cathegories', controlerApi.cathegorie) 
 router.post('/cathegories',upload.single('image'), controlerApi.cathegoriePost)  
