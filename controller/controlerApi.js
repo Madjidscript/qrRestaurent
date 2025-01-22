@@ -112,22 +112,26 @@ const controllerAdmin = class {
     }
     static cathegoriePost = async(req=request,res=response)=>{
      let msg=""
+     let status =""
       const insertion = await otherCathegorie.inscription({nom:req.body.nom,image:req.file.path})
       console.log('mon insertion cathegorie', insertion);
       if (insertion) {
         msg=" insertion reussit"
-        res.json(insertion)
+        status ="success"
+        res.json({insertion,status})
       }else{
         msg=" insertion reussit"
-        res.json(msg)
+        status="echouer"
+        res.json({msg,status})
       }
     }
 
     static souscathegorie = async(req=request,res=response)=>{
-      let msg =""
+      
       const recup = await otherSousCathegorie.afficheTout()
       if(recup){
         msg="souscath afficher"
+        
         res.json({msg,recup})
         console.log('mes element recuperer', recup);
         console.log("ma session universelle",req.session.admin);
@@ -140,6 +144,7 @@ const controllerAdmin = class {
     }
     static souscathegoriePost = async(req=request,res=response)=>{
       let msg=""
+      let status =""
       const insertion = await otherSousCathegorie.inscription({
         nom:req.body.nom,
         prix:req.body.prix,
@@ -149,7 +154,8 @@ const controllerAdmin = class {
       console.log('mon insertion Souscathegorie', insertion);
       if (insertion) {
         msg ="insertion reuissit"
-        res.json(insertion)
+        status ="success"
+        res.json({insertion,status})
       }else{
         msg ="insertion reuissit"
         res.json(msg)
@@ -170,12 +176,14 @@ const controllerAdmin = class {
 
     static stockPost = async(req=request,res=response)=>{
       let msg=""
+      let status =""
       const data =req.body
       const insertion = await otherStock.inscription(data)
       console.log('mon insertion stock', insertion);
       if (insertion) {
         msg="stock enregistrer"
-        res.json(insertion)
+        status ="success"
+        res.json({insertion,status,msg})
       }else{
         msg="stock echouer"
         res.json(msg)
@@ -199,6 +207,7 @@ const controllerAdmin = class {
 
       static stockUpdatePost = async(req=request,res=response)=>{
         let msg=""
+        let status=""
         const data =req.body
         const id =req.body.id_Souscat
         const nbre =req.body.nombre
@@ -206,8 +215,9 @@ const controllerAdmin = class {
         const modification = await otherStock.update2(id,nbre)
         console.log('mon modification stock', modification);
         if (modification) {
+          status="success"
           msg="modification reussit"
-          res.json(modification)
+          res.json({modification,status})
         }else{
           msg="erreur lors de l'modification du stock"
           res.json(msg)
@@ -375,7 +385,7 @@ const controllerAdmin = class {
       
           // Répondre avec un message de succès
           console.log("QR Codes générés avec succès:", qrCodes);
-          res.status(200).json({ message: "QR Codes générés avec succès.", qrCodes });
+          res.status(200).json({ message: "QR Codes générés avec succès.", qrCodes,status:"success" });
         } catch (error) {
           console.error("Erreur lors de la génération des QR codes:", error.message);
           res.status(500).json({ message: "Une erreur est survenue.", error: error.message });

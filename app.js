@@ -32,6 +32,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// app.use(cors({
+//   origin: 'http://localhost:7000',
+//   origin1:'http://localhost:4200/',
+//   origin2:'https://qrrestaux.onrender.com' 
+// }));
+
 const allowedOrigins = ['http://localhost:7000', 'http://localhost:4200', 'https://qrrestaux.onrender.com'];
 
 app.use(cors({
