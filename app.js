@@ -31,12 +31,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+const allowedOrigins = ['http://localhost:7000', 'http://localhost:4200', 'https://qrrestaux.onrender.com'];
+
 app.use(cors({
-  origin: 'http://localhost:7000',
-  origin:'http://localhost:4200/',
-  origin:'https://qrrestaux.onrender.com'
-  
-  
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Autoriser l'accès
+    } else {
+      callback(new Error('Not allowed by CORS')); // Bloquer l'accès
+    }
+  },
 }));
 
 //configuration de ma session
