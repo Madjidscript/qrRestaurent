@@ -134,7 +134,7 @@ const controllerAdmin = class {
         
         res.json({msg,recup})
         console.log('mes element recuperer', recup);
-        console.log("ma session universelle",req.session.admin);
+        
       }
        else {
         msg="souscath eckouer"
