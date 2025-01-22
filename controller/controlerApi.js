@@ -246,7 +246,7 @@ const controllerAdmin = class {
          const modif = await otherCmmd.update(id,commandes)
         console.log("ma modification",modif);
         msg="statut changer"
-        res.json(modif) 
+        res.json({modif,msg}) 
       }
   
     }
