@@ -127,7 +127,7 @@ const controllerAdmin = class {
     }
 
     static souscathegorie = async(req=request,res=response)=>{
-      
+      let msg =""
       const recup = await otherSousCathegorie.afficheTout()
       if(recup){
         msg="souscath afficher"
@@ -137,11 +137,13 @@ const controllerAdmin = class {
         
       }
        else {
+        console.error('Erreur dans /admin/souscathegories:', error);
         msg="souscath eckouer"
         res.json(msg)
       }
       
     }
+
     static souscathegoriePost = async(req=request,res=response)=>{
       let msg=""
       let status =""
