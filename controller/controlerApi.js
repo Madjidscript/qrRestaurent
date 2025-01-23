@@ -372,15 +372,15 @@ const controllerAdmin = class {
       static qr = async (req = request, res = response) => {
         try {
           // Récupérer le nombre de QR codes à générer depuis le corps de la requête
-          const { numberOfQRCodes } = req.body;
+          const { number } = req.body;
       
           // Vérifier si un nombre valide est fourni
-          if (!numberOfQRCodes || isNaN(numberOfQRCodes) || numberOfQRCodes <= 0) {
+          if (!number || isNaN(number) || number <= 0) {
             return res.status(400).json({ message: "Veuillez fournir un nombre valide." });
           }
       
           // Créer un tableau basé sur le nombre demandé
-          const tableNumbers = Array.from({ length: numberOfQRCodes }, (_, i) => i + 1);
+          const tableNumbers = Array.from({ length: number }, (_, i) => i + 1);
       
           // Appeler la fonction pour générer et sauvegarder les QR codes
           const qrCodes = await generateAndSaveQRCodes(tableNumbers);
