@@ -12,7 +12,10 @@ const {response,request}= require('express');
 const otherInscription = require("../other/otherInscription");
 const { sendNotification } = require("../utils/socket-io");
 const generateAndSaveQRCodes = require("../middleware/qr");
-const bcrypt = require("bcrypt")
+const top5Plats = require("../middleware/top5")
+
+const bcrypt = require("bcrypt");
+const top5StocksInferieurs = require("../middleware/moinsstock");
 
 const controllerAdmin = class {
     static inscription = async(req=request,res=response)=>{
@@ -407,6 +410,26 @@ const controllerAdmin = class {
            msg='erreur de daffichage qr'
            res.json(msg)
           }
+        
+        
+        
+      }
+
+      static coubre = async(req=request, res=response)=>{
+         
+        const stock = await otherStock.afficheTout()
+        const cmd = await otherCmmd.afficheTout()
+        const trueCount = cmd.filter(e => e.statut).length;
+        const falseCount = cmd.length - trueCount;
+        const topPlats = top5Plats(cmd);
+        const stockinf = top5StocksInferieurs(stock)
+
+
+
+
+
+        res.json({falseCount,trueCount,cmd,topPlats,stockinf})
+          
         
         
         

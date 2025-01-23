@@ -48,6 +48,7 @@ router.get('/deconnexions', controlerApi.Deconnexion)
 router.post('/reacts', controlerApi.react) 
 router.get('/qrcode', controlerApi.qrCodes)
 router.post('/qrcode', controlerApi.qr)
+router.get('/coubre', controlerApi.coubre)
 
 
 module.exports = router;
