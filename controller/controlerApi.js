@@ -249,6 +249,7 @@ const controllerAdmin = class {
 
     static commandes = async(req=request, res=response)=>{
          let msg=""
+          let status=""
       console.log("mon chao maho");
       const id = req.params.id
       console.log('mon id heeeee',req.params.id);
@@ -261,7 +262,8 @@ const controllerAdmin = class {
          const modif = await otherCmmd.update(id,commandes)
         console.log("ma modification",modif);
         msg="statut changer"
-        res.json({modif,msg}) 
+        status="success"
+        res.json({modif,msg,status}) 
       }
   
     }
