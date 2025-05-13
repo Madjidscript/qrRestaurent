@@ -275,7 +275,7 @@ const controllerAdmin = class {
    const id = req.params.id
    console.log('mon id heeeee',req.params.id);
    const commandes = await otherCmmd.utilisarteuParID(id)
-   console.log("mes commande sont la hooo",commandes._id)
+   console.log(" detail commande la hooo",commandes._id)
 
    if (commandes) {
      status="success"
@@ -290,10 +290,10 @@ const controllerAdmin = class {
 
       console.log("mon chao maho");
       const id = req.params.id
-      const num = parseInt(req.query.numtable, 10);
+      const num = parseInt(req.params.num, 10);
       console.log('mon id heeeee',req.params.id);
       const commandes = await otherCmmd.utilisarteuParID(id)
-      console.log("mes commande sont la hooo",commandes._id)
+      // console.log("annule commande ",commandes._id)
 
       if (commandes && commandes.statut=== true ) {
         

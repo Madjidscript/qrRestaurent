@@ -2,7 +2,14 @@ let io;
 
 const connectSockerServer = (server) => {
   const socketIo = require("socket.io");
-  io = socketIo(server);
+  // io = socketIo(server);
+  io = socketIo(server, {
+    cors: {
+      origin: ['http://localhost:4200', 'https://qrrestaux.onrender.com'],
+      methods: ["GET", "POST"],
+      credentials: true
+    }
+  });
 
   // Configurez Socket.io ici
   io.on("connection", (socket) => {
