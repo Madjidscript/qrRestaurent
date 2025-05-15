@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     idCommande = responseData.data2[0]._id;
                     console.log("le fameux id rechercher", idCommande);
                     deleteUrl = `https://qrrestaux.onrender.com/admin/annulecommande/${idCommande}?numtable=${num}`;
+                    // deleteUrl = `https://qrrestaux.onrender.com/admin/annulecommande/${idCommande}/${num}`;
 
                     localStorage.removeItem('Qrcode');
                     localStorage.removeItem('alergit');
@@ -140,12 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (commande) commande.style.display = 'none';
                     if (annule) annule.style.display = 'block'; 
+                    if (alergie) alergie.style.display = 'none';
+
 
                     // Démarrer le délai de redirection
                     redirectTimeout = setTimeout(() => {
                         window.location.href = `https://qrrestaux.onrender.com/acceuil?numtable=${num}`;
+                        // window.location.href = `http://localhost:7000/afficher?numtable=${num}`;
                         console.log('didier drogba');
-                    }, 120000); // 2 minutes en millisecondes
+                    }, 60000); // 2 minutes en millisecondes
 
                 } else {
                     console.error('Erreur lors de l\'ajout à la base de données.');
@@ -189,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Annuler le délai de redirection et rediriger immédiatement
                     clearTimeout(redirectTimeout);
+                //    window.location.href = `http://localhost:7000/acceuil?numtable=${num}`;
                    window.location.href = `https://qrrestaux.onrender.com/acceuil?numtable=${num}`;
                 } else {
                     console.error('Erreur lors de l\'annulation de la commande.');

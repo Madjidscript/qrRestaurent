@@ -9,7 +9,9 @@ parents.forEach((element) => {
   element.addEventListener("click", () => {
     console.log("papa");
 
-    const images = element.children[1].childNodes[0].href.animVal;
+    // const images = element.children[1].childNodes[0].href.animVal;
+    const imageEl = element.querySelector("image");
+    const images = imageEl.getAttribute("data-image"); // ✅ plus fiable
    
     let prix = parseInt(element.nextElementSibling.innerText);
     let id = element.children[2].innerText;

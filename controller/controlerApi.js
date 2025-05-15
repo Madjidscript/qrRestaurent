@@ -150,10 +150,15 @@ const controllerAdmin = class {
     static souscathegoriePost = async(req=request,res=response)=>{
       let msg=""
       let status =""
+      const imagePath = req.file.path.replace(/\//g, '\\'); // convertir / en \ pour MongoDB
+      console.log("mon file hoo",imagePath);
+      
       const insertion = await otherSousCathegorie.inscription({
+        
+
         nom:req.body.nom,
         prix:req.body.prix,
-        image:req.file.path,
+        image:imagePath,
         id_cath:req.body.id_cath
       })
       console.log('mon insertion Souscathegorie', insertion);
