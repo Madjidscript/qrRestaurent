@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //   origin2:'https://qrrestaux.onrender.com' 
 // }));
 
-const allowedOrigins = ['http://localhost:7000', 'http://localhost:4200', 'https://qrrestaux.onrender.com','https://qr-dashbord.vercel.app/'];
+const allowedOrigins = ['http://localhost:7000', 'http://localhost:4200', 'https://qrrestaux.onrender.com','https://qr-dashbord.vercel.app'];
 
 app.use(cors({
   origin: (origin, callback) => {
