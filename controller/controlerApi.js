@@ -65,6 +65,7 @@ const controllerAdmin = class {
     }
     static connexionPost = async(req=request,res=response)=>{
       let msg=""
+      let status =""
       const email = req.body.email
       const password= req.body.password
       const admin = await otherInscription.utilisateurParEmail(email)
@@ -74,20 +75,19 @@ const controllerAdmin = class {
       }else{
        const  verifPass= await bcrypt.compare(password,admin.password)
        if (admin) {
+        status="success"
+        console.log("papa");
+        
            const data = {
             nom:admin.nom,
-             email:admin.email,
-             password:admin.password
+            email:admin.email
+            //password:admin.password
           }
-          // const data = {
-          //     nom:admin.nom,
-          //      email:admin.email,
-          //      password:admin.password
-          //    }
-          req.session.admin= data
+          
+          // req.session.admin= data
           console.log("ma sessions",req.session.admin);
-          meg="connexion reusit"
-          res.json(data)
+          msg="connexion reusit"
+          res.json({status,data})
         }else{
           msg="mot de pass incorrect"
           res.json(msg)
