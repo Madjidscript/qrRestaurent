@@ -147,6 +147,25 @@ const controllerAdmin = class {
       
     }
 
+
+    static souscathegoriebycath = async(req=request,res=response)=>{
+      let msg =""
+      const recup = await otherSousCathegorie.soucathbycath(req.body.id)
+      if(recup){
+        msg="souscath afficher"
+        
+        res.json({msg,recup})
+        console.log('mes element recuperer', recup);
+        
+      }
+       else {
+        console.error('Erreur dans /admin/souscathegories:', error);
+        msg="souscath eckouer"
+        res.json(msg)
+      }
+      
+    }
+
     static souscathegoriePost = async(req=request,res=response)=>{
       let msg=""
       let status =""

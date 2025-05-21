@@ -39,6 +39,15 @@ static utilisateurParEmail = async(email)=>{
     }
 }
 
+static soucathbycath = async(id)=>{
+    try {
+        const recupParEmail = await SousCathegorie.findById({id_cathd:id})
+        return recupParEmail
+    } catch (error) {
+        console.log("mon erreur",error);
+    }
+}
+
 static inscription = async(utilisateur)=>{
     try {
         const inscription  = await SousCathegorie.insertMany(utilisateur)
