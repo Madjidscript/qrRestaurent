@@ -41,7 +41,7 @@ static utilisateurParEmail = async(email)=>{
 
 static soucathbycath = async(id)=>{
     try {
-        const recupParEmail = await SousCathegorie.findById({id_cath:id})
+        const recupParEmail = await SousCathegorie.find({id_cath:id})
         return recupParEmail
     } catch (error) {
         console.log("mon erreur",error);

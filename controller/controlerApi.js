@@ -16,6 +16,7 @@ const top5Plats = require("../middleware/top5")
 
 const bcrypt = require("bcrypt");
 const top5StocksInferieurs = require("../middleware/moinsstock");
+const { log } = require("console");
 
 const controllerAdmin = class {
     static inscription = async(req=request,res=response)=>{
@@ -148,23 +149,31 @@ const controllerAdmin = class {
     }
 
 
-    static souscathegoriebycath = async(req=request,res=response)=>{
-      let msg =""
-      const recup = await otherSousCathegorie.soucathbycath(req.body.id)
-      if(recup){
-        msg="souscath afficher"
-        
-        res.json({msg,recup})
-        console.log('mes element recuperer', recup);
-        
+    static souscathegoriebycath = async (req = request, res = response) => {
+      try {
+        const { id_cath } = req.body
+        const recup = await otherSousCathegorie.soucathbycath(id_cath)
+        console.log("mon recup",recup)
+    
+        if (recup && recup.length > 0) {
+          res.json({
+            msg: "Sous-catégories affichées avec succès",
+            data: recup
+          })
+        } else {
+          res.status(404).json({
+            msg: "Aucune sous-catégorie trouvée pour cette catégorie"
+          })
+        }
+      } catch (error) {
+        console.error("Erreur dans /admin/souscathegories:", error)
+        res.status(500).json({
+          msg: "Erreur serveur",
+          error: error.message
+        })
       }
-       else {
-        console.error('Erreur dans /admin/souscathegories:', error);
-        msg="souscath eckouer"
-        res.json(msg)
-      }
-      
     }
+    
 
     static souscathegoriePost = async(req=request,res=response)=>{
       let msg=""
