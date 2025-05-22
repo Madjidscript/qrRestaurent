@@ -15,7 +15,9 @@ const generateAndSaveQRCodes = async (numbers) => {
     // Pour chaque nombre dans le tableau, générer un QR code
     for (const number of numbers) {
       // Créer l'URL spécifique pour le nombre
-      const url = `https://qrrestaux.onrender.com/acceuil?numtable=${number}`;
+      // const url = `https://qrrestaux.onrender.com/acceuil?numtable=${number}`;
+      const url = `https://restaux-mmds.vercel.app/client/cath/${number}`;
+
       
       // Générer le QR code en tant que Data URL
       const qrCodeData = await QRCode.toDataURL(url);
