@@ -341,6 +341,33 @@ const controllerAdmin = class {
   
     }
 
+    static anulecommandesbyclient = async(req=request, res=response)=>{
+
+      console.log("mon chao maho");
+      const index = req.params.index
+      const num = parseInt(req.params.num, 10);
+      console.log('mon id heeeee',req.params.index,req.params.num);
+      const commandes = await otherCmmd.utilisarteuParIndex(index)
+      // console.log("annule commande ",commandes._id)
+
+      if (commandes && commandes.statut=== true ) {
+        
+         const annule = await otherCmmd.suppression2(index)
+         sendNotification({
+          type:"annuler",
+          message: `commande annuler  a la table ${num} !`,
+        });
+        let message="annulation de commande pas client"
+        let status = "success"
+        res.json({message,status}) 
+      }else{
+        let err = "erreur"
+        res.json({err}) 
+
+      }
+  
+    }
+
     static validationcmmd = async (req = request, res = response) => {
       try {
         // Récupérer le nombre de QR codes à générer depuis le corps de la requête

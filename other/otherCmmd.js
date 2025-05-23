@@ -33,6 +33,15 @@ static utilisarteuParID = async(id)=>{
     }
 }
 
+static utilisarteuParIndex = async(index)=>{
+    try {
+        const recupParId = await Cmmd.findOne({index:index})
+         return recupParId
+    } catch (error) {
+        console.log("mon erreur",error);
+    }
+}
+
 static utilisateurParEmail = async(email)=>{
     try {
         const recupParEmail = await Cmmd.findOne({email:email})
@@ -60,6 +69,15 @@ static suppression = async(id)=>{
         console.log("mon erreur",error);
     }
 }
+
+static suppression2 = async (index) => {
+    try {
+      const supp = await Cmmd.findOneAndDelete({ index: index });
+      return supp;
+    } catch (error) {
+      console.log("mon erreur", error);
+    }
+  }
 static update= async(id,statut)=>{
     try {
         const modif = await Cmmd.findById(id)
