@@ -341,6 +341,26 @@ const controllerAdmin = class {
   
     }
 
+    static validationcmmd = async (req = request, res = response) => {
+      try {
+        // Récupérer le nombre de QR codes à générer depuis le corps de la requête
+        const body = req.body;
+        const num =req.body.num
+        const commandes = await otherCmmd.inscription(body)
+
+        sendNotification({
+          type:"valider",
+          message: `commande effectuer  a la table ${num} !`,
+        });
+        
+        // Répondre avec un message de succès
+        console.log("commande  générés avec succès:", commandes);
+        res.status(200).json({ message: "comande valider", commandes,status:"success" });
+      } catch (error) {
+        console.error("Erreur lors de la validation descmmd:", error.message);
+        res.status(500).json({ message: "Une erreur est survenue.", error: error.message });
+      }
+    }
 
       static message = async(req=request, res=response)=>{
            let msg=""
