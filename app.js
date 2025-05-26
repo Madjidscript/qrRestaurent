@@ -38,7 +38,8 @@ app.use(express.static(path.join(__dirname, "public")));
 //   origin2:'https://qrrestaux.onrender.com' 
 // }));
 
-const allowedOrigins = ['http://localhost:7000', 'http://localhost:4200', 'https://qrrestaux.onrender.com','https://qr-dashbord.vercel.app','http://localhost:8100','https://restaux-mmds.vercel.app'];
+const allowedOrigins = ['http://localhost:7000','http://localhost:3000', 'http://localhost:4200', 'https://qrrestaux.onrender.com','https://qr-dashbord.vercel.app',
+'http://localhost:8100','https://restaux-mmds.vercel.app','http://localhost:40489'];
 
 app.use(cors({
   origin: (origin, callback) => {

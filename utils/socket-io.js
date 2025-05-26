@@ -5,7 +5,7 @@ const connectSockerServer = (server) => {
   // io = socketIo(server);
   io = socketIo(server, {
     cors: {
-      origin: ['http://localhost:4200', 'https://qrrestaux.onrender.com','http://localhost:7000','https://qr-dashbord.vercel.app','http://localhost:8100','https://restaux-mmds.vercel.app'],
+      origin: ['http://localhost:4200', 'https://qrrestaux.onrender.com','http://localhost:7000','http://localhost:3000','https://qr-dashbord.vercel.app','http://localhost:8100','https://restaux-mmds.vercel.app','http://localhost:40489'],
       methods: ["GET", "POST"],
       credentials: true
     }

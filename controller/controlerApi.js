@@ -65,6 +65,8 @@ const controllerAdmin = class {
       res.render("connexion")
     }
     static connexionPost = async(req=request,res=response)=>{
+      console.log("papa");
+      
       let msg=""
       let status =""
       const email = req.body.email
@@ -294,6 +296,17 @@ const controllerAdmin = class {
         commandes.statut=nouveauStatut
          const modif = await otherCmmd.update(id,commandes)
         console.log("ma modification",modif);
+        const num = modif.num
+        const index = modif.index
+        console.log("ma num and index",num,index);
+
+        sendNotification({
+          type:"valider",
+          num:num,
+          index:index,
+          message: `cher client votre commande à ala table ${num}  a été valider`,
+        });
+
         msg="statut changer"
         status="success"
         res.json({modif,msg,status}) 
