@@ -299,13 +299,16 @@ const controllerAdmin = class {
         const num = modif.num
         const index = modif.index
         console.log("ma num and index",num,index);
+        if(modif.statut == true){
+          sendNotification({
+            type:"valider",
+            num:num,
+            index:index,
+            message: `cher client votre commande à ala table ${num}  a été valider`,
+          });
+        }
 
-        sendNotification({
-          type:"valider",
-          num:num,
-          index:index,
-          message: `cher client votre commande à ala table ${num}  a été valider`,
-        });
+        
 
         msg="statut changer"
         status="success"
