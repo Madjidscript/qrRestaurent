@@ -15,6 +15,33 @@ const connectSockerServer = (server) => {
   io.on("connection", (socket) => {
     console.log("Un utilisateur est connecté : ", socket.id);
 
+    // Écoute la demande d'un serveur
+    socket.on("demande_serveur", (data) => {
+      console.log("Demande de serveur reçue :", data);
+
+      const msg = {
+        type: "info",
+        texte: "OK, vous recevrez un serveur dans un instant.",
+        numeroTable: data?.numeroTable || "inconnue",
+        timestamp: new Date()
+      };
+
+      // Répondre uniquement à l'utilisateur
+      socket.emit("retourdemande", msg);
+
+      // (Optionnel) Notifier tous les admins
+      io.emit("notification", {
+        type: "demande_serveur",
+        clientId: socket.id,
+        table: data?.numeroTable
+      });
+    });
+
+
+
+
+
+
     socket.on("disconnect", () => {
       console.log("Un utilisateur est déconnecté");
     });
@@ -27,6 +54,8 @@ const sendNotification = (message) => {
   console.log("sending message : ", message);
   io.emit("notification", message);
 };
+
+
 
 
 module.exports = { connectSockerServer, sendNotification };
