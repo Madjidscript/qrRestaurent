@@ -283,9 +283,9 @@ const controllerAdmin = class {
       }
 
     static commandes = async(req=request, res=response)=>{
-         let msg=""
-          let status=req.params.statut
-      console.log("mon statut",status);
+      let msg=""
+      let status=req.params.statut
+      console.log("mon statut heee",status);
       const id = req.params.id
       console.log('mon id heeeee',req.params.id);
       const commandes = await otherCmmd.utilisarteuParID(id)
@@ -294,7 +294,7 @@ const controllerAdmin = class {
       if (commandes) {
         const nouveauStatut=status
         commandes.statut=nouveauStatut
-         const modif = await otherCmmd.update(id,commandes)
+         const modif = await otherCmmd.update(id,nouveauStatut)
         console.log("ma modification",modif);
         const num = modif.num
         const index = modif.index
