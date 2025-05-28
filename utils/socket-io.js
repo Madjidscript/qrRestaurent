@@ -33,7 +33,8 @@ const connectSockerServer = (server) => {
       io.emit("notification", {
         type: "demande_serveur",
         clientId: socket.id,
-        table: data?.numeroTable
+        table: data?.numeroTable,
+        message: `cher  admin demande de serveur a la table ${data?.numeroTable}`
       });
     });
 
