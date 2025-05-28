@@ -344,6 +344,25 @@ const controllerAdmin = class {
    }
 
  }
+
+ static detailcmdByindex = async(req=request, res=response)=>{
+  let msg=""
+  let status=""
+console.log("mon chao maho");
+const id = req.params.index
+console.log('mon id heeeee',req.params.id);
+const commandes = await otherCmmd.utilisarteuParIndex(id)
+console.log(" detail commande la hooo",commandes._id)
+
+if (commandes) {
+ status="success"
+ res.json({commandes,status}) 
+}else{
+msg="deatail commande echouer"
+res.json(msg)
+}
+
+}
     static anulecommandes = async(req=request, res=response)=>{
 
       console.log("mon chao maho");
