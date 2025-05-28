@@ -299,14 +299,14 @@ const controllerAdmin = class {
         const num = modif.num
         const index = modif.index
         console.log("ma num and index",num,index);
-        if(modif.statut == "en_preparation"){
+        if(nouveauStatut == "en_preparation"){
           sendNotification({
             type:"valider",
             num:num,
             index:index,
             message: `cher client votre commande à ala table ${num}  est  en cour de  preparation`,
           });
-        }else if(modif.statut == "servie"){
+        }else if(nouveauStatut == "servie"){
 
           sendNotification({
             type:"valider",
