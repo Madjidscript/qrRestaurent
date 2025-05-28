@@ -28,7 +28,7 @@ router.get('/qrcodes', controllerAdmin.qrCodes)
 
 // controler des api 
 router.get('/commandes', controlerApi.commande) 
-router.get('/commandes/:id', controlerApi.commandes) 
+router.get('/commandes/:id/:statut', controlerApi.commandes) 
 router.get('/detailcmd/:id', controlerApi.detailcmd) 
 router.delete('/annulecommandes/:id/:num', controlerApi.anulecommandes) 
 router.delete('/annulecommandesbyclient/:index/:num', controlerApi.anulecommandesbyclient) 

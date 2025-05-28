@@ -4,7 +4,7 @@ const modelSchema = mongoose.Schema({
 num:{type:Number,required:true},
 total:{type:String,required:true},
 index:{type:String,required:true},
-statut: { type: Boolean, default: true },
+statut: {type:String,required:true},
 data:{type:Array,required:true},
 alergit: {type:Array,default:"pas d'arlergie"}, 
 

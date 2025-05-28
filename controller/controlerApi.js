@@ -284,28 +284,37 @@ const controllerAdmin = class {
 
     static commandes = async(req=request, res=response)=>{
          let msg=""
-          let status=""
-      console.log("mon chao maho");
+          let status=req.params.statut
+      console.log("mon statut",status);
       const id = req.params.id
       console.log('mon id heeeee',req.params.id);
       const commandes = await otherCmmd.utilisarteuParID(id)
       console.log("mes commande sont la hooo",commandes._id)
 
       if (commandes) {
-        const nouveauStatut=!commandes.statut
+        const nouveauStatut=status
         commandes.statut=nouveauStatut
          const modif = await otherCmmd.update(id,commandes)
         console.log("ma modification",modif);
         const num = modif.num
         const index = modif.index
         console.log("ma num and index",num,index);
-        if(modif.statut == true){
+        if(modif.statut == "en_preparation"){
           sendNotification({
             type:"valider",
             num:num,
             index:index,
-            message: `cher client votre commande à ala table ${num}  a été valider`,
+            message: `cher client votre commande à ala table ${num}  est  en cour de  preparation`,
           });
+        }else if(modif.statut == "servie"){
+
+          sendNotification({
+            type:"valider",
+            num:num,
+            index:index,
+            message: `cher client votre commande à ala table ${num} est prete vous aller la recevoir dans un instant`,
+          });
+
         }
 
         
