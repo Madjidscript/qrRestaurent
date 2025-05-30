@@ -304,6 +304,7 @@ const controllerAdmin = class {
             type:"valider",
             num:num,
             index:index,
+            statut:nouveauStatut,
             message: `cher client votre commande à ala table ${num}  est  en cour de  preparation`,
           });
         }else if(nouveauStatut == "servie"){
@@ -312,6 +313,7 @@ const controllerAdmin = class {
             type:"valider",
             num:num,
             index:index,
+            statut:nouveauStatut,
             message: `cher client votre commande à ala table ${num} est prete vous aller la recevoir dans un instant`,
           });
 
