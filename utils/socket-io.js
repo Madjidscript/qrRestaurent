@@ -30,7 +30,7 @@ const connectSockerServer = (server) => {
       socket.emit("retourdemande", msg);
 
       // (Optionnel) Notifier tous les admins
-      io.emit("notification", {
+      io.emit("notifications", {
         type: "demande_serveur",
         clientId: socket.id,
         table: data?.numeroTable,
