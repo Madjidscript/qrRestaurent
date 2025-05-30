@@ -305,9 +305,9 @@ const controllerAdmin = class {
             num:num,
             index:index,
             statut:nouveauStatut,
-            message: `cher client votre commande à ala table ${num}  est  en cour de  preparation`,
+            message: `cher client votre commande à ala table ${num}  est  en cour de  preparation ..`,
           });
-        }else if(nouveauStatut == "servie"){
+        }else if(nouveauStatut == "Servie"){
 
           sendNotification({
             type:"valider",
