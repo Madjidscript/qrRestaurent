@@ -305,6 +305,7 @@ const controllerAdmin = class {
             num:num,
             index:index,
             statut:nouveauStatut,
+            type_service:modif.type_service,
             message: `cher client votre commande à ala table ${num}  est  en cour de  preparation ..`,
           });
         }else if(nouveauStatut == "Servie"){
@@ -314,6 +315,7 @@ const controllerAdmin = class {
             num:num,
             index:index,
             statut:nouveauStatut,
+            type_service:modif.type_service,
             message: `cher client votre commande à ala table ${num} est prete vous aller la recevoir dans un instant`,
           });
 
