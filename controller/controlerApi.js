@@ -376,7 +376,7 @@ res.json(msg)
       const commandes = await otherCmmd.utilisarteuParID(id)
       // console.log("annule commande ",commandes._id)
 
-      if (commandes && commandes.statut=== true ) {
+      if (commandes) {
         
          const annule = await otherCmmd.suppression(id)
          sendNotification({
@@ -398,7 +398,7 @@ res.json(msg)
       const commandes = await otherCmmd.utilisarteuParIndex(index)
       // console.log("annule commande ",commandes._id)
 
-      if (commandes && commandes.statut=== true ) {
+      if (commandes) {
         
          const annule = await otherCmmd.suppression2(index)
          sendNotification({
