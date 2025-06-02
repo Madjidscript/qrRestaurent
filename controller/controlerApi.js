@@ -289,6 +289,8 @@ const controllerAdmin = class {
       const id = req.params.id
       console.log('mon id heeeee',req.params.id);
       const commandes = await otherCmmd.utilisarteuParID(id)
+      console.log("mon tbs",tb);
+
       console.log("mes commande sont la hooo",commandes._id)
 
       if (commandes) {
@@ -309,6 +311,13 @@ const controllerAdmin = class {
             message: `cher client votre commande à ala table ${num}  est  en cour de  preparation ..`,
           });
         }else if(nouveauStatut == "Servie"){
+
+          let tb = commandes.data
+          
+           tb.forEach(async (element) => {
+                  const modif = await otherStock.update(element.id, element.nbre);
+            });
+
 
           sendNotification({
             type:"valider",
