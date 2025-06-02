@@ -330,6 +330,21 @@ const controllerAdmin = class {
 
         }
 
+        else if(nouveauStatut == "deleted_by_admin"){
+
+          
+
+          sendNotification({
+            type:"valider",
+            num:num,
+            index:index,
+            statut:nouveauStatut,
+            type_service:modif.type_service,
+            message: `cher client votre commande à ala table ${num} a été annuler pas l'admin`,
+          });
+
+        }
+
         
 
         msg="statut changer"
@@ -390,7 +405,7 @@ res.json(msg)
          const annule = await otherCmmd.suppression(id)
          sendNotification({
           type:"annuler",
-          message: `commande annuler  a la table ${num} !`,
+          message: `commande annuler  a la table ${num}  !`,
         });
         let message="annulation de commande"
         res.json(message) 
@@ -403,16 +418,21 @@ res.json(msg)
       console.log("mon chao maho");
       const index = req.params.index
       const num = parseInt(req.params.num, 10);
+      const statut = req.params.statut;
       console.log('mon id heeeee',req.params.index,req.params.num);
       const commandes = await otherCmmd.utilisarteuParIndex(index)
+      // const commandes = await otherCmmd.update2(id,nouveauStatut)
+
       // console.log("annule commande ",commandes._id)
 
       if (commandes) {
         
-         const annule = await otherCmmd.suppression2(index)
+        //  const annule = await otherCmmd.suppression2(index)
+      const commandes = await otherCmmd.update2(index,statut)
+
          sendNotification({
           type:"annuler",
-          message: `commande annuler  a la table ${num} !`,
+          message: `commande annuler  a la table ${num} pas lutilisateur !`,
         });
         let message="annulation de commande pas client"
         let status = "success"

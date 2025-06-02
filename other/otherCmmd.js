@@ -94,6 +94,22 @@ static update= async(id,statut)=>{
 }
 
 
+static update2= async(index,statut)=>{
+    try {
+        const modif = await Cmmd.findOne({index:index})
+        console.log("id la sssssss" ,modif.id,"mon statut favorable",modif.statut);
+        // statut=modif.statut
+        console.log("ii",statut);
+        
+        const modifs = await Cmmd.findByIdAndUpdate(modif._id,{statut:statut})
+        console.log("momo",modifs);
+        return modifs
+    } catch (error) {
+        console.log("mon erreur",error);
+    }
+}
+
+
 
 
 
