@@ -289,6 +289,7 @@ const controllerAdmin = class {
       const id = req.params.id
       console.log('mon id heeeee',req.params.id);
       const commandes = await otherCmmd.utilisarteuParID(id)
+      let tb = commandes.data
       console.log("mon tbs",tb);
 
       console.log("mes commande sont la hooo",commandes._id)
@@ -312,7 +313,6 @@ const controllerAdmin = class {
           });
         }else if(nouveauStatut == "Servie"){
 
-          let tb = commandes.data
           
            tb.forEach(async (element) => {
                   const modif = await otherStock.update(element.id, element.nbre);
