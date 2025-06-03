@@ -17,6 +17,7 @@ const top5Plats = require("../middleware/top5")
 const bcrypt = require("bcrypt");
 const top5StocksInferieurs = require("../middleware/moinsstock");
 const { log } = require("console");
+const Stock = require("../model/modelStock");
 
 const controllerAdmin = class {
     static inscription = async(req=request,res=response)=>{
@@ -156,11 +157,24 @@ const controllerAdmin = class {
         const { id_cath } = req.body
         const recup = await otherSousCathegorie.soucathbycath(id_cath)
         console.log("mon recup",recup)
+
+        const sousCategoriesAvecStock = []
+
+        for (const sousCat of recup) {
+          const stock = await Stock.findOne({
+                id_Souscat: sousCat._id,
+                nombre: { $gt: 0 }
+          })
+
+          if (stock) {
+                sousCategoriesAvecStock.push(sousCat)
+          }
+        }
     
-        if (recup && recup.length > 0) {
+        if (sousCategoriesAvecStock.length > 0) {
           res.json({
             msg: "Sous-catégories affichées avec succès",
-            data: recup
+            data: sousCategoriesAvecStock
           })
         } else {
           res.status(404).json({
