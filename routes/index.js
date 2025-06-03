@@ -52,6 +52,7 @@ router.get('/deconnexions', controlerApi.Deconnexion)
 router.post('/reacts', controlerApi.react) 
 router.get('/qrcode', controlerApi.qrCodes)
 router.post('/qrcode', controlerApi.qr)
+router.get('/sigleqrcode/:token', controlerApi.recupqr)
 router.get('/coubre', controlerApi.coubre)
 
 

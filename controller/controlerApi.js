@@ -18,6 +18,7 @@ const bcrypt = require("bcrypt");
 const top5StocksInferieurs = require("../middleware/moinsstock");
 const { log } = require("console");
 const Stock = require("../model/modelStock");
+const Qrcode = require("../model/modelqrcode");
 
 const controllerAdmin = class {
     static inscription = async(req=request,res=response)=>{
@@ -546,31 +547,64 @@ res.json(msg)
       // };
 
 
-      static qr = async (req = request, res = response) => {
-        try {
-          // Récupérer le nombre de QR codes à générer depuis le corps de la requête
-          const { number } = req.body;
+      // static qr = async (req = request, res = response) => {
+      //   try {
+      //     // Récupérer le nombre de QR codes à générer depuis le corps de la requête
+      //     const { number } = req.body;
       
-          // Vérifier si un nombre valide est fourni
-          if (!number || isNaN(number) || number <= 0) {
-            return res.status(400).json({ message: "Veuillez fournir un nombre valide." });
-          }
+      //     // Vérifier si un nombre valide est fourni
+      //     if (!number || isNaN(number) || number <= 0) {
+      //       return res.status(400).json({ message: "Veuillez fournir un nombre valide." });
+      //     }
       
-          // Créer un tableau basé sur le nombre demandé
-          const tableNumbers = Array.from({ length: number }, (_, i) => i + 1);
+      //     // Créer un tableau basé sur le nombre demandé
+      //     const tableNumbers = Array.from({ length: number }, (_, i) => i + 1);
       
-          // Appeler la fonction pour générer et sauvegarder les QR codes
-          const qrCodes = await generateAndSaveQRCodes(tableNumbers);
+      //     // Appeler la fonction pour générer et sauvegarder les QR codes
+      //     const qrCodes = await generateAndSaveQRCodes(tableNumbers);
       
-          // Répondre avec un message de succès
-          console.log("QR Codes générés avec succès:", qrCodes);
-          res.status(200).json({ message: "QR Codes générés avec succès.", qrCodes,status:"success" });
-        } catch (error) {
-          console.error("Erreur lors de la génération des QR codes:", error.message);
-          res.status(500).json({ message: "Une erreur est survenue.", error: error.message });
-        }
-      };
-      
+      //     // Répondre avec un message de succès
+      //     console.log("QR Codes générés avec succès:", qrCodes);
+      //     res.status(200).json({ message: "QR Codes générés avec succès.", qrCodes,status:"success" });
+      //   } catch (error) {
+      //     console.error("Erreur lors de la génération des QR codes:", error.message);
+      //     res.status(500).json({ message: "Une erreur est survenue.", error: error.message });
+      //   }
+      // };
+
+      static qr = async (req, res) => {
+      try {
+            const { number } = req.body;
+
+            if (!number || isNaN(number) || number <= 0) {
+                  return res.status(400).json({ message: "Veuillez fournir un nombre valide." });
+            }
+
+            const tableNumbers = Array.from({ length: number }, (_, i) => i + 1);
+            const qrCodes = await generateAndSaveQRCodes(tableNumbers);
+
+            console.log("QR Codes générés avec succès:", qrCodes);
+            res.status(200).json({ message: "QR Codes générés avec succès.", qrCodes, status: "success" });
+      } catch (error) {
+            console.error("Erreur QR:", error.message);
+            res.status(500).json({ message: "Erreur lors de la génération.", error: error.message });
+      }
+};
+
+static recupqr = async(req=request,res=response)=>{
+  const { token } = req.params;
+
+  const table = await Qrcode.findOne({ token });
+
+  if (!table) {
+    return res.status(404).send("Lien QR invalide ou expiré.");
+  }
+
+  const numeroTable = table.number;
+
+  // Tu peux ici envoyer une page ou des infos utiles pour cette table
+  res.json({ message: `Bienvenue à la table ${numeroTable}`, numeroTable });
+}  
 
       static qrCodes = async(req=request, res=response)=>{
         let msg=""
