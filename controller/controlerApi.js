@@ -6,6 +6,7 @@ const otherCathegorie = require("../other/otherCathegorie");
 const otherSousCathegorie = require("../other/otherSouscathegorie");
 const otherCmmd = require("../other/otherCmmd");
 const otherStock = require("../other/otherStock");
+const otherservice =require("../other/otherservice")
 const otherqrcode =require("../other/otherqrcode")
 const otherMenu = require("../other/otherUser");
 const {response,request}= require('express');
@@ -21,6 +22,20 @@ const Stock = require("../model/modelStock");
 const Qrcode = require("../model/modelqrcode");
 
 const controllerAdmin = class {
+     
+    static getstatut = async(req=request,res=response)=>{
+     const status = await otherservice.getStatus();
+     res.json(status);
+    }
+
+    static updatestatut = async(req=request,res=response)=>{
+    const { isOpen } = req.body;
+    const status = await otherservice.setStatus(isOpen);
+    res.json(status);
+    }
+
+
+
     static inscription = async(req=request,res=response)=>{
       let message =""
       if (req.session.admin) {

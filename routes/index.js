@@ -28,6 +28,8 @@ router.get('/qrcodes', controllerAdmin.qrCodes)
 
 // controler des api 
 router.get('/commandes', controlerApi.commande) 
+router.get('/getstatut', controlerApi.getstatut) 
+router.post('/updatestatut', controlerApi.updatestatut) 
 router.get('/commandes/:id/:statut', controlerApi.commandes) 
 router.get('/detailcmd/:id', controlerApi.detailcmd) 
 router.get('/detailcmdindex/:index', controlerApi.detailcmdByindex) 
