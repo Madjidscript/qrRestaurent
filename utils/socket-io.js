@@ -56,7 +56,18 @@ const sendNotification = (message) => {
   io.emit("notification", message);
 };
 
+const sendNotifications = (message) => {
+  console.log("sending message : ", message);
+  io.emit("notification", message);
+};
+
+
+const pose = (message) => {
+  console.log("sending message : ", message);
+  io.emit("statut", message);
+};
 
 
 
-module.exports = { connectSockerServer, sendNotification };
+
+module.exports = { connectSockerServer, sendNotification,pose,sendNotifications };

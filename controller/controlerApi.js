@@ -11,7 +11,7 @@ const otherqrcode =require("../other/otherqrcode")
 const otherMenu = require("../other/otherUser");
 const {response,request}= require('express');
 const otherInscription = require("../other/otherInscription");
-const { sendNotification } = require("../utils/socket-io");
+const { sendNotification,pose } = require("../utils/socket-io");
 const generateAndSaveQRCodes = require("../middleware/qr");
 const top5Plats = require("../middleware/top5")
 
@@ -25,6 +25,7 @@ const controllerAdmin = class {
      
     static getstatut = async(req=request,res=response)=>{
      const status = await otherservice.getStatus();
+     
      res.json(status);
     }
 
@@ -32,6 +33,12 @@ const controllerAdmin = class {
     const { isOpen } = req.body;
     const status = await otherservice.setStatus(isOpen);
     res.json(status);
+
+    pose({
+            type:"pose",
+            statut:status,
+           
+          });
     }
 
 
