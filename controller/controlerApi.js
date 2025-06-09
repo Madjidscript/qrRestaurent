@@ -26,7 +26,15 @@ const controllerAdmin = class {
     static getstatut = async(req=request,res=response)=>{
      const status = await otherservice.getStatus();
      
+     
      res.json(status);
+      pose({
+            type:"pose",
+            statut:status,
+           
+          });
+     
+
     }
 
     static updatestatut = async(req=request,res=response)=>{

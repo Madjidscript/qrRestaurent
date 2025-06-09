@@ -56,7 +56,7 @@ const generateAndSaveQRCodes = async (numbers) => {
       const secureToken = uuidv4();
 
       // Génère l'URL avec le token sécurisé
-      const url = `https://restaux-mmds.vercel.app/client/cath/${secureToken}`;
+      const url = `https://restaux-mmds.vercel.app/client/cath/${secureToken}?from=scan`;
 
       // Génère l’image du QR code à partir de l’URL
       const qrCodeData = await QRCode.toDataURL(url);
