@@ -51,6 +51,15 @@ static utilisateurParEmail = async(email)=>{
     }
 }
 
+static cmmdbyemonid = async(emon_id)=>{
+    try {
+        const recupcmd = await Cmmd.find({emon_id:emon_id})
+        return recupcmd
+    } catch (error) {
+        console.log("mon erreur",error);
+    }
+}
+
 static inscription = async(utilisateur)=>{
     try {
 
