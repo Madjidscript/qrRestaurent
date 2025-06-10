@@ -155,7 +155,7 @@ const controllerAdmin = class {
       console.log('mon insertion cathegorie', insertion);
       if (insertion) {
         msg=" insertion reussit"
-        status ="success"
+        status ="success" 
         res.json({insertion,status})
       }else{
         msg=" insertion reussit"
@@ -418,24 +418,41 @@ const controllerAdmin = class {
 
  } 
 
- static getallcmdbyemonid = async(req=request, res=response)=>{
-      let msg=""
-      let status=""
-   console.log("mon chao maho");
-   const id = req.params.emon_id
-   console.log('mon id heeeee',req.params.id);
-   const commandes = await otherCmmd.cmmdbyemonid(id)
-  //  console.log(" detail commande la hooo",commandes._id)
+//  static getallcmdbyemonid = async(req=request, res=response)=>{
+//       let msg=""
+//       let status=""
+//    console.log("mon chao maho");
+//    const id = req.params.emon_id
+//    console.log('mon id heeeee',req.params.id);
+//    const commandes = await otherCmmd.cmmdbyemonid(id)
+//   //  console.log(" detail commande la hooo",commandes._id)
 
-   if (commandes) {
-     status="success"
-     res.json({commandes,status}) 
-   }else{
-    msg="deatail commande echouer"
-    res.json(msg)
-   }
+//    if (commandes) {
+//      status="success"
+//      res.json({commandes,status}) 
+//    }else{
+//     msg="deatail commande echouer"
+//     res.json(msg)
+//    }
 
- }
+//  }
+
+static getallcmdbyemonid = async(req = request, res = response) => {
+  try {
+    const id = req.params.emon_id;
+    const commandes = await otherCmmd.cmmdbyemonid(id);
+
+    if (commandes && commandes.length > 0) {
+      res.json({ commandes, status: "success" });
+    } else {
+      res.json({ commandes: [], status: "empty", msg: "Aucune commande trouvée" });
+    }
+  } catch (error) {
+    console.error("Erreur dans getallcmdbyemonid :", error);
+    res.status(500).json({ status: "error", msg: "Erreur serveur" });
+  }
+};
+
 
  static detailcmdByindex = async(req=request, res=response)=>{
   let msg=""
