@@ -20,6 +20,7 @@ const top5StocksInferieurs = require("../middleware/moinsstock");
 const { log } = require("console");
 const Stock = require("../model/modelStock");
 const Qrcode = require("../model/modelqrcode");
+const Coupon = require("../model/modelcoupon");
 
 const controllerAdmin = class {
      
@@ -709,6 +710,89 @@ static recupqr = async(req=request,res=response)=>{
         
       }
 
+
+static creatcoupon = async(req=request,res=response)=>{
+  try {
+    const { code, reduction, isPercentage, expirationDate, maxUsage } = req.body;
+
+    const existing = await Coupon.findOne({ code });
+    if (existing) return res.status(400).json({ message: 'Code déjà utilisé' });
+
+    const coupon = new Coupon({
+      code,
+      reduction,
+      isPercentage,
+      expirationDate,
+      maxUsage
+    });
+
+    await coupon.save();
+    res.status(201).json({ message: 'Coupon créé avec succès', coupon });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur serveur', error: error.message });
+  }
+}  
+
+static gatallcoupon = async(req=request,res=response)=>{
+  try {
+    const coupons = await Coupon.find();
+    res.status(200).json({ success: true, coupons });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Erreur serveur' });
+  }
+}  
+
+static verifcoupon = async(req=request,res=response)=>{
+ try {
+    const { code } = req.params;
+    const coupon = await Coupon.findOne({ code, isActive: true });
+
+    if (!coupon) {
+      return res.status(404).json({ success: false, message: 'Coupon invalide' });
+    }
+
+    const now = new Date();
+
+    if (coupon.expirationDate && now > coupon.expirationDate) {
+      return res.status(400).json({ success: false, message: 'Coupon expiré' });
+    }
+
+    if (coupon.maxUsage && coupon.usedCount >= coupon.maxUsage) {
+      return res.status(400).json({ success: false, message: 'Coupon déjà utilisé au maximum' });
+    }
+
+    res.status(200).json({
+      success: true,
+      coupon: {
+        code: coupon.code,
+        reduction: coupon.reduction,
+        isPercentage: coupon.isPercentage,
+        expirationDate: coupon.expirationDate,
+        usedCount: coupon.usedCount
+      }
+    });
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Erreur serveur' });
+  }
+}  
+
+static deletecoupon = async(req=request,res=response)=>{
+ try {
+    const { id } = req.params;
+    const coupon = await Coupon.findByIdAndDelete(id);
+
+    if (!coupon) {
+      return res.status(404).json({ success: false, message: 'Coupon non trouvé' });
+    }
+
+    res.status(200).json({ success: true, message: 'Coupon supprimé avec succès' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Erreur serveur' });
+  }
+}  
+
       
   
 
@@ -719,4 +803,7 @@ static recupqr = async(req=request,res=response)=>{
     
       
 }
+
+
+
 module.exports = controllerAdmin

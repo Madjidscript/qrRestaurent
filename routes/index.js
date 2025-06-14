@@ -58,5 +58,11 @@ router.post('/qrcode', controlerApi.qr)
 router.get('/sigleqrcode/:token', controlerApi.recupqr)
 router.get('/coubre', controlerApi.coubre)
 
+router.post('/createcoupon', controlerApi.creatcoupon) 
+router.get('/getcoupon', controlerApi.gatallcoupon) 
+router.get('/verifcoupon/:code', controlerApi.verifcoupon) 
+router.delete('/deletecoupon/:id', controlerApi.deletecoupon) 
+
+
 
 module.exports = router;
