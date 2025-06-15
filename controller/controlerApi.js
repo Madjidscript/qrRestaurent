@@ -529,23 +529,50 @@ res.json(msg)
 
     static validationcmmd = async (req = request, res = response) => {
       try {
-        // Récupérer le nombre de QR codes à générer depuis le corps de la requête
-        const body = req.body;
-        const num =req.body.num
-        const commandes = await otherCmmd.inscription(body)
+  // Récupérer le corps de la requête
+  const body = req.body;
+  const num = req.body.num;
+  const promoCode = req.body.promo;
 
-        sendNotification({
-          type:"valider",
-          message: `commande effectuer  a la table ${num} !`,
-        });
-        
-        // Répondre avec un message de succès
-        console.log("commande  générés avec succès:", commandes);
-        res.status(200).json({ message: "comande valider", commandes,status:"success" });
-      } catch (error) {
-        console.error("Erreur lors de la validation descmmd:", error.message);
-        res.status(500).json({ message: "Une erreur est survenue.", error: error.message });
-      }
+  // Créer la commande
+  const commandes = await otherCmmd.inscription(body);
+
+  // Vérification du coupon
+  if (promoCode) {
+    const coupon = await Coupon.findOne({ code: promoCode, isActive:true});
+
+    if (coupon) {
+      coupon.isActive = false;
+      await coupon.save();
+      console.log(`Coupon ${promoCode} désactivé après utilisation.`);
+      sendNotification({
+    type: "valider",
+    message: `cher admin Commande effectuée à la table ${num} !`,
+  });
+    } else {
+      console.log(`Aucun coupon actif trouvé avec le code : ${promoCode}`);
+      sendNotification({
+    type: "valider",
+    message: `cher admin Commande effectuée à la table ${num} !`,
+  });
+    }
+  }
+
+  // // Notification
+  // sendNotification({
+  //   type: "valider",
+  //   message: `cher admin Commande effectuée à la table ${num} !`,
+  // });
+
+  // Réponse
+  console.log("Commande générée avec succès:", commandes);
+  res.status(200).json({ message: "Commande validée", commandes, status: "success" });
+
+} catch (error) {
+  console.error("Erreur lors de la validation des commandes:", error.message);
+  res.status(500).json({ message: "Une erreur est survenue.", error: error.message });
+}
+
     }
 
       static message = async(req=request, res=response)=>{
@@ -737,9 +764,9 @@ static creatcoupon = async(req=request,res=response)=>{
 static gatallcoupon = async(req=request,res=response)=>{
   try {
     const coupons = await Coupon.find();
-    res.status(200).json({ success: true, coupons });
+    res.status(200).json({ message: 'Coupons récupérés avec succès', coupons });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Erreur serveur' });
+    res.status(500).json({ message: 'Erreur serveur', error: error.message });
   }
 }  
 
@@ -749,7 +776,7 @@ static verifcoupon = async(req=request,res=response)=>{
     const coupon = await Coupon.findOne({ code, isActive: true });
 
     if (!coupon) {
-      return res.status(404).json({ success: false, message: 'Coupon invalide' });
+      return res.json({  message: 'Coupon invalide' });
     }
 
     const now = new Date();
@@ -779,7 +806,7 @@ static verifcoupon = async(req=request,res=response)=>{
 }  
 
 static deletecoupon = async(req=request,res=response)=>{
- try {
+  try {
     const { id } = req.params;
     const coupon = await Coupon.findByIdAndDelete(id);
 

@@ -9,6 +9,7 @@ index:{type:String,required:true},
 statut: {type:String,required:true},
 data:{type:Array,required:true},
 alergit: {type:Array,default:"pas d'arlergie"}, 
+promo: {type:String,required:false}, 
 
 })
 const Cmmd = mongoose.model("Cmmd",modelSchema)
