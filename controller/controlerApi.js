@@ -793,11 +793,11 @@ static verifcoupon = async(req=request,res=response)=>{
     const now = new Date();
 
     if (coupon.expirationDate && now > coupon.expirationDate) {
-      return res.status(400).json({ success: false, message: 'Coupon expiré' });
+      return res.json({ success: false, message: 'Coupon expiré' });
     }
 
     if (coupon.maxUsage && coupon.usedCount >= coupon.maxUsage) {
-      return res.status(400).json({ success: false, message: 'Coupon déjà utilisé au maximum' });
+      return res.json({ success: false, message: 'Coupon déjà utilisé au maximum' });
     }
 
     res.status(200).json({
