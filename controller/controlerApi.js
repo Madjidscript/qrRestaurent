@@ -793,6 +793,8 @@ static verifcoupon = async(req=request,res=response)=>{
     const now = new Date();
 
     if (coupon.expirationDate && now > coupon.expirationDate) {
+      coupon.isActive = false; // Désactiver le coupon s'il est expiré
+      await coupon.save();
       return res.json({ success: false, message: 'Coupon expiré' });
     }
 
