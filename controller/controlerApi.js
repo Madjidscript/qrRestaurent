@@ -632,14 +632,16 @@ static validationcmmd = async (req = request, res = response) => {
   try {
     const clientId = req.headers['x-client-id'];
     const { num, promo, ...body } = req.body;
-
+    const data = req.body
     const table = await Qrcode.findOne({ number: num });
 
     if (!table || table.sessionId !== clientId) {
       return res.status(403).json({ message: "QR invalide ou accès interdit." });
     }
-
-    const commandes = await otherCmmd.inscription(body);
+    console.log("madjid", req.body);
+   
+    const commandes = await otherCmmd.inscription(data);
+    
 
     if (promo) {
       const coupon = await Coupon.findOne({ code: promo, isActive: true });
@@ -824,7 +826,7 @@ static recupqr = async (req, res) => {
     const table = await Qrcode.findOne({ token });
 
     if (!table) {
-      return res.status(404).json({ message: "QR Code invalide ou expiré." });
+      return res.json({ message: "QR Code invalide ou expiré." });
     }
 
     // Si QR déjà en cours
@@ -837,7 +839,7 @@ static recupqr = async (req, res) => {
         });
       } else {
         // ❌ Autre utilisateur, ne rien modifier
-        return res.status(403).json({ message: "QR déjà en cours par un autre utilisateur." });
+        return res.json({ message: "QR déjà en cours par un autre utilisateur." });
       }
     }
 
