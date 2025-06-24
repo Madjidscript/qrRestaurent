@@ -835,43 +835,54 @@ static validationcmmd = async (req = request, res = response) => {
 static recupqr = async (req, res) => {
   const { token } = req.params;
 
-  const table = await Qrcode.findOne({ token });
+  try {
+    const table = await Qrcode.findOne({ token });
 
-  if (!table) {
-    return res.status(404).send("Lien QR invalide ou expiré.");
-  }
-
-  if (table.etat !== 'libre') {
-    return res.status(403).send("QR déjà en cours ou utilisé. Veuillez rescanner.");
-  }
-
-  // ➕ Mise à jour : passer à en_cours + sauvegarder la date
-  table.etat = 'en_cours';
-  table.lastChange = new Date();
-  await table.save();
-
-  // ⏱ Timer de 10 minutes
-  setTimeout(async () => {
-    const current = await Qrcode.findOne({ number: table.number });
-
-    if (current && current.etat === 'en_cours') {
-      const newToken = uuidv4();
-      const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
-      const newQRCode = await QRCode.toDataURL(newURL);
-
-      current.token = newToken;
-      current.qrCodeData = newQRCode;
-      current.etat = 'libre';
-      current.lastChange = null;
-      await current.save();
-
-      console.log(`⏱ QR de la table ${table.number} libéré après 10 minutes sans commande.`);
+    if (!table) {
+      return res.status(404).send("Lien QR invalide ou expiré.");
     }
-  }, 10 * 60 * 1000); // 10 minutes
 
-  const numeroTable = table.number;
-  res.json({ message: `Bienvenue à la table ${numeroTable}`, numeroTable });
+    if (table.etat !== 'libre') {
+      return res.status(403).send("QR déjà en cours ou utilisé. Veuillez rescanner.");
+    }
+
+    // ➕ Mise à jour immédiate
+    table.etat = 'en_cours';
+    table.lastChange = new Date();
+    await table.save();
+
+    // ✅ Envoyer la réponse tout de suite
+    res.json({ message: `Bienvenue à la table ${table.number}`, numeroTable: table.number });
+
+    // 🕒 Timer de 10 min en arrière-plan (sans bloquer)
+    setTimeout(async () => {
+      try {
+        const current = await Qrcode.findOne({ number: table.number });
+
+        if (current && current.etat === 'en_cours') {
+          const newToken = uuidv4();
+          const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
+          const newQRCode = await QRCode.toDataURL(newURL);
+
+          current.token = newToken;
+          current.qrCodeData = newQRCode;
+          current.etat = 'libre';
+          current.lastChange = null;
+          await current.save();
+
+          console.log(`⏱ QR de la table ${table.number} libéré après 10 minutes sans commande.`);
+        }
+      } catch (err) {
+        console.error("Erreur dans le timer QR :", err.message);
+      }
+    }, 10 * 60 * 1000); // 10 minutes
+
+  } catch (error) {
+    console.error("Erreur recupqr :", error.message);
+    res.status(500).json({ error: "Erreur serveur lors du scan." });
+  }
 };
+
 
       static qrCodes = async(req=request, res=response)=>{
         let msg=""
