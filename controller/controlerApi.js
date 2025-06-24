@@ -1,6 +1,10 @@
 const path = require("path/win32");
 const Cathegorie = require("../model/modelCathegorie");
 const SousCathegorie = require("../model/modelSousCathegorie");
+const { v4: uuidv4 } = require('uuid');
+const QRCode = require('qrcode');
+// const QRCodeModel = require('../model/modelqrcode'); // Assurez-vous que le chemin est correct
+
 
 const otherCathegorie = require("../other/otherCathegorie");
 const otherSousCathegorie = require("../other/otherSouscathegorie");
@@ -696,7 +700,23 @@ res.json(msg)
       }
 };
 
-static recupqr = async(req=request,res=response)=>{
+// static recupqr = async(req=request,res=response)=>{
+//   const { token } = req.params;
+
+//   const table = await Qrcode.findOne({ token });
+
+//   if (!table) {
+//     return res.status(404).send("Lien QR invalide ou expiré.");
+//   }
+
+//   const numeroTable = table.number;
+
+//   // Tu peux ici envoyer une page ou des infos utiles pour cette table
+//   res.json({ message: `Bienvenue à la table ${numeroTable}`, numeroTable });
+// }  
+
+
+static recupqr = async (req, res) => {
   const { token } = req.params;
 
   const table = await Qrcode.findOne({ token });
@@ -705,11 +725,37 @@ static recupqr = async(req=request,res=response)=>{
     return res.status(404).send("Lien QR invalide ou expiré.");
   }
 
-  const numeroTable = table.number;
+  if (table.etat !== 'libre') {
+    return res.status(403).send("QR déjà en cours ou utilisé. Veuillez rescanner.");
+  }
 
-  // Tu peux ici envoyer une page ou des infos utiles pour cette table
+  // ➕ Mise à jour : passer à en_cours + sauvegarder la date
+  table.etat = 'en_cours';
+  table.lastChange = new Date();
+  await table.save();
+
+  // ⏱ Timer de 10 minutes
+  setTimeout(async () => {
+    const current = await Qrcode.findOne({ number: table.number });
+
+    if (current && current.etat === 'en_cours') {
+      const newToken = uuidv4();
+      const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
+      const newQRCode = await QRCode.toDataURL(newURL);
+
+      current.token = newToken;
+      current.qrCodeData = newQRCode;
+      current.etat = 'libre';
+      current.lastChange = null;
+      await current.save();
+
+      console.log(`⏱ QR de la table ${table.number} libéré après 10 minutes sans commande.`);
+    }
+  }, 10 * 60 * 1000); // 10 minutes
+
+  const numeroTable = table.number;
   res.json({ message: `Bienvenue à la table ${numeroTable}`, numeroTable });
-}  
+};
 
       static qrCodes = async(req=request, res=response)=>{
         let msg=""

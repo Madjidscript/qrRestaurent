@@ -47,30 +47,64 @@ const QRCodeModel = require('../model/modelqrcode'); // Assurez-vous que le chem
 //   }
 // };
 
+// const generateAndSaveQRCodes = async (numbers) => {
+//   try {
+//     const results = [];
+
+//     for (const number of numbers) {
+//       // Génère un token sécurisé (UUID)
+//       const secureToken = uuidv4();
+
+//       // Génère l'URL avec le token sécurisé
+//       const url = `https://restaux-mmds.vercel.app/client/cath/${secureToken}?from=scan`;
+
+//       // Génère l’image du QR code à partir de l’URL
+//       const qrCodeData = await QRCode.toDataURL(url);
+
+//       // Crée et enregistre dans MongoDB
+//       const qrCodeDocument = {
+//         number: number,
+//         token: secureToken,
+//         qrCodeData: qrCodeData,
+//         date: new Date()
+//       };
+
+//       const result = await QRCodeModel.findOneAndUpdate(
+//         { number },
+//         qrCodeDocument,
+//         { upsert: true, new: true }
+//       );
+
+//       results.push(result);
+//     }
+
+//     return results;
+//   } catch (err) {
+//     throw new Error(`Erreur QR Code: ${err.message}`);
+//   }
+// };
+
+
 const generateAndSaveQRCodes = async (numbers) => {
   try {
     const results = [];
 
     for (const number of numbers) {
-      // Génère un token sécurisé (UUID)
       const secureToken = uuidv4();
-
-      // Génère l'URL avec le token sécurisé
       const url = `https://restaux-mmds.vercel.app/client/cath/${secureToken}?from=scan`;
-
-      // Génère l’image du QR code à partir de l’URL
       const qrCodeData = await QRCode.toDataURL(url);
 
-      // Crée et enregistre dans MongoDB
       const qrCodeDocument = {
         number: number,
         token: secureToken,
         qrCodeData: qrCodeData,
+        etat: 'libre',
+        lastChange: null,
         date: new Date()
       };
 
       const result = await QRCodeModel.findOneAndUpdate(
-        { number },
+        { number }, // un seul QR par table
         qrCodeDocument,
         { upsert: true, new: true }
       );
