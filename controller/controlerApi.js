@@ -817,63 +817,69 @@ static validationcmmd = async (req = request, res = response) => {
 
 
 static recupqr = async (req, res) => {
-  try {
-    const { token } = req.params;
-    const { sessionId } = req.query;
+  const { token } = req.params;
+  const { sessionId } = req.query;
 
+  try {
     const table = await Qrcode.findOne({ token });
 
     if (!table) {
       return res.status(404).json({ message: "QR Code invalide ou expiré." });
     }
 
-    // 🔒 Si en cours, vérifier l'identité
+    // 📌 Si déjà en cours
     if (table.etat === 'en_cours') {
-      if (table.sessionId !== sessionId) {
-        return res.status(403).json({ message: "QR déjà utilisé. Veuillez rescanner plus tard." });
-      } else {
-        // Le même utilisateur revient, on accepte (pas besoin de modifier)
-        return res.status(200).json({ 
-          message: `Bienvenue à la table ${table.number}`, 
-          numeroTable: table.number 
+      if (table.sessionId === sessionId) {
+        // ✅ Même utilisateur, il revient
+        return res.status(200).json({
+          message: `Bienvenue à la table ${table.number}`,
+          numeroTable: table.number
         });
+      } else {
+        // ❌ Un autre essaie d'accéder, on refuse SANS RIEN CHANGER
+        return res.status(403).json({ message: "QR déjà en cours. Réessayez plus tard." });
       }
     }
 
-    // ✅ Si état libre, on passe à en_cours et on attribue le sessionId
+    // ✅ Si QR libre, démarrer une session
     table.etat = 'en_cours';
     table.sessionId = sessionId;
     table.lastChange = new Date();
     await table.save();
 
-    // 🕒 Libération automatique après 10 minutes si aucune commande
+    // ✅ Répondre tout de suite
+    res.status(200).json({
+      message: `Bienvenue à la table ${table.number}`,
+      numeroTable: table.number
+    });
+
+    // ⏱ Timer de 10 minutes en arrière-plan
     setTimeout(async () => {
-      const current = await Qrcode.findOne({ number: table.number });
+      try {
+        const current = await Qrcode.findOne({ number: table.number });
 
-      if (current && current.etat === 'en_cours' && current.sessionId === sessionId) {
-        const newToken = uuidv4();
-        const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
-        const newQRCode = await QRCode.toDataURL(newURL);
+        if (current && current.etat === 'en_cours' && current.sessionId === sessionId) {
+          const newToken = uuidv4();
+          const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
+          const newQRCode = await QRCode.toDataURL(newURL);
 
-        current.token = newToken;
-        current.qrCodeData = newQRCode;
-        current.etat = 'libre';
-        current.lastChange = null;
-        current.sessionId = null;
+          current.token = newToken;
+          current.qrCodeData = newQRCode;
+          current.etat = 'libre';
+          current.sessionId = null;
+          current.lastChange = null;
+          await current.save();
 
-        await current.save();
-        console.log(`⏱ QR table ${table.number} libéré après 10min sans commande.`);
+          console.log(`⏱ Table ${table.number} libérée après 10 minutes sans commande.`);
+        }
+      } catch (e) {
+        console.error("Erreur dans le timeout de libération :", e.message);
       }
     }, 10 * 60 * 1000);
 
-    res.status(200).json({ 
-      message: `Bienvenue à la table ${table.number}`, 
-      numeroTable: table.number 
-    });
-
   } catch (error) {
-    console.error("Erreur sigleqrcode :", error.message);
-    res.status(500).json({ message: "Erreur serveur." });
+    console.error("Erreur recupqr :", error.message);
+    res.status(500).json({ message: "Erreur serveur lors du scan." });
   }
 };
 
