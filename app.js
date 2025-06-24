@@ -6,6 +6,8 @@ var logger = require("morgan");
 const session = require("express-session");
 const cors = require("cors");
 const axios = require("axios");
+const cron = require('node-cron');
+const nettoyerQRCodes = require('./middleware/qrclearner'); // Assurez-vous que le chemin est correct
 
 
 
@@ -73,6 +75,10 @@ app.use(
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
+});
+//fonction qui netoie les qr code en cours apres 10minute si lutilisateur na pas fait une commande
+cron.schedule('* * * * *', async () => {
+  await nettoyerQRCodes();
 });
 
 // error handler
