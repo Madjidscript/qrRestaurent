@@ -77,9 +77,9 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 //fonction qui netoie les qr code en cours apres 10minute si lutilisateur na pas fait une commande
-cron.schedule('* * * * *', async () => {
-  await nettoyerQRCodes();
-});
+// cron.schedule('* * * * *', async () => {
+//   await nettoyerQRCodes();
+// });
 
 // error handler
 app.use(function (err, req, res, next) {
