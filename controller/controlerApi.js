@@ -532,52 +532,41 @@ res.json(msg)
     // }
 
     static anulecommandesbyclient = async (req = request, res = response) => {
-  console.log("mon chao maho");
-  const index = req.params.index;
-  const num = parseInt(req.params.num, 10);
-  const statut = req.params.statut;
-  console.log('mon id heeeee', req.params.index, req.params.num);
-
   try {
-    const commandes = await otherCmmd.utilisarteuParIndex(index);
+    const clientId = req.headers['x-client-id'];
+    const { index, num, statut } = req.params;
+    const numTable = parseInt(num, 10);
 
+    const table = await Qrcode.findOne({ number: numTable });
+    if (!table || table.sessionId !== clientId) {
+      return res.status(403).json({ message: "QR invalide ou accès refusé." });
+    }
+
+    const commandes = await otherCmmd.utilisarteuParIndex(index);
     if (commandes) {
-      // 1. Mise à jour du statut de la commande
       await otherCmmd.update2(index, statut);
 
-      // 2. Libérer la table et changer le QR
-      const table = await Qrcode.findOne({ number: num });
-
-      if (table) {
-        const newToken = uuidv4();
-        const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
-        const newQRCode = await QRCode.toDataURL(newURL);
-
-        table.token = newToken;
-        table.qrCodeData = newQRCode;
-        table.etat = 'libre';
-        table.lastChange = null;
-        await table.save();
-
-        console.log(`🔄 QR de la table ${num} mis à jour suite à une annulation.`);
-      }
-
-      // 3. Notification admin
       sendNotification({
         type: "annuler",
         message: `Commande annulée à la table ${num} par l'utilisateur !`,
       });
 
-      return res.json({ message: "Commande annulée par le client", status: "success" });
+      table.etat = 'libre';
+      table.sessionId = null;
+      table.lastChange = null;
+      await table.save();
+
+      return res.json({ message: "Commande annulée par client", status: "success" });
     } else {
-      return res.status(404).json({ err: "Commande non trouvée" });
+      return res.status(404).json({ message: "Commande introuvable." });
     }
 
-  } catch (error) {
-    console.error("Erreur annulation commande :", error.message);
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.error("Erreur annulation client:", err.message);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
 
 
     // static validationcmmd = async (req = request, res = response) => {
@@ -641,69 +630,64 @@ res.json(msg)
 
 static validationcmmd = async (req = request, res = response) => {
   try {
-    const body = req.body;
-    const num = req.body.num;
-    const promoCode = req.body.promo;
+    const clientId = req.headers['x-client-id'];
+    const { num, promo, ...body } = req.body;
+
+    const table = await Qrcode.findOne({ number: num });
+
+    if (!table || table.sessionId !== clientId) {
+      return res.status(403).json({ message: "QR invalide ou accès interdit." });
+    }
 
     const commandes = await otherCmmd.inscription(body);
 
-    if (promoCode) {
-      const coupon = await Coupon.findOne({ code: promoCode, isActive: true });
-
+    if (promo) {
+      const coupon = await Coupon.findOne({ code: promo, isActive: true });
       if (coupon) {
         coupon.isActive = false;
         await coupon.save();
-        console.log(`Coupon ${promoCode} désactivé après utilisation.`);
-      } else {
-        console.log(`Aucun coupon actif trouvé avec le code : ${promoCode}`);
+        console.log(`Coupon ${promo} désactivé après utilisation.`);
       }
     }
 
-    // 🔔 Notification dans tous les cas
-    console.log("⚠️ Envoi de la notification...");
+    // ✅ Marque le QR comme utilisé
+    table.etat = 'utilisé';
+    table.lastChange = new Date();
+    table.sessionId = null; // libère l'accès
+    await table.save();
+
+    // 🕒 Libération auto
+    setTimeout(async () => {
+      const current = await Qrcode.findOne({ number: num });
+      if (current && current.etat === 'utilisé') {
+        const newToken = uuidv4();
+        const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
+        const newQRCode = await QRCode.toDataURL(newURL);
+
+        current.token = newToken;
+        current.qrCodeData = newQRCode;
+        current.etat = 'libre';
+        current.lastChange = null;
+        current.sessionId = null;
+
+        await current.save();
+        console.log(`🕒 Table ${num} libérée automatiquement après validation.`);
+      }
+    }, 2 * 60 * 1000);
+
+    // 🔔 Notification
     sendNotification({
       type: "valider",
       message: `cher admin Commande effectuée à la table ${num} !`,
     });
 
-    // ✅ Mise à jour du QR code
-    const table = await Qrcode.findOne({ number: num });
-
-    if (table) {
-      table.etat = 'utilisé';
-      table.lastChange = new Date();
-      await table.save();
-
-      // ✅ Libération dans 2 minutes
-      setTimeout(async () => {
-        const current = await Qrcode.findOne({ number: num });
-
-        if (current && current.etat === 'utilisé') {
-          const newToken = uuidv4();
-          const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
-          const newQRCode = await QRCode.toDataURL(newURL);
-
-          current.token = newToken;
-          current.qrCodeData = newQRCode;
-          current.etat = 'libre';
-          current.lastChange = null;
-
-          await current.save();
-
-          console.log(`🕒 Table ${num} libérée automatiquement après validation.`);
-        }
-      }, 2 * 60 * 1000);
-    }
-
-    console.log("Commande générée avec succès:", commandes);
     res.status(200).json({ message: "Commande validée", commandes, status: "success" });
 
   } catch (error) {
-    console.error("Erreur lors de la validation des commandes:", error.message);
-    res.status(500).json({ message: "Une erreur est survenue.", error: error.message });
+    console.error("Erreur validation:", error.message);
+    res.status(500).json({ message: "Erreur serveur", error: error.message });
   }
 };
-
 
 
       static message = async(req=request, res=response)=>{
@@ -832,54 +816,60 @@ static validationcmmd = async (req = request, res = response) => {
 // }  
 
 
-static recupqr = async (req, res) => {
+static recupqr = async (req = request, res = response) => {
   const { token } = req.params;
+  const clientId = req.headers["x-client-id"]; // ⚠️ important : envoyé depuis Angular
+
+  if (!clientId) {
+    return res.status(400).json({ message: "Identifiant client manquant." });
+  }
 
   try {
     const table = await Qrcode.findOne({ token });
 
     if (!table) {
-      return res.status(404).send("Lien QR invalide ou expiré.");
+      return res.status(404).json({ message: "QR Code invalide ou expiré." });
     }
 
-    if (table.etat !== 'libre') {
-      return res.status(403).send("QR déjà en cours ou utilisé. Veuillez rescanner.");
+    if (table.etat !== "libre") {
+      // 🔐 Si le QR est déjà pris et pas par ce client
+      if (table.sessionId !== clientId) {
+        return res.status(403).json({ message: "QR Code déjà utilisé par un autre utilisateur." });
+      }
+      // ✅ Même client : autorisé
+      return res.json({ message: `Bienvenue à la table ${table.number}`, numeroTable: table.number });
     }
 
-    // ➕ Mise à jour immédiate
-    table.etat = 'en_cours';
+    // ✅ Nouveau scan → on réserve
+    table.etat = "en_cours";
     table.lastChange = new Date();
+    table.sessionId = clientId;
     await table.save();
 
-    // ✅ Envoyer la réponse tout de suite
     res.json({ message: `Bienvenue à la table ${table.number}`, numeroTable: table.number });
 
-    // 🕒 Timer de 10 min en arrière-plan (sans bloquer)
+    // 🕒 Libération automatique après 10 minutes sans commande
     setTimeout(async () => {
-      try {
-        const current = await Qrcode.findOne({ number: table.number });
+      const current = await Qrcode.findOne({ number: table.number });
 
-        if (current && current.etat === 'en_cours') {
-          const newToken = uuidv4();
-          const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
-          const newQRCode = await QRCode.toDataURL(newURL);
+      if (current && current.etat === "en_cours" && current.sessionId === clientId) {
+        const newToken = uuidv4();
+        const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
+        const newQRCode = await QRCode.toDataURL(newURL);
 
-          current.token = newToken;
-          current.qrCodeData = newQRCode;
-          current.etat = 'libre';
-          current.lastChange = null;
-          await current.save();
+        current.token = newToken;
+        current.qrCodeData = newQRCode;
+        current.etat = "libre";
+        current.sessionId = null;
+        current.lastChange = null;
+        await current.save();
 
-          console.log(`⏱ QR de la table ${table.number} libéré après 10 minutes sans commande.`);
-        }
-      } catch (err) {
-        console.error("Erreur dans le timer QR :", err.message);
+        console.log(`⏱ QR de la table ${table.number} libéré après 10 minutes.`);
       }
-    }, 10 * 60 * 1000); // 10 minutes
-
+    }, 10 * 60 * 1000);
   } catch (error) {
     console.error("Erreur recupqr :", error.message);
-    res.status(500).json({ error: "Erreur serveur lors du scan." });
+    res.status(500).json({ message: "Erreur serveur lors du scan." });
   }
 };
 

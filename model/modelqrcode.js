@@ -16,6 +16,8 @@ const modelSchema = mongoose.Schema({
   number: { type: Number, required: true, unique: true },
   token: { type: String, required: true, unique: true },
   qrCodeData: { type: String, required: true },
+  sessionId: { type: String, default: null },  // 🆕 utilisé pour verrouiller la session
+
   etat: {
     type: String,
     enum: ['libre', 'en_cours', 'utilisé'],
