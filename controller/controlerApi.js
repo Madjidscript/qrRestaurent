@@ -827,38 +827,42 @@ static recupqr = async (req, res) => {
       return res.status(404).json({ message: "QR Code invalide ou expiré." });
     }
 
-    // 📌 Si déjà en cours
+    // Si QR déjà en cours
     if (table.etat === 'en_cours') {
       if (table.sessionId === sessionId) {
-        // ✅ Même utilisateur, il revient
+        // ✅ Même utilisateur, on le laisse continuer
         return res.status(200).json({
           message: `Bienvenue à la table ${table.number}`,
           numeroTable: table.number
         });
       } else {
-        // ❌ Un autre essaie d'accéder, on refuse SANS RIEN CHANGER
-        return res.status(403).json({ message: "QR déjà en cours. Réessayez plus tard." });
+        // ❌ Autre utilisateur, ne rien modifier
+        return res.status(403).json({ message: "QR déjà en cours par un autre utilisateur." });
       }
     }
 
-    // ✅ Si QR libre, démarrer une session
+    // ✅ Si QR libre, on l’active pour ce sessionId
     table.etat = 'en_cours';
     table.sessionId = sessionId;
     table.lastChange = new Date();
     await table.save();
 
-    // ✅ Répondre tout de suite
+    // ✅ Répondre immédiatement
     res.status(200).json({
       message: `Bienvenue à la table ${table.number}`,
       numeroTable: table.number
     });
 
-    // ⏱ Timer de 10 minutes en arrière-plan
+    // ⏱ Timer de libération après 10 minutes UNIQUEMENT pour l'utilisateur qui a activé
     setTimeout(async () => {
       try {
         const current = await Qrcode.findOne({ number: table.number });
 
-        if (current && current.etat === 'en_cours' && current.sessionId === sessionId) {
+        if (
+          current &&
+          current.etat === 'en_cours' &&
+          current.sessionId === sessionId
+        ) {
           const newToken = uuidv4();
           const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
           const newQRCode = await QRCode.toDataURL(newURL);
@@ -872,16 +876,17 @@ static recupqr = async (req, res) => {
 
           console.log(`⏱ Table ${table.number} libérée après 10 minutes sans commande.`);
         }
-      } catch (e) {
-        console.error("Erreur dans le timeout de libération :", e.message);
+      } catch (err) {
+        console.error("⛔ Erreur dans le timer de libération :", err.message);
       }
     }, 10 * 60 * 1000);
 
   } catch (error) {
-    console.error("Erreur recupqr :", error.message);
+    console.error("⛔ Erreur dans recupqr :", error.message);
     res.status(500).json({ message: "Erreur serveur lors du scan." });
   }
 };
+
 
 
 
