@@ -673,7 +673,7 @@ static validationcmmd = async (req = request, res = response) => {
         await current.save();
         console.log(`🕒 Table ${num} libérée automatiquement après validation.`);
       }
-    }, 2 * 60 * 1000);
+    }, 4 * 60 * 1000);
 
     // 🔔 Notification
     sendNotification({
@@ -879,7 +879,7 @@ static recupqr = async (req, res) => {
       } catch (err) {
         console.error("⛔ Erreur dans le timer de libération :", err.message);
       }
-    }, 10 * 60 * 1000);
+    },  60 * 60 * 1000);
 
   } catch (error) {
     console.error("⛔ Erreur dans recupqr :", error.message);
