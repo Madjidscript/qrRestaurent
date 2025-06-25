@@ -876,7 +876,7 @@ static recupqr = async (req, res) => {
           current.lastChange = null;
           await current.save();
 
-          console.log(`⏱ Table ${table.number} libérée après 10 minutes sans commande.`);
+          console.log(`⏱ Table ${table.number} libérée après 60 minutes sans commande.`);
         }
       } catch (err) {
         console.error("⛔ Erreur dans le timer de libération :", err.message);
