@@ -81,6 +81,14 @@ app.use(function (req, res, next) {
 //   await nettoyerQRCodes();
 // });
 
+cron.schedule('* * * * *', async () => { // toutes les minutes
+  try {
+    await nettoyerQRCodes();
+  } catch (error) {
+    console.error('Erreur lors du nettoyage des QR codes :', error);
+  }
+});
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
