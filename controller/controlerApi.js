@@ -818,6 +818,79 @@ static validationcmmd = async (req = request, res = response) => {
 // }  
 
 
+// static recupqr = async (req, res) => {
+//   const { token } = req.params;
+//   const { sessionId } = req.query;
+
+//   try {
+//     const table = await Qrcode.findOne({ token });
+
+//     if (!table) {
+//       return res.json({ message: "QR Code invalide ou expiré veuillez scanner  à nouveau" });
+//     }
+
+//     // Si QR déjà en cours
+//     if (table.etat === 'en_cours') {
+//       if (table.sessionId === sessionId) {
+//         // ✅ Même utilisateur, on le laisse continuer
+//         return res.status(200).json({
+//           message: `Bienvenue à la table ${table.number}`,
+//           numeroTable: table.number
+//         });
+//       } else {
+//         // ❌ Autre utilisateur, ne rien modifier
+//         return res.json({ message: "QR déjà en cours par un autre utilisateur." });
+//       }
+//     }
+
+//     // ✅ Si QR libre, on l’active pour ce sessionId
+//     table.etat = 'en_cours';
+//     table.sessionId = sessionId;
+//     table.lastChange = new Date();
+//     await table.save();
+
+//     // ✅ Répondre immédiatement
+//     res.status(200).json({
+//       message: `Bienvenue à la table ${table.number}`,
+//       numeroTable: table.number
+//     });
+
+//     // ⏱ Timer de libération après 60 minutes UNIQUEMENT pour l'utilisateur qui a activé
+//     setTimeout(async () => {
+//       try {
+//         const current = await Qrcode.findOne({ number: table.number });
+
+//         if (
+//           current &&
+//           current.etat === 'en_cours' &&
+//           current.sessionId === sessionId
+//         ) {
+//           const newToken = uuidv4();
+//           const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
+//           const newQRCode = await QRCode.toDataURL(newURL);
+
+//           current.token = newToken;
+//           current.qrCodeData = newQRCode;
+//           current.etat = 'libre';
+//           current.sessionId = null;
+//           current.lastChange = null;
+//           await current.save();
+
+//           console.log(`⏱ Table ${table.number} libérée après 60 minutes sans commande.`);
+//         }
+//       } catch (err) {
+//         console.error("⛔ Erreur dans le timer de libération :", err.message);
+//       }
+//     },  60 * 60 * 1000);
+
+//   } catch (error) {
+//     console.error("⛔ Erreur dans recupqr :", error.message);
+//     res.status(500).json({ message: "Erreur serveur lors du scan." });
+//   }
+// };
+
+
+
 static recupqr = async (req, res) => {
   const { token } = req.params;
   const { sessionId } = req.query;
@@ -826,36 +899,49 @@ static recupqr = async (req, res) => {
     const table = await Qrcode.findOne({ token });
 
     if (!table) {
-      return res.json({ message: "QR Code invalide ou expiré veuillez scanner  à nouveau" });
+      return res.json({ message: "QR Code invalide ou expiré veuillez scanner à nouveau" });
     }
 
-    // Si QR déjà en cours
+    // 🔍 Étape 1 : vérifier si ce sessionId a déjà scanné une autre table
+    const otherTable = await Qrcode.findOne({
+      sessionId,
+      etat: "en_cours",
+      token: { $ne: token } // autre QR différent ses une condition mongodb pour dis de trouver un autre token different de celui la 
+    });
+
+    if (otherTable) {
+      return res.status(403).json({
+        message: `Vous êtes déjà connecté à la table ${otherTable.number}. Veuillez patienter ou libérer la table.`
+      });
+    }
+
+    // 🎯 Étape 2 : Si QR déjà en cours
     if (table.etat === 'en_cours') {
       if (table.sessionId === sessionId) {
-        // ✅ Même utilisateur, on le laisse continuer
+        // ✅ Même utilisateur
         return res.status(200).json({
           message: `Bienvenue à la table ${table.number}`,
           numeroTable: table.number
         });
       } else {
-        // ❌ Autre utilisateur, ne rien modifier
+        // ❌ QR déjà utilisé par un autre utilisateur
         return res.json({ message: "QR déjà en cours par un autre utilisateur." });
       }
     }
 
-    // ✅ Si QR libre, on l’active pour ce sessionId
+    // ✅ Étape 3 : QR libre, on l’active
     table.etat = 'en_cours';
     table.sessionId = sessionId;
     table.lastChange = new Date();
     await table.save();
 
-    // ✅ Répondre immédiatement
+    // ✅ Réponse immédiate
     res.status(200).json({
       message: `Bienvenue à la table ${table.number}`,
       numeroTable: table.number
     });
 
-    // ⏱ Timer de libération après 10 minutes UNIQUEMENT pour l'utilisateur qui a activé
+    // ⏱ Timer 1h pour libérer automatiquement la table
     setTimeout(async () => {
       try {
         const current = await Qrcode.findOne({ number: table.number });
@@ -881,13 +967,14 @@ static recupqr = async (req, res) => {
       } catch (err) {
         console.error("⛔ Erreur dans le timer de libération :", err.message);
       }
-    },  60 * 60 * 1000);
+    }, 60 * 60 * 1000);
 
   } catch (error) {
     console.error("⛔ Erreur dans recupqr :", error.message);
     res.status(500).json({ message: "Erreur serveur lors du scan." });
   }
 };
+
 
 
 
