@@ -17,6 +17,8 @@ const modelSchema = mongoose.Schema({
   token: { type: String, required: true, unique: true },
   qrCodeData: { type: String, required: true },
   sessionId: { type: String, default: null },  // 🆕 utilisé pour verrouiller la session
+  sessionIds: { type: [String], default: [] },//elle permettras a plusieur persone de scanner le mem code qr
+
 
   etat: {
     type: String,
