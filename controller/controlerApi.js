@@ -635,21 +635,21 @@ static validationcmmd = async (req = request, res = response) => {
     const data = req.body
     const table = await Qrcode.findOne({ number: num });
 
-    // 🔍 1. Récupération de l'adresse IP du client
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    // // 🔍 1. Récupération de l'adresse IP du client
+    // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-    // 🔍 2. Récupération de la localisation via ipapi
-    try {
-      const response = await axios.get(`https://ipapi.co/${ip}/json/`);
-      const { city, region, country_name, latitude, longitude } = response.data;
+    // // 🔍 2. Récupération de la localisation via ipapi
+    // try {
+    //   const response = await axios.get(`https://ipapi.co/${ip}/json/`);
+    //   const { city, region, country_name, latitude, longitude } = response.data;
 
-      console.log(`🌍 Localisation estimée : ${latitude}, ${longitude}`);
-      table.latitude = latitude
-      table.longitude = longitude
-      console.log(`📍 Ville: ${city}, Région: ${region}, Pays: ${country_name}`);
-    } catch (locError) {
-      console.error("Erreur récupération localisation:", locError.message);
-    }
+    //   console.log(`🌍 Localisation estimée : ${latitude}, ${longitude}`);
+    //   table.latitude = latitude
+    //   table.longitude = longitude
+    //   console.log(`📍 Ville: ${city}, Région: ${region}, Pays: ${country_name}`);
+    // } catch (locError) {
+    //   console.error("Erreur récupération localisation:", locError.message);
+    // }
 
     if (!table || table.sessionId !== clientId) {
       return res.status(403).json({ message: "QR invalide ou accès interdit." });
