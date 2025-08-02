@@ -12,6 +12,8 @@ alergit: {type:Array,default:"pas d'arlergie"},
 promo: {type:String,required:false}, 
 reduct: {type:String,required:false}, 
 heure: {type:String,required:false}, 
+latitude: {type:String,required:false}, 
+longitude: {type:String,required:false}, 
 
 })
 const Cmmd = mongoose.model("Cmmd",modelSchema)

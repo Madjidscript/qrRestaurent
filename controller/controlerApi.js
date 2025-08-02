@@ -25,6 +25,8 @@ const { log } = require("console");
 const Stock = require("../model/modelStock");
 const Qrcode = require("../model/modelqrcode");
 const Coupon = require("../model/modelcoupon");
+const axios = require('axios');
+
 
 const controllerAdmin = class {
      
@@ -395,8 +397,6 @@ const controllerAdmin = class {
 
         }
 
-        
-
         msg="statut changer"
         status="success"
         res.json({modif,msg,status}) 
@@ -477,7 +477,7 @@ res.json(msg)
 }
 
 }
-    static anulecommandes = async(req=request, res=response)=>{
+static anulecommandes = async(req=request, res=response)=>{
 
       console.log("mon chao maho");
       const id = req.params.id
@@ -551,10 +551,10 @@ res.json(msg)
         message: `Commande annulée à la table ${num} par l'utilisateur !`,
       });
 
-      table.etat = 'libre';
-      table.sessionId = null;
-      table.lastChange = null;
-      await table.save();
+      // table.etat = 'libre';
+      // table.sessionId = null;
+      // table.lastChange = null;
+      // await table.save();
 
       return res.json({ message: "Commande annulée par client", status: "success" });
     } else {
@@ -635,6 +635,22 @@ static validationcmmd = async (req = request, res = response) => {
     const data = req.body
     const table = await Qrcode.findOne({ number: num });
 
+    // 🔍 1. Récupération de l'adresse IP du client
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+    // 🔍 2. Récupération de la localisation via ipapi
+    try {
+      const response = await axios.get(`https://ipapi.co/${ip}/json/`);
+      const { city, region, country_name, latitude, longitude } = response.data;
+
+      console.log(`🌍 Localisation estimée : ${latitude}, ${longitude}`);
+      table.latitude = latitude
+      table.longitude = longitude
+      console.log(`📍 Ville: ${city}, Région: ${region}, Pays: ${country_name}`);
+    } catch (locError) {
+      console.error("Erreur récupération localisation:", locError.message);
+    }
+
     if (!table || table.sessionId !== clientId) {
       return res.status(403).json({ message: "QR invalide ou accès interdit." });
     }
@@ -653,7 +669,7 @@ static validationcmmd = async (req = request, res = response) => {
     }
 
     // ✅ Marque le QR comme utilisé
-    table.etat = 'utilisé';
+    // table.etat = 'utilisé';
     table.lastChange = new Date();
     table.sessionId = null; // libère l'accès
     await table.save();
@@ -662,12 +678,12 @@ static validationcmmd = async (req = request, res = response) => {
     setTimeout(async () => {
       const current = await Qrcode.findOne({ number: num });
       if (current && current.etat === 'utilisé') {
-        const newToken = uuidv4();
-        const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
-        const newQRCode = await QRCode.toDataURL(newURL);
+        // const newToken = uuidv4();
+        // const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
+        // const newQRCode = await QRCode.toDataURL(newURL);
 
-        current.token = newToken;
-        current.qrCodeData = newQRCode;
+        // current.token = newToken;
+        // current.qrCodeData = newQRCode;
         current.etat = 'libre';
         current.lastChange = null;
         current.sessionId = null;
@@ -942,15 +958,16 @@ static recupqr = async (req, res) => {
 
         if (current && current.sessionIds.includes(sessionId)) {
           current.sessionIds = current.sessionIds.filter(id => id !== sessionId);
+          await current.save();
+
 
           // Si plus aucun utilisateur, libérer la table
           if (current.sessionIds.length === 0) {
-            const newToken = uuidv4();
-            const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
-            const newQRCode = await QRCode.toDataURL(newURL);
-
-            current.token = newToken;
-            current.qrCodeData = newQRCode;
+            // const newToken = uuidv4();
+            // const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
+            // const newQRCode = await QRCode.toDataURL(newURL);
+            // current.token = newToken;
+            // current.qrCodeData = newQRCode;
             current.etat = "libre";
             current.lastChange = null;
           }
