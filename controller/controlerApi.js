@@ -651,9 +651,9 @@ static validationcmmd = async (req = request, res = response) => {
     //   console.error("Erreur récupération localisation:", locError.message);
     // }
 
-    if (!table || table.sessionId !== clientId) {
-      return res.status(403).json({ message: "QR invalide ou accès interdit." });
-    }
+    // if (!table || table.sessionId !== clientId) {
+    //   return res.status(403).json({ message: "QR invalide ou accès interdit." });
+    // }
     console.log("madjid", req.body);
    
     const commandes = await otherCmmd.inscription(data);
