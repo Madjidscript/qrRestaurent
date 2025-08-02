@@ -914,7 +914,7 @@ static recupqr = async (req, res) => {
   try {
     const table = await Qrcode.findOne({ token });
 
-    if (!table) {
+    if (!table || sessionId =="null") {
       return res.json({ message: "QR Code invalide ou expiré. Veuillez scanner à nouveau." });
     }
 
