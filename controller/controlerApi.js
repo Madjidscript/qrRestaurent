@@ -641,22 +641,22 @@ static validationcmmd = async (req = request, res = response) => {
     console.log("mon ip",ip);
     
 
-    // 🔍 2. Récupération de la localisation via ipapi
-  const response = await axios.get(`http://ip-api.com/json/${ip}`);
-const { city, regionName, country, lat, lon } = response.data;
+//     // 🔍 2. Récupération de la localisation via ipapi
+//   const response = await axios.get(`http://ip-api.com/json/${ip}`);
+// const { city, regionName, country, lat, lon } = response.data;
 
-if (response.data.status === 'success') {
-  table.latitude = lat;
-  table.longitude = lon;
-  console.log(`📍 ${city}, ${regionName},${lat},${lon}, ${country}`);
-} else {
-  console.error("Erreur ip-api:", response.data.message);
-}
+// if (response.data.status === 'success') {
+//   table.latitude = lat;
+//   table.longitude = lon;
+//   console.log(`📍 ${city}, ${regionName},${lat},${lon}, ${country}`);
+// } else {
+//   console.error("Erreur ip-api:", response.data.message);
+// }
 
 
-    if (!table || !table.sessionIds.includes(clientId) ) {
-      return res.status(403).json({ message: "QR invalide ou accès interdit." });
-    }
+    // if (!table || !table.sessionIds.includes(clientId) ) {
+    //   return res.status(403).json({ message: "QR invalide ou accès interdit." });
+    // }
     console.log("madjid", req.body);
    
     const commandes = await otherCmmd.inscription(data);
