@@ -642,19 +642,15 @@ static validationcmmd = async (req = request, res = response) => {
     
 
     // 🔍 2. Récupération de la localisation via ipapi
-    try {
-  const response = await axios.get(`https://ipwho.is/${ip}`);
-  const { city, region, country, latitude, longitude } = response.data;
+  const response = await axios.get(`http://ip-api.com/json/${ip}`);
+const { city, regionName, country, lat, lon } = response.data;
 
-  if (response.data.success) {
-    table.latitude = latitude;
-    table.longitude = longitude;
-    console.log(`📍 ${city}, ${region}, ${country}`);
-  } else {
-    console.error("Échec géolocalisation:", response.data.message);
-  }
-} catch (err) {
-  console.error("Erreur réseau localisation:", err.message);
+if (response.data.status === 'success') {
+  table.latitude = lat;
+  table.longitude = lon;
+  console.log(`📍 ${city}, ${regionName}, ${country}`);
+} else {
+  console.error("Erreur ip-api:", response.data.message);
 }
 
 
