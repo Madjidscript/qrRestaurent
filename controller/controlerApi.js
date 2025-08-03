@@ -643,16 +643,20 @@ static validationcmmd = async (req = request, res = response) => {
 
     // 🔍 2. Récupération de la localisation via ipapi
     try {
-      const response = await axios.get(`https://ipapi.co/${ip}/json/`);
-      const { city, region, country_name, latitude, longitude } = response.data;
+  const response = await axios.get(`https://ipwho.is/${ip}`);
+  const { city, region, country, latitude, longitude } = response.data;
 
-      console.log(`🌍 Localisation estimée : ${latitude}, ${longitude}`);
-      table.latitude = latitude
-      table.longitude = longitude
-      console.log(`📍 Ville: ${city}, Région: ${region}, Pays: ${country_name}`);
-    } catch (locError) {
-      console.error("Erreur récupération localisation:", locError.message);
-    }
+  if (response.data.success) {
+    table.latitude = latitude;
+    table.longitude = longitude;
+    console.log(`📍 ${city}, ${region}, ${country}`);
+  } else {
+    console.error("Échec géolocalisation:", response.data.message);
+  }
+} catch (err) {
+  console.error("Erreur réseau localisation:", err.message);
+}
+
 
     if (!table || !table.sessionIds.includes(clientId) ) {
       return res.status(403).json({ message: "QR invalide ou accès interdit." });
