@@ -648,7 +648,7 @@ const { city, regionName, country, lat, lon } = response.data;
 if (response.data.status === 'success') {
   table.latitude = lat;
   table.longitude = lon;
-  console.log(`📍 ${city}, ${regionName}, ${country}`);
+  console.log(`📍 ${city}, ${regionName},${lat},${lon}, ${country}`);
 } else {
   console.error("Erreur ip-api:", response.data.message);
 }
