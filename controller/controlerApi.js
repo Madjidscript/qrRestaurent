@@ -1010,25 +1010,74 @@ static recupqr = async (req, res) => {
         
       }
 
-      static coubre = async(req=request, res=response)=>{
+      // static coubre = async(req=request, res=response)=>{
          
-        const stock = await otherStock.afficheTout()
-        const cmd = await otherCmmd.afficheTout()
-        const trueCount = cmd.filter(e => e.statut).length;
-        const falseCount = cmd.length - trueCount;
-        const topPlats = top5Plats(cmd);
-        const stockinf = top5StocksInferieurs(stock)
+      //   const stock = await otherStock.afficheTout()
+      //   const cmd = await otherCmmd.afficheTout()
+      //   const Servie = cmd.filter(e => e.statut=="Servie").length;
+      //   const preparation = cmd.filter(e => e.statut=="en_preparation").length;
+      //   const deleted_by_user =  cmd.filter(e => e.statut=="deleted_by_user").length;
+      //   const deleted_by_admin =  cmd.filter(e => e.statut=="deleted_by_admin").length;
+      //   const en_attente =  cmd.filter(e => e.statut=="en_attente").length;
+      //   const topPlats = top5Plats(cmd);
+      //   const stockinf = top5StocksInferieurs(stock)
 
+      //   res.json({deleted_by_user,Servie,cmd,topPlats,stockinf,en_attente,preparation,deleted_by_admin})
+      // }
 
+static coubre = async (req = request, res = response) => {
+  try {
+    // 📦 Récupération du stock complet
+    const stock = await otherStock.afficheTout();
 
-
-
-        res.json({falseCount,trueCount,cmd,topPlats,stockinf})
-          
-        
-        
-        
+    // 📊 Statistiques par statut avec MongoDB
+    const cmdStats = await Cmd.aggregate([
+      {
+        $group: {
+          _id: "$statut",
+          total: { $sum: 1 }
+        }
       }
+    ]);
+
+    // Transformer le résultat en objet clé → valeur
+    const stats = {
+      Servie: 0,
+      en_preparation: 0,
+      deleted_by_user: 0,
+      deleted_by_admin: 0,
+      en_attente: 0
+    };
+
+    cmdStats.forEach(s => {
+      stats[s._id] = s.total;
+    });
+
+    // 📈 Top 5 plats (on peut aussi faire en aggregate si tu veux)
+    const cmd = await otherCmmd.afficheTout();
+    const topPlats = top5Plats(cmd);
+
+    // 📉 Stocks faibles
+    const stockinf = top5StocksInferieurs(stock);
+
+    // Réponse JSON optimisée
+    res.json({
+      deleted_by_user: stats.deleted_by_user,
+      Servie: stats.Servie,
+      cmd,
+      topPlats,
+      stockinf,
+      en_attente: stats.en_attente,
+      preparation: stats.en_preparation,
+      deleted_by_admin: stats.deleted_by_admin
+    });
+
+  } catch (error) {
+    console.error("Erreur dans coubre:", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
+
 
 
 static creatcoupon = async(req=request,res=response)=>{
