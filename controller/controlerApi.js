@@ -1031,7 +1031,7 @@ static coubre = async (req = request, res = response) => {
     const stock = await otherStock.afficheTout();
 
     // 📊 Statistiques par statut avec MongoDB
-    const cmdStats = await Cmd.aggregate([
+    const cmdStats = await cmd.aggregate([
       {
         $group: {
           _id: "$statut",
