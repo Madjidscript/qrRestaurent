@@ -128,7 +128,7 @@ const controllerAdmin = class {
           
           // req.session.admin= data
           console.log("ma sessions",req.session.admin);
-          msg="connexion reusit"
+          msg="connexion reussit"
           res.json({status,data})
         }else{
           msg="mot de pass incorrect"
