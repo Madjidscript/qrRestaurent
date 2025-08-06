@@ -18,7 +18,7 @@ const otherInscription = require("../other/otherInscription");
 const { sendNotification,pose } = require("../utils/socket-io");
 const generateAndSaveQRCodes = require("../middleware/qr");
 const top5Plats = require("../middleware/top5")
-
+const Cmds  = require("../model/modeleCommande")
 const bcrypt = require("bcrypt");
 const top5StocksInferieurs = require("../middleware/moinsstock");
 const { log } = require("console");
@@ -1031,7 +1031,7 @@ static coubre = async (req = request, res = response) => {
     const stock = await otherStock.afficheTout();
 
     // 📊 Statistiques par statut avec MongoDB
-    const cmdStats = await cmd.aggregate([
+    const cmdStats = await Cmds.aggregate([
       {
         $group: {
           _id: "$statut",
