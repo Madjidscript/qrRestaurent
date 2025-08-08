@@ -467,7 +467,7 @@ const notif = new PushNotif({
 });
 
 await notif.save();
-console.log("Notification enregistrée en BDD");
+console.log("Notification enregistrée en BDD",commandes.emon_id,"my notif",notif);
 
 // 2. Chercher la subscription de l’utilisateur pour envoyer la push
 // const userSubscription = await PushNotif.findOne({ emon_id: commandes.emon_id });
