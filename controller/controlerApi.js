@@ -323,21 +323,21 @@ const controllerAdmin = class {
    
     
 
-    // static commande = async(req=request, res=response)=>{
-    //   let msg=""
-    //     const commande = await otherCmmd.afficheTout()
+    static commande = async(req=request, res=response)=>{
+      let msg=""
+        const commande = await otherCmmd.afficheTout()
        
-    //     if (commande) {
-    //       msg="liste de commande reuissit"
-    //       res.json(commande) 
+        if (commande) {
+          msg="liste de commande reuissit"
+          res.json(commande) 
             
-    //     }
-    //    else {
-    //     msg="commande liste echouer"
-    //     res.json(msg)
-    //   }
+        }
+       else {
+        msg="commande liste echouer"
+        res.json(msg)
+      }
   
-    //   }
+      }
 
     // static commandes = async(req=request, res=response)=>{
     //   let msg=""
