@@ -5,5 +5,5 @@ const subscriptionSchema = mongoose.Schema({
   emon_id: { type: String, required: true },
   subscription: { type: Object, required: true }
 });
-const Subcription =mongoose.model("Subscription", subscriptionSchema)
-module.exports = Subcription;
+const Subscription = mongoose.model("Subscription", subscriptionSchema);
+module.exports = Subscription;
