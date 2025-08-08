@@ -1090,7 +1090,7 @@ static recupqr = async (req, res) => {
     const table = await Qrcode.findOne({ token });
 
     if (!table || sessionId =="null") {
-      return res.json({ message: "QR Code invalide ou expiré. Veuillez scanner à nouveau." });
+      return res.json({ message: "QR Code invalide ou table prise. Veuillez scanner à nouveau." });
     }
 
     // 🔍 Étape 1 : Vérifier si ce sessionId est déjà sur une autre table
