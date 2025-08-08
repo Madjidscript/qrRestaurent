@@ -1,8 +1,13 @@
 const path = require("path/win32");
+require('dotenv').config()
+
 const Cathegorie = require("../model/modelCathegorie");
 const SousCathegorie = require("../model/modelSousCathegorie");
 const { v4: uuidv4 } = require('uuid');
 const QRCode = require('qrcode');
+ const { sendPushNotification } = require('../utils/push');
+const PushNotif = require('../model/modelpush');
+const Subscription = require('../model/modelSubscription');
 // const QRCodeModel = require('../model/modelqrcode'); // Assurez-vous que le chemin est correct
 
 
@@ -318,93 +323,178 @@ const controllerAdmin = class {
    
     
 
-    static commande = async(req=request, res=response)=>{
-      let msg=""
-        const commande = await otherCmmd.afficheTout()
+    // static commande = async(req=request, res=response)=>{
+    //   let msg=""
+    //     const commande = await otherCmmd.afficheTout()
        
-        if (commande) {
-          msg="liste de commande reuissit"
-          res.json(commande) 
+    //     if (commande) {
+    //       msg="liste de commande reuissit"
+    //       res.json(commande) 
             
-        }
-       else {
-        msg="commande liste echouer"
-        res.json(msg)
-      }
+    //     }
+    //    else {
+    //     msg="commande liste echouer"
+    //     res.json(msg)
+    //   }
   
-      }
+    //   }
 
-    static commandes = async(req=request, res=response)=>{
-      let msg=""
-      let status=req.params.statut
-      console.log("mon statut heee",status);
-      const id = req.params.id
-      console.log('mon id heeeee',req.params.id);
-      const commandes = await otherCmmd.utilisarteuParID(id)
-      let tb = commandes.data
-      console.log("mon tbs",tb);
+    // static commandes = async(req=request, res=response)=>{
+    //   let msg=""
+    //   let status=req.params.statut
+    //   console.log("mon statut heee",status);
+    //   const id = req.params.id
+    //   console.log('mon id heeeee',req.params.id);
+    //   const commandes = await otherCmmd.utilisarteuParID(id)
+    //   let tb = commandes.data
+    //   console.log("mon tbs",tb);
 
-      console.log("mes commande sont la hooo",commandes._id)
+    //   console.log("mes commande sont la hooo",commandes._id)
 
-      if (commandes) {
-        const nouveauStatut=status
-        commandes.statut=nouveauStatut
-         const modif = await otherCmmd.update(id,nouveauStatut)
-        console.log("ma modification",modif);
-        const num = modif.num
-        const index = modif.index
-        console.log("ma num and index",num,index);
-        if(nouveauStatut == "en_preparation"){
-          sendNotification({
-            type:"valider",
-            num:num,
-            index:index,
-            statut:nouveauStatut,
-            type_service:modif.type_service,
-            message: `cher client votre commande à ala table ${num}  est  en cour de  preparation ..`,
-          });
-        }else if(nouveauStatut == "Servie"){
+    //   if (commandes) {
+    //     const nouveauStatut=status
+    //     commandes.statut=nouveauStatut
+    //      const modif = await otherCmmd.update(id,nouveauStatut)
+    //     console.log("ma modification",modif);
+    //     const num = modif.num
+    //     const index = modif.index
+    //     console.log("ma num and index",num,index);
+    //     if(nouveauStatut == "en_preparation"){
+    //       sendNotification({
+    //         type:"valider",
+    //         num:num,
+    //         index:index,
+    //         statut:nouveauStatut,
+    //         type_service:modif.type_service,
+    //         message: `cher client votre commande à ala table ${num}  est  en cour de  preparation ..`,
+    //       });
+    //     }else if(nouveauStatut == "Servie"){
 
           
-           tb.forEach(async (element) => {
-                  const modif = await otherStock.update(element.id, element.nbre);
-            });
+    //        tb.forEach(async (element) => {
+    //               const modif = await otherStock.update(element.id, element.nbre);
+    //         });
 
 
-          sendNotification({
-            type:"valider",
-            num:num,
-            index:index,
-            statut:nouveauStatut,
-            type_service:modif.type_service,
-            message: `cher client votre commande à ala table ${num} est prete vous aller la recevoir dans un instant`,
-          });
+    //       sendNotification({
+    //         type:"valider",
+    //         num:num,
+    //         index:index,
+    //         statut:nouveauStatut,
+    //         type_service:modif.type_service,
+    //         message: `cher client votre commande à ala table ${num} est prete vous aller la recevoir dans un instant`,
+    //       });
 
-        }
+    //     }
 
-        else if(nouveauStatut == "deleted_by_admin"){
+    //     else if(nouveauStatut == "deleted_by_admin"){
 
           
 
-          sendNotification({
-            type:"valider",
-            num:num,
-            index:index,
-            statut:nouveauStatut,
-            type_service:modif.type_service,
-            message: `cher client votre commande à ala table ${num} a été annuler pas l'admin`,
-          });
+    //       sendNotification({
+    //         type:"valider",
+    //         num:num,
+    //         index:index,
+    //         statut:nouveauStatut,
+    //         type_service:modif.type_service,
+    //         message: `cher client votre commande à ala table ${num} a été annuler pas l'admin`,
+    //       });
 
-        }
+    //     }
 
-        msg="statut changer"
-        status="success"
-        res.json({modif,msg,status}) 
-      }
+    //     msg="statut changer"
+    //     status="success"
+    //     res.json({modif,msg,status}) 
+    //   }
   
+    // }
+
+
+  // modèle des subscriptions
+
+static commandes = async (req = request, res = response) => {
+  try {
+    const statut = req.params.statut;
+    const id = req.params.id;
+
+    const commandes = await otherCmmd.utilisarteuParID(id);
+    if (!commandes) {
+      return res.status(404).json({ error: "Commande introuvable" });
     }
 
-    static detailcmd = async(req=request, res=response)=>{
+    const tb = commandes.data;
+
+    const nouveauStatut = statut;
+    await otherCmmd.update(id, nouveauStatut);
+
+    const num = commandes.num;
+    const index = commandes.index;
+
+    let message = "";
+
+    if (nouveauStatut === "en_preparation") {
+      message = `Cher client, votre commande à la table ${num} est en cours de préparation.`;
+    } else if (nouveauStatut === "Servie") {
+      for (const element of tb) {
+        await otherStock.update(element.id, element.nbre);
+      }
+      message = `Cher client, votre commande à la table ${num} est prête, vous allez la recevoir dans un instant.`;
+    } else if (nouveauStatut === "deleted_by_admin") {
+      message = `Cher client, votre commande à la table ${num} a été annulée par l'admin.`;
+    }
+
+    // Envoi WebSocket (si tu veux garder)
+    sendNotification({
+      type: "valider",
+      num,
+      index,
+      statut: nouveauStatut,
+      type_service: commandes.type_service,
+      message
+    });
+
+    // 1. Créer et sauvegarder la notification en BDD d’abord
+const notif = new PushNotif({
+  emon_id: commandes.emon_id,
+  title: "Mise à jour de votre commande",
+  message,
+  type: "valider",
+  statut: nouveauStatut,
+  data: {
+    commandeId: commandes._id,
+    date: new Date()
+  }
+});
+
+await notif.save();
+console.log("Notification enregistrée en BDD");
+
+// 2. Chercher la subscription de l’utilisateur pour envoyer la push
+// const userSubscription = await PushNotif.findOne({ emon_id: commandes.emon_id });
+const userSubscription = await Subscription.findOne({ emon_id: commandes.emon_id });
+
+
+if (userSubscription) {
+  await sendPushNotification(userSubscription.subscription, {
+    emon_id: commandes.emon_id,
+    title: notif.title,
+    message: notif.message,
+    type: notif.type,
+    statut: notif.statut
+  });
+} else {
+  console.log("Utilisateur non abonné aux notifications push");
+}
+
+    res.json({ modif: commandes, msg: "Statut changé", status: "success" });
+  } catch (err) {
+    console.error("Erreur commandes:", err);
+    res.status(500).json({ error: "Erreur interne" });
+  }
+}
+
+
+static detailcmd = async(req=request, res=response)=>{
       let msg=""
       let status=""
    console.log("mon chao maho");
@@ -566,6 +656,88 @@ static anulecommandes = async(req=request, res=response)=>{
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
+
+// static anulecommandesbyclient = async (req = request, res = response) => {
+//   try {
+//     const clientId = req.headers['x-client-id'];
+//     const { index, num, statut } = req.params;
+//     const numTable = parseInt(num, 10);
+
+//     const table = await Qrcode.findOne({ number: numTable });
+//     if (!table || table.sessionId !== clientId) {
+//       return res.status(403).json({ message: "QR invalide ou accès refusé." });
+//     }
+
+//     const commandes = await otherCmmd.utilisarteuParIndex(index);
+//     if (commandes) {
+//       await otherCmmd.update2(index, statut);
+
+//       // --- Notification utilisateur ---
+//       const notifUser = new PushNotif({
+//         emon_id: commandes.emon_id,
+//         title: "Annulation de commande",
+//         message: `Votre commande à la table ${num} a été annulée avec succès.`,
+//         type: "annuler",
+//         statut: statut,
+//         data: { commandeId: commandes._id, date: new Date() }
+//       });
+//       await notifUser.save();
+
+//       const userSubscription = await PushNotif.findOne({ emon_id: commandes.emon_id });
+//       if (userSubscription) {
+//         try {
+//           await sendPushNotification(userSubscription.subscription, {
+//             emon_id: commandes.emon_id,
+//             title: notifUser.title,
+//             message: notifUser.message,
+//             type: notifUser.type,
+//             statut: notifUser.statut
+//           });
+//         } catch (err) {
+//           console.error("Erreur envoi push utilisateur", err);
+//         }
+//       }
+
+//       // --- Notification admin ---
+//       // Ici, tu dois avoir un moyen d’identifier l’admin (ex : emon_id = "admin" ou autre)
+//       // Par exemple, si tu stockes l’admin dans la collection Subscription avec emon_id = 'admin'
+//       const adminSubscription = await PushNotif.findOne({ emon_id: "admin" });
+//       if (adminSubscription) {
+//         const notifAdmin = new PushNotif({
+//           emon_id: "admin",
+//           title: "Commande annulée par client",
+//           message: `La commande à la table ${num} a été annulée par l'utilisateur.`,
+//           type: "annuler",
+//           statut: statut,
+//           data: { commandeId: commandes._id, date: new Date() }
+//         });
+//         await notifAdmin.save();
+
+//         try {
+//           await sendPushNotification(adminSubscription.subscription, {
+//             emon_id: "admin",
+//             title: notifAdmin.title,
+//             message: notifAdmin.message,
+//             type: notifAdmin.type,
+//             statut: notifAdmin.statut
+//           });
+//         } catch (err) {
+//           console.error("Erreur envoi push admin", err);
+//         }
+//       }
+
+//       return res.json({ message: "Commande annulée par client", status: "success" });
+//     } else {
+//       return res.status(404).json({ message: "Commande introuvable." });
+//     }
+
+//   } catch (err) {
+//     console.error("Erreur annulation client:", err.message);
+//     res.status(500).json({ message: "Erreur serveur" });
+//   }
+// };
+
 
 
 
@@ -1163,6 +1335,31 @@ static deletecoupon = async(req=request,res=response)=>{
     res.status(500).json({ success: false, message: 'Erreur serveur' });
   }
 }  
+
+
+
+
+ static createsubcription = async(req=request, res=response)=>{
+    const { emon_id, subscription } = req.body;
+  if (!emon_id || !subscription) {
+    return res.status(400).json({ error: "Données manquantes" });
+  }
+
+  await Subscription.findOneAndUpdate(
+    { emon_id },
+    { subscription },
+    { upsert: true, new: true }
+  );
+
+  res.status(201).json({ message: "Abonnement enregistré" });
+ }
+
+ static getsubcription = async(req=request, res=response)=>{
+  res.json({ publicKey: process.env.VAPID_PUBLIC_KEY });
+
+ }
+
+
 
       
   

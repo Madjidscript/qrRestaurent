@@ -8,3 +8,6 @@ id_Souscat:{type:mongoose.Schema.Types.ObjectId,
 })
 const Stock = mongoose.model("Stock",modelSchema)
 module.exports = Stock
+
+
+

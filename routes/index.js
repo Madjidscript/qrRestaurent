@@ -27,7 +27,10 @@ router.get('/qrcodes', controllerAdmin.qrCodes)
 
 
 // controler des api 
-router.get('/commandes', controlerApi.commande) 
+// router.get('/commandes', controlerApi.commande) 
+router.get('/getstatut', controlerApi.getstatut) 
+router.post('/subscribe', controlerApi.createsubcription) 
+router.get('/public-key', controlerApi.getsubcription) 
 router.get('/getstatut', controlerApi.getstatut) 
 router.post('/updatestatut', controlerApi.updatestatut) 
 router.get('/commandes/:id/:statut', controlerApi.commandes) 
