@@ -1106,6 +1106,7 @@ static recupqr = async (req, res) => {
     if (otherTable) {
       return res.json({
         status:"403",
+        tokenactive:otherTable.token,
         message: `Vous êtes déjà connecté à la table ${otherTable.number}. Veuillez patienter ou libérer cette tables.`,
       });
     }
