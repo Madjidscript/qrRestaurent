@@ -1085,12 +1085,15 @@ static validationcmmd = async (req = request, res = response) => {
 static recupqr = async (req, res) => {
   const { token } = req.params;
   const { sessionId } = req.query;
+  console.log("my token",token,"mysesionid",sessionId);
+  
 
   try {
     const table = await Qrcode.findOne({ token });
+    num = table.number
 
     if (!table || sessionId =="null") {
-      return res.json({ message: "QR Code invalide ou table prise. Veuillez scanner à nouveau." });
+      return res.json({ message: "QR Code invalide ou table prise . Veuillez scanner à nouveau." });
     }
 
     // 🔍 Étape 1 : Vérifier si ce sessionId est déjà sur une autre table
