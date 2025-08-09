@@ -1090,7 +1090,7 @@ static recupqr = async (req, res) => {
 
   try {
     const table = await Qrcode.findOne({ token });
-    num = table.number
+    // num = table.number
 
     if (!table || sessionId =="null") {
       return res.json({ message: "QR Code invalide ou table prise . Veuillez scanner à nouveau." });
