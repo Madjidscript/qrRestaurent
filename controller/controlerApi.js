@@ -475,16 +475,22 @@ const userSubscription = await Subscription.findOne({ emon_id: commandes.emon_id
 
 
 if (userSubscription) {
-  await sendPushNotification(userSubscription.subscription, {
-    emon_id: commandes.emon_id,
-    title: notif.title,
-    message: notif.message,
-    type: notif.type,
-    statut: notif.statut
-  });
+  try {
+    await sendPushNotification(userSubscription.subscription, {
+      emon_id: commandes.emon_id,
+      title: notif.title,
+      message: notif.message,
+      type: notif.type,
+      statut: notif.statut
+    });
+    console.log(`Push envoyée avec succès à ${commandes.emon_id}`);
+  } catch (err) {
+    console.error(`Erreur lors de l'envoi de la push à ${commandes.emon_id} :`, err);
+  }
 } else {
   console.log("Utilisateur non abonné aux notifications push");
 }
+
 
     res.json({ modif: commandes, msg: "Statut changé", status: "success" });
   } catch (err) {
