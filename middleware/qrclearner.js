@@ -5,9 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const nettoyerQRCodes = async () => {
   const maintenant = new Date();
 
-  // Durées en millisecondes
-  const delaiEnCours = 60 * 60 * 1000; // 10 minutes (modifie à 90 * 60 * 1000 pour 1h30)
-  const delaiUtilise = 2 * 60 * 1000;  // 2 minutes
+  const delaiEnCours = 60 * 60 * 1000; // 1h sans commande → libère la table
 
   // QR en cours depuis trop longtemps → libérer
   const qrEnCours = await Qrcode.find({
@@ -19,15 +17,6 @@ const nettoyerQRCodes = async () => {
     await libererQr(qr, 'inactivité (pas de commande)');
   }
 
-  // QR utilisé depuis trop longtemps → libérer
-  const qrUtilises = await Qrcode.find({
-    etat: 'utilisé',
-    lastChange: { $lt: new Date(maintenant - delaiUtilise) }
-  });
-
-  for (let qr of qrUtilises) {
-    await libererQr(qr, 'commande terminée');
-  }
 };
 
 const libererQr = async (qr, raison) => {

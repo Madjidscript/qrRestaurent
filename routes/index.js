@@ -59,6 +59,7 @@ router.post('/reacts', controlerApi.react)
 router.get('/qrcode', controlerApi.qrCodes)
 router.post('/qrcode', controlerApi.qr)
 router.get('/sigleqrcode/:token', controlerApi.recupqr)
+router.patch('/libererqr/:number', controlerApi.changerStatutTable)
 router.get('/coubre', controlerApi.coubre)
 
 router.post('/createcoupon', controlerApi.creatcoupon) 

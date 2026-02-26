@@ -22,7 +22,7 @@ const modelSchema = mongoose.Schema({
 
   etat: {
     type: String,
-    enum: ['libre', 'en_cours', 'utilisé'],
+    enum: ['libre', 'en_cours'],
     default: 'libre'
   },
   lastChange: { type: Date, default: null },

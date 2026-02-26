@@ -1,0 +1,9 @@
+version: '3'         # version de Docker Compose
+
+services:            # liste de tes conteneurs
+  app:               # nom du service
+    build: .         # construire l'image depuis le Dockerfile
+    ports:
+      - "7000:7000"  # ports
+    env_file:
+      - .env         # variables d'environnement

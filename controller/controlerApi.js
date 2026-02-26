@@ -849,30 +849,21 @@ static validationcmmd = async (req = request, res = response) => {
       }
     }
 
-    // ✅ Marque le QR comme utilisé
-    // table.etat = 'utilisé';
+    // ✅ Retirer uniquement ce client de la table
+    table.sessionIds = table.sessionIds.filter(id => id !== clientId);
+    table.sessionId = null;
     table.lastChange = new Date();
-    table.sessionId = null; // libère l'accès
+
+    // Si plus personne à la table → libérer
+    if (table.sessionIds.length === 0) {
+      table.etat = 'libre';
+      table.lastChange = null;
+      console.log(`✅ Table ${num} libérée : plus aucun client.`);
+    } else {
+      console.log(`🍽️ Table ${num} encore occupée : ${table.sessionIds.length} client(s) restant(s).`);
+    }
+
     await table.save();
-
-    // 🕒 Libération auto
-    setTimeout(async () => {
-      const current = await Qrcode.findOne({ number: num });
-      if (current && current.etat === 'utilisé') {
-        // const newToken = uuidv4();
-        // const newURL = `https://restaux-mmds.vercel.app/client/cath/${newToken}?from=scan`;
-        // const newQRCode = await QRCode.toDataURL(newURL);
-
-        // current.token = newToken;
-        // current.qrCodeData = newQRCode;
-        current.etat = 'libre';
-        current.lastChange = null;
-        current.sessionId = null;
-
-        await current.save();
-        console.log(`🕒 Table ${num} libérée automatiquement après validation.`);
-      }
-    }, 4 * 60 * 1000);
 
     // 🔔 Notification
     sendNotification({
@@ -1371,15 +1362,52 @@ static deletecoupon = async(req=request,res=response)=>{
 
 
 
-      
-  
+static changerStatutTable = async (req, res) => {
+  try {
+    const number = parseInt(req.params.number, 10);
+    const { etat } = req.body;
 
+    const etatsValides = ['libre', 'en_cours'];
+    if (!etatsValides.includes(etat)) {
+      return res.status(400).json({ message: `Statut invalide. Valeurs acceptées : ${etatsValides.join(', ')}` });
+    }
 
-      
+    const table = await Qrcode.findOne({ number });
+    if (!table) {
+      return res.status(404).json({ message: `Table ${number} introuvable` });
+    }
 
-      
-    
-      
+    const ancienEtat = table.etat;
+    table.etat = etat;
+
+    if (etat === 'libre') {
+      table.sessionIds = [];
+      table.sessionId = null;
+      table.lastChange = null;
+    } else {
+      table.lastChange = new Date();
+    }
+
+    await table.save();
+    console.log(`🔧 Table ${number} changée manuellement : ${ancienEtat} → ${etat}`);
+
+    res.json({
+      message: `Table ${number} mise à "${etat}" avec succès`,
+      table: {
+        number: table.number,
+        etat: table.etat,
+        sessionIds: table.sessionIds,
+        lastChange: table.lastChange
+      },
+      status: 'success'
+    });
+
+  } catch (error) {
+    console.error('Erreur changerStatutTable:', error.message);
+    res.status(500).json({ message: 'Erreur serveur', error: error.message });
+  }
+}
+
 }
 
 
