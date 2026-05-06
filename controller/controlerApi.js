@@ -337,7 +337,23 @@ const controllerAdmin = class {
         res.json(msg)
       }
   
+    }
+
+    static commandebyindex = async(req=request, res=response)=>{
+      let msg=""
+        const commande = await otherCmmd.commandeParIndex(req.params.index)
+       
+        if (commande) {
+          msg="liste de commande reuissit"
+          res.json(commande) 
+            
+        }
+       else {
+        msg="commande liste echouer"
+        res.json(msg)
       }
+  
+    }
 
     // static commandes = async(req=request, res=response)=>{
     //   let msg=""

@@ -33,6 +33,15 @@ static utilisarteuParID = async(id)=>{
     }
 }
 
+static commandeParIndex = async(index)=>{
+    try {
+        const recupParIndex = await Cmmd.findOne({index:index})
+         return recupParIndex
+    } catch (error) {
+        console.log("mon erreur",error);
+    }
+}
+
 static utilisarteuParIndex = async(index)=>{
     try {
         const recupParId = await Cmmd.findOne({index:index})
